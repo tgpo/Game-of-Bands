@@ -1,0 +1,83 @@
+body{
+	margin: 0px; 
+	background-color: black;
+	font-family: avenir next, lucida-grande, verdana, sans-serif;
+	color: white;
+}
+
+table {
+	font-size: 9pt;
+}
+
+table, tr, td {
+	border:1px solid grey;
+	border-collapse:collapse;
+}
+
+tr:nth-child(odd)		{ background-color:#023; }
+tr:nth-child(even)		{ background-color:#000; }
+
+td {
+	padding: 5px;	
+}
+
+a {color:lightgreen}
+
+img{
+	overflow:hidden;
+}
+
+div.float {
+	float: left;
+	margin-right: 20px;
+	margin-bottom: 10px;
+}
+
+div.header{
+	margin-top:10px;
+	margin-bottom:10px;
+
+}
+
+
+div.lyrics{
+	margin-top:10px;
+	margin-bottom:10px;
+	font-size: 9pt;
+	width:250px;
+}
+	
+div#headerimage{
+background:url(images/gobheader.png) left top no-repeat; width:100%; overflow:hidden;
+height:150px;
+}
+
+div#banner{
+	margin-bottom:20px;
+	border-top: 1px solid grey;
+	border-bottom:  1px solid grey;
+	padding:2px;
+	text-align: center;
+	color: white;
+	font-size: 9pt;
+}
+
+
+div#content {
+	overflow:hidden;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+div#putTheWidgetHere {
+	margin-bottom:20px;
+}
+
+div#fineprint {
+	margin-top:20px;
+	margin-bottom: 10px;
+	font-family: verdana, sans-serif;
+	text-align:center;
+	font-size:8pt;
+	clear: both;
+}
