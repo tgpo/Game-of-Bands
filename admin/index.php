@@ -15,6 +15,9 @@ mod_check();
 	</div>
 	<!--  In development -->
 	<div class="box left">
+		<span class="corner-banner"> 
+            <em>Beta</em> 
+        </span> 
 		<h2>Get Signups</h2>
 		<label>Round</label>
 		<input type="text" name="Round2" />
