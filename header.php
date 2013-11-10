@@ -1,5 +1,6 @@
 <?php
 require_once( 'includes/gob_user.php' );
+require_once( 'includes/secrets.php' );
 ?>
 <html>
 	<head>
@@ -35,7 +36,7 @@ require_once( 'includes/gob_user.php' );
 		</div>
 
 		<?php
-		mysql_connect("localhost", "xxxusernamexxx", "xxxpasswordxxx") or die(mysql_error());
+		mysql_connect("localhost", $mysql_user, $mysql_password) or die(mysql_error());
 		mysql_select_db("xxxdatabasexxx") or die(mysql_error());
 
 		echo "<div id='content'>";

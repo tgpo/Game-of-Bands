@@ -1,13 +1,14 @@
 <?php
 require_once( 'includes/gob_admin.php' );
 require_once( 'includes/admin_header.php' );
+require_once( 'includes/secrets.php' );
 
 mod_check();
 ?>
 
 <h1>Song List</h1>
 <?php
-mysql_connect("localhost", "xxxusernamexxx", "xxxpasswordxxx") or die(mysql_error());
+mysql_connect("localhost", $mysql_user, $mysql_password) or die(mysql_error());
 mysql_select_db("xxxdatabasexxx") or die(mysql_error());
 
 $result = mysql_query("SELECT * FROM songs ORDER BY round DESC") or die(mysql_error()); ?>
