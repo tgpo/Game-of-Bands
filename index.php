@@ -1,41 +1,50 @@
-<?php
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css" />
+  <title>The Game of Bands Song Depository</title>
+  <script src="//connect.soundcloud.com/sdk.js"></script>
+  <script>
+    SC.initialize({
+    client_id: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    redirect_uri: "http://gameofbands.co/index.php",
+    });
+  </script>
+</head>
+<body>
+  <div id='headerimage'></div>
+  <div id='banner'>
+    Welcome to the Game of Bands Song Depository. Stay a while and listen.
+    <?php
+      require_once( 'src/gob_user.php' );
+    
+      if (is_loggedin()) {
+        echo get_username() . "(" . get_karma() . ")";
+        if (is_mod()) { echo '<a href="/admin">Admin Panel</a> | '; }
+        echo ' <a href="login.php/logout">Logout</a>';
+      } else {
+        echo '<a href="login.php">Login</a>';
+      }
+    ?>
+  </div>
 
-include 'header.php';
+  <?php
+    // Decide which data to display
+    switch ($_GET['view']) {
+      case 'bandit' : include 'src/view_bandit.php';     break;
+      case 'fame'   : include 'src/view_fame.php';       break;
+      case 'round'  : include 'src/view_round.php';      break;
+      case 'rounds' : include 'src/view_rounds.php';     break;
+      case 'song'   : include 'src/view_song.php';       break;
+      default       : include 'src/view_all.php';        break;
+    }
+  }
+  ?>
 
-$result = mysql_query("SELECT * FROM songs ORDER by id DESC") or die(mysql_error());
-echo "<div class='header'>";
-echo "Select individual rounds, songs or bandits to navigate.<br />";
-echo "<a href='viewHallofFame.php'>View Hall of Fame</a><br />";
-echo "<a href='viewRound.php'>View Rounds by Theme</a><br />";
-echo "Viewing Complete Song Library:";
-echo "</div>";
-
-// Retrieve all the data from the "songs" table
-echo "<table id='songlist'>";
-echo "<tr><th>Round</th><th>Song Title</th><th>Votes</th><th>Music</th><th>Music Vote</th><th>Lyrics</th><th>Lyrics Vote</th><th>Vocals</th><th>Vocals Vote</th></tr>";
-// store the query from songs table into $row, and run a while loop to get each row
-
-while($row = mysql_fetch_array($result)){
-
-// Print out the contents of the entry 
-echo "<tr>";
-// round
-echo "<td><a href='process.php?round=".$row['round']."'>".$row['round']."</a></td>";
-// Name as url
-echo "<td><a href='process.php?song=".$row['id']."'>".$row['name']."</a></td>";
-//Votes Received
-echo "<td>".$row['votes']."</td>";
-// Music, lyrics and vocals with votes
-echo "<td><a href='process.php?bandit=".$row['music']."'>".$row['music']."</a></td><td>".$row['musicvote']."</td>";
-
-echo "<td><a href='process.php?bandit=".$row['lyrics']."'>".$row['lyrics']."</a></td><td>".$row['lyricsvote']."</td>";
-
-echo "<td><a href='process.php?bandit=".$row['vocals']."'>".$row['vocals']."</a></td><td>".$row['vocalsvote']."</td>";
-echo "</tr>";
-}
-
-echo "</table>";
-
-include 'footer.php';
-
-?>
+  <div id='fineprint'>
+    gameofbands.co is a counterpart to the Game of Bands community at
+    <a href='http://gameofbands.reddit.com' target='_blank'>gameofbands.reddit.com</a>.
+    Site programming by RetroTheft and tgpo. Design by RetroTheft.
+    All music and lyrics presented herein are copyright of their original creators.
+  </div>
+</body>
+</html>

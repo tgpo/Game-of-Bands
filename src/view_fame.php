@@ -1,19 +1,14 @@
+<div class='header'>
+  <a href='index.php'>Return to song library</a> <br>
+  The Game of Bands Hall of Fame - Winning Songs
+</div>
+
 <?php
-include 'header.php';
-
-echo "<div class='header'>
-<a href=process.php>Return to song library</a><br />
-</div>";
-
 // BEST SONGS
 
 // orders the table by votes, then selects the first entry of each group. Still needs to be modified to display equal maximums.
 $result = mysql_query("SELECT * FROM (SELECT * FROM songs WHERE votes IS NOT NULL ORDER BY votes DESC) AS s GROUP BY round DESC") or die(mysql_error());
 
-// displays a brief header before table
-echo "<div class='header'>";
-echo "The Game of Bands Hall of Fame - Winning Songs";
-echo "</div>";
 
 // dispays the standard song list
 include 'displaySongList.php';
@@ -67,5 +62,4 @@ echo "</div>";
 include 'displaySingleBanditSongList.php';
 
 echo "</div>";
-include 'footer.php';
 ?>
