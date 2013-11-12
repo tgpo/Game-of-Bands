@@ -12,8 +12,8 @@
 	echo "<tr><th>Round</th><th>Theme</th></tr>";
 	while($row = $rounds->fetch_assoc()){
 		echo "<tr>";
-	  echo "<td><a href='process.php?round=".$row['number']."'>".$row['number']."</a></td>";
-	  echo "<td><a href='process.php?round=".$row['number']."'>".$row['theme']."</a></td>";
+	  echo "<td><a href='index.php?view=round&round=".$row['number']."'>".$row['number']."</a></td>";
+	  echo "<td><a href='index.php?view=round&round=".$row['number']."'>".$row['theme']."</a></td>";
 	  echo "</tr>";
 	}
 	echo "</table>";

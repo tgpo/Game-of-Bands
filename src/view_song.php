@@ -6,8 +6,11 @@
   }
 
   $db    = mysqli_connect();
-  $songs = $db->query("SELECT * FROM songs WHERE id='$song'");
-	$song  = $db->fetch_array($songs);
+  $query = $db->prepare('SELECT * FROM songs WHERE id=?');
+  $query->bind_param('s',$song);
+  $query->execute();
+  $songs = $query->get_result();
+	$song  = $query->fetch_assoc();
 ?>
 
 <div class='header'>
@@ -29,13 +32,13 @@ $lyrics = $song['lyricsheet'];
 display_songs($song);
 
 // Display round details
-$roundDetails = $db->query("SELECT * FROM rounds WHERE number='$round'");
-$row          = $roundDetails->fetch_assoc();
+$details = query_round_details($db, $round);
 
 echo "<div class='header'>";
-echo "This song was created for Game of Bands, round " . a_round_details($row);
+echo "This song was created for Game of Bands, round " . a_round_details($details);
 echo "</div>";
 
+// Display lyrics if available
 if($lyrics) {
 	echo "<div class='header'>";
 	echo "Lyrics:";

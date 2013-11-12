@@ -16,7 +16,10 @@
   require_once('query.php');
   
   $db    = mysqli_connect();
-  $songs = $db->query("SELECT * FROM songs WHERE music='$bandit' OR lyrics='$bandit' OR vocals='$bandit'");
+  $query = $db->prepare('SELECT * FROM songs WHERE music=? OR lyrics=? OR vocals=?');
+  $query->bind_param('sss',$bandit,$bandit,$bandit);
+  $query->execute();
+  $songs = $query->get_result();
   display_songs($songs);
 ?>
 </div>

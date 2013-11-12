@@ -15,6 +15,17 @@ function mysqli_connect() {
 }
 
 
+// Query the  rounds  table for a particular round number
+function query_round_details($db,$number) {
+  $round = $number;
+  $query = $db->prepare('SELECT * FROM rounds WHERE number=?');
+  $query->bind_param('s',$round);
+  $query->execute();
+  $roundDetails = $query->get_result();
+  return $roundDetails->fetch_assoc();
+}
+
+
 /* ************************************************************************
   Table display
 ************************************************************************ */
