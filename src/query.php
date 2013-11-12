@@ -42,7 +42,7 @@ function display_songs($result) {
 // Display a particular song as a row
 function tr_song($row) {
   echo "<tr>";
-  echo "<td>" . a_round($row['round']) . "</td>";
+  echo "<td>" . a_round($row['round'],$row['round']) . "</td>";
   echo "<td>" . a_song($row)  . "</td>";
   echo "<td>" . $row['votes'] . "</td>";
   td_bandit('music' ,$row);
@@ -63,8 +63,8 @@ function td_bandit($type, $row) {
 function a_bandit($name) {
   return "<a href='index.php?view=bandit&bandit=".$name."'>".$name."</a>";
 }
-function a_round($number) {
-  return "<a href='index.php?view=round&round=".$number."'>".$number."</a>";
+function a_round($number,$name) {
+  return "<a href='index.php?view=round&round=".$number."'>".$name."</a>";
 }
 function a_round_details($details) {
   return "<a href='index.php?view=round&round=".$details['number']."'> Round ".$details['number']." - ".$details['theme']."</a>.";
