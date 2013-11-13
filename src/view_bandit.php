@@ -15,7 +15,7 @@
 <?php
   require_once('query.php');
   
-  $db    = mysqli_connect();
+  $db    = database_connect();
   $query = $db->prepare('SELECT * FROM songs WHERE music=? OR lyrics=? OR vocals=?');
   $query->bind_param('sss',$bandit,$bandit,$bandit);
   $query->execute();

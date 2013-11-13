@@ -6,7 +6,7 @@
 <?php
   require_once('query.php');
 
-  $db = mysqli_connect();
+  $db = database_connect();
 
   // BEST SONGS
   // Orders the table by votes, then selects the first entry of each group.

@@ -6,8 +6,10 @@ require_once('secrets.php');
 /* ************************************************************************
   Database access
 ************************************************************************ */
-function mysqli_connect() {
-  $mysqli = new mysqli("localhost", $mysql_user, $mysql_password, "gameofbands");
+function database_connect() {
+  global $mysql_user, $mysql_password, $mysql_db; // from secrets.php
+  $mysqli = new mysqli("localhost", $mysql_user, $mysql_password, $mysql_db);
+  
   if ($mysqli->connect_errno) {
     die ($mysqli->connect_errno);
   }
@@ -31,7 +33,7 @@ function query_round_details($db,$number) {
 ************************************************************************ */
 // Display a collection of songs.
 function display_songs($result) {
-  echo "<table id='songlist'>"
+  echo "<table id='songlist'>";
   echo "<tr><th>Round</th><th>Song Title</th><th>Votes</th><th>Music</th><th>Music Vote</th><th>Lyrics</th><th>Lyrics Vote</th><th>Vocals</th><th>Vocals Vote</th></tr>";
   while( $row = $result->fetch_assoc() ){
     tr_song($row);
@@ -72,5 +74,3 @@ function a_round_details($details) {
 function a_song($row) {
   return "<a href='index.php?view=song&song=".$row['id']."'>".$row['name']."</a>";
 }
-
-

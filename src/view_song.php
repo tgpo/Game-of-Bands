@@ -5,7 +5,9 @@
     exit();
   }
 
-  $db    = mysqli_connect();
+  require_once('query.php');
+
+  $db    = database_connect();
   $query = $db->prepare('SELECT * FROM songs WHERE id=?');
   $query->bind_param('s',$song);
   $query->execute();

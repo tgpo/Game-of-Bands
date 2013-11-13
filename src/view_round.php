@@ -7,7 +7,7 @@
 
   require_once('query.php');
   
-  $db           = mysqli_connect();
+  $db           = database_connect();
   $roundDetails = query_round_details($db, $round);
 
   $query = $db->prepare('SELECT * FROM songs WHERE round=?');

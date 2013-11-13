@@ -10,7 +10,7 @@
 <?php
   require_once('query.php');
   
-  $db    = mysqli_connect();
+  $db    = database_connect();
   $songs = $db->query('SELECT * FROM songs ORDER by id DESC');
   display_songs($songs);
 ?>

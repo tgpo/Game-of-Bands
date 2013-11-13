@@ -5,8 +5,8 @@
   <script src="//connect.soundcloud.com/sdk.js"></script>
   <script>
     SC.initialize({
-    client_id: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    redirect_uri: "http://gameofbands.co/index.php",
+      client_id: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      redirect_uri: "http://gameofbands.co/index.php",
     });
   </script>
 </head>
@@ -30,14 +30,13 @@
   <?php
     // Decide which data to display
     switch ($_GET['view']) {
-      case 'bandit' : include 'src/view_bandit.php';     break;
-      case 'fame'   : include 'src/view_fame.php';       break;
-      case 'round'  : include 'src/view_round.php';      break;
-      case 'rounds' : include 'src/view_rounds.php';     break;
-      case 'song'   : include 'src/view_song.php';       break;
-      default       : include 'src/view_all.php';        break;
+      case 'bandit' : include_once 'src/view_bandit.php';     break;
+      case 'fame'   : include_once 'src/view_fame.php';       break;
+      case 'round'  : include_once 'src/view_round.php';      break;
+      case 'rounds' : include_once 'src/view_rounds.php';     break;
+      case 'song'   : include_once 'src/view_song.php';       break;
+      default       : include_once 'src/view_all.php';        break;
     }
-  }
   ?>
 
   <div id='fineprint'>

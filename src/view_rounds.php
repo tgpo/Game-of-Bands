@@ -5,7 +5,7 @@
 <?php
   require_once('query.php');
   
-  $db     = mysqli_connect();
+  $db     = database_connect();
   $rounds = $db->query('SELECT * FROM rounds ORDER by number DESC');
 
 	echo "<table>";
