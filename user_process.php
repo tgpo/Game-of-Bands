@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <?php
-require_once('includes/reddit.php');
-require_once('includes/secrets.php');
+require_once('lib/reddit.php');
+require_once('src/secrets.php');
 $reddit = new reddit($reddit_user, $reddit_password);
 
 if(isset($_POST['leaveTeam'])){
