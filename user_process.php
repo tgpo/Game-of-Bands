@@ -1,7 +1,8 @@
 <?php session_start(); ?>
 <?php
 require_once('includes/reddit.php');
-$reddit = new reddit("xxxuserxxx", "xxxpasswordxxx");
+require_once('includes/secrets.php');
+$reddit = new reddit($reddit_user, $reddit_password);
 
 if(isset($_POST['leaveTeam'])){
 	$user = $_SESSION['GOB']['name'];

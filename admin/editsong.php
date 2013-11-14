@@ -1,10 +1,11 @@
 <?php
 require_once( 'includes/gob_admin.php' );
 require_once( 'includes/admin_header.php' );
+require_once( 'includes/secrets.php' );
 mod_check();
 ?>
 <?php
-mysql_connect("localhost", "xxxusernamexxx", "xxxpasswordxxx") or die(mysql_error());
+mysql_connect("localhost", $mysql_user, $mysql_password) or die(mysql_error());
 mysql_select_db("xxxdatabasexxx") or die(mysql_error());
 
 $id=mysql_real_escape_string($_GET['id']);

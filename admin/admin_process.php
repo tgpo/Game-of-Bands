@@ -9,12 +9,13 @@ we need to run through the comment json at the end and save off the correct name
 
 require_once('includes/gob_admin.php');
 require_once('../includes/reddit.php');
-$reddit = new reddit("xxxusernamexxx", "xxxpasswordxxx");
+require_once('../includes/secrets.php');
+$reddit = new reddit($reddit_user, $reddit_password);
 
 mod_check();
 ?>
 <?php
-mysql_connect("localhost", "xxxusernamexxx", "xxxpasswordxxx") or die(mysql_error());
+mysql_connect("localhost", $mysql_user, $mysql_password) or die(mysql_error());
 mysql_select_db("xxxdatabasexxx") or die(mysql_error());
 
 function redirect($pagename){
