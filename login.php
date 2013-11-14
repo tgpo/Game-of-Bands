@@ -22,9 +22,9 @@ $clientSecret = 'xxxclientSecretxxx';
 
 $redirectUrl = "http://gameofbands.co/login.php";
 
-require("includes/Client.php");
-require("includes/GrantType/IGrantType.php");
-require("includes/GrantType/AuthorizationCode.php");
+require("lib/Client.php");
+require("lib/GrantType/IGrantType.php");
+require("lib/GrantType/AuthorizationCode.php");
 
 $client = new OAuth2\Client($clientId, $clientSecret, OAuth2\Client::AUTH_TYPE_AUTHORIZATION_BASIC);
 
