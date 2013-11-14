@@ -154,6 +154,23 @@ class reddit{
     }
 	
     /**
+    * Get Post Comments
+    *
+    * Get the listing of submissions from a subreddit
+    * @link http://www.reddit.com/dev/api#GET_listing
+    * @param string $sr The subreddit name. Ex: technology, limit (integer): The number of posts to gather
+    */
+    public function getpostcomments($sr,$postID, $limit = 5){
+        $limit = (isset($limit)) ? "?limit=".$limit : "";
+        if($sr == 'home' || $sr == 'reddit' || !isset($sr)){
+            $urlListing = "http://www.reddit.com/.json{$limit}";
+        } else {
+            $urlListing = "http://www.reddit.com/r/{$sr}/comments/{$postID}/.json{$limit}";
+        }
+        return $this->runCurl($urlListing);
+    }
+	
+    /**
     * Get Comment Replies
     *
     * Get the listing of submissions from a subreddit
