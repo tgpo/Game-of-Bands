@@ -1,15 +1,7 @@
 <?php
-/*************************************
-
-tgpo: The tracking of the post and comments names is flawed. Instead of capturing the name immediately after posting it,
-we need to run through the comment json at the end and save off the correct names in the DB for future use.
-
-/**************************************************/
-
-
 require_once('includes/gob_admin.php');
 require_once('../includes/reddit.php');
-require_once('../includes/secrets.php');
+require_once('../src/secrets.php');
 $reddit = new reddit($reddit_user, $reddit_password);
 
 mod_check();
