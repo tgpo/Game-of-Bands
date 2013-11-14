@@ -10,7 +10,7 @@
 
 	echo "<table>";
 	echo "<tr><th>Round</th><th>Theme</th></tr>";
-	while($row = $rounds->fetch_assoc()){
+	foreach ($rounds as $row) {
 		echo "<tr>";
 	  echo "<td>".a_round($row['number'],$row['number'])."</td>";
 	  echo "<td>".a_round($row['number'],$row['theme'] )."</td>";

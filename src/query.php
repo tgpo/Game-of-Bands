@@ -8,23 +8,19 @@ require_once('secrets.php');
 ************************************************************************ */
 function database_connect() {
   global $mysql_user, $mysql_password, $mysql_db; // from secrets.php
-  $mysqli = new mysqli("localhost", $mysql_user, $mysql_password, $mysql_db);
-  
-  if ($mysqli->connect_errno) {
-    die ($mysqli->connect_errno);
-  }
-  return $mysqli;
+  $db = new PDO("mysql:host=localhost;dbname=$mysql_db", $mysql_user, $mysql_password);
+
+  // Use real prepared statements. See <http://stackoverflow.com/a/60496/403805>
+  $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+  return $db;
 }
 
 
 // Query the  rounds  table for a particular round number
 function query_round_details($db,$number) {
-  $round = $number;
-  $query = $db->prepare('SELECT * FROM rounds WHERE number=?');
-  $query->bind_param('s',$round);
-  $query->execute();
-  $roundDetails = $query->get_result();
-  return $roundDetails->fetch_assoc();
+  $query = $db->prepare('SELECT * FROM rounds WHERE number=:number');
+  $query->execute(array('number' => $number));
+  return $query->fetch();
 }
 
 
@@ -35,7 +31,7 @@ function query_round_details($db,$number) {
 function display_songs($result) {
   echo "<table id='songlist'>";
   echo "<tr><th>Round</th><th>Song Title</th><th>Votes</th><th>Music</th><th>Music Vote</th><th>Lyrics</th><th>Lyrics Vote</th><th>Vocals</th><th>Vocals Vote</th></tr>";
-  while( $row = $result->fetch_assoc() ){
+  foreach ($result as $row) {
     tr_song($row);
   }
   echo "</table>";

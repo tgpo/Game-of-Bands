@@ -8,11 +8,9 @@
   require_once('query.php');
 
   $db    = database_connect();
-  $query = $db->prepare('SELECT * FROM songs WHERE id=?');
-  $query->bind_param('s',$song);
-  $query->execute();
-  $songs = $query->get_result();
-	$song  = $query->fetch_assoc();
+  $query = $db->prepare('SELECT * FROM songs WHERE id=:song');
+  $query->execute(array('song' => $song));
+  $song  = $query->fetch();
 ?>
 
 <div class='header'>
@@ -27,11 +25,11 @@
 </div>
 
 <?php
+// Display table with this song.
+display_songs(array($song));
+
 $round  = $song['round'];
 $lyrics = $song['lyricsheet'];
-
-// Display table with this song.
-display_songs($song);
 
 // Display round details
 $details = query_round_details($db, $round);

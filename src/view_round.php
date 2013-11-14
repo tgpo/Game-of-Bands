@@ -10,10 +10,8 @@
   $db           = database_connect();
   $roundDetails = query_round_details($db, $round);
 
-  $query = $db->prepare('SELECT * FROM songs WHERE round=?');
-  $query->bind_param('s',$round);
-  $query->execute();
-  $songs = $query->get_result();
+  $songs = $db->prepare('SELECT * FROM songs WHERE round=:round');
+  $songs->execute(array('round' => $round));
 ?>
 
 <div class='header'>

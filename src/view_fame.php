@@ -15,10 +15,10 @@
   display_songs($songs);
 
   // Display individual winners
-  function display_single_bandit($result) {
+  function display_winners($result) {
     echo "<table>";
   	echo "<tr><th>Round</th><th>Song Title</th><th>Votes</th><th>Winner</th><th>Votes</th></tr>";
-    while ($row = mysql_fetch_array($result)) {
+    foreach ($result as $row) {
   		echo "<tr>";
   	  echo "<td>".a_round($row['number'],$row['round'])."</td>";
   	  echo "<td>".a_song ($row)."</td>";
@@ -40,7 +40,7 @@
     echo "<div class='header'>";
     echo "The Game of Bands Hall of Fame - Winning Musicians";
     echo "</div>";
-    display_single_bandit($result);
+    display_winners($result);
   echo "</div>";
 
   // BEST LYRICISTS
@@ -49,7 +49,7 @@
     echo "<div class='header'>";
     echo "The Game of Bands Hall of Fame - Winning Lyricists";
     echo "</div>";
-    display_single_bandit($result);
+    display_winners($result);
   echo "</div>";
   
   // BEST VOCALISTS
@@ -58,6 +58,6 @@
     echo "<div class='header'>";
     echo "The Game of Bands Hall of Fame - Winning Vocalists";
     echo "</div>";
-    display_single_bandit($result);
+    display_winners($result);
   echo "</div>";
 ?>

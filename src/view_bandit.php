@@ -15,11 +15,9 @@
 <?php
   require_once('query.php');
   
-  $db    = database_connect();
-  $query = $db->prepare('SELECT * FROM songs WHERE music=? OR lyrics=? OR vocals=?');
-  $query->bind_param('sss',$bandit,$bandit,$bandit);
-  $query->execute();
-  $songs = $query->get_result();
-  display_songs($songs);
+  $db    = database_connect();  
+  $query = $db->prepare('SELECT * FROM songs WHERE (lyrics=:lyrics OR music=:music OR vocals=:vocals)');
+  $query->execute(array('music' => $bandit, 'lyrics' => $bandit, 'vocals' => $bandit));
+  display_songs($query);
 ?>
 </div>
