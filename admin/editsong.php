@@ -1,7 +1,7 @@
 <?php
 require_once( 'includes/gob_admin.php' );
 require_once( 'includes/admin_header.php' );
-require_once( 'includes/secrets.php' );
+require_once( '../src/secrets.php' );
 mod_check();
 ?>
 <?php
