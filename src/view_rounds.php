@@ -1,4 +1,5 @@
 <div class='header'>
+  <a href='index.php'>Return to song library</a><br>
   Game of Bands Rounds:
 </div>
 
