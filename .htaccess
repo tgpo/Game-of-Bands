@@ -7,3 +7,9 @@ RewriteCond %{HTTP_HOST} ^gameofbands\.co$ [OR]
 RewriteCond %{HTTP_HOST} ^www\.gameofbands\.co$
 RewriteRule ^/?$ "http\:\/\/gameofbands\.co\/index\.php" [R=301,L]
 
+# Rewrite rules for old file names. Not sure if they are correct.
+RewriteRule ^/viewBandit.php\?(.*)$      /index.php?view=bandit&$1       [R]
+RewriteRule ^/viewHallofFame.php$        /index.php?view=fame            [R]
+RewriteRule ^/viewRound.php\?round=(.*)$ /index.php?view=round&round=$1  [R]
+RewriteRule ^/viewRound.php$             /index.php?view=rounds          [R]
+RewriteRule ^/viewSong.php\?(.*)$        /index.php?view=song&$1         [R]
