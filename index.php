@@ -27,6 +27,7 @@
     ?>
   </div>
 
+<div id='content'>
   <?php
     // Decide which data to display
     switch ($_GET['view']) {
@@ -45,5 +46,6 @@
     Site programming by RetroTheft and tgpo. Design by RetroTheft.
     All music and lyrics presented herein are copyright of their original creators.
   </div>
+</div>
 </body>
 </html>
