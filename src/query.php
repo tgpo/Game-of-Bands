@@ -59,14 +59,14 @@ function td_bandit($type, $row) {
   Making links
 ************************************************************************ */
 function a_bandit($name) {
-  return "<a href='index.php?view=bandit&bandit=".$name."'>".$name."</a>";
+  return "<a href='/bandit/".$name."'>".$name."</a>";
 }
 function a_round($number,$name) {
-  return "<a href='index.php?view=round&round=".$number."'>".$name."</a>";
+  return "<a href='/round/".$number."'>".$name."</a>";
 }
 function a_round_details($details) {
-  return "<a href='index.php?view=round&round=".$details['number']."'> Round ".$details['number']." - ".$details['theme']."</a>.";
+  return "<a href='/round/".$details['number']."'> Round ".$details['number']." - ".$details['theme']."</a>.";
 }
 function a_song($row) {
-  return "<a href='index.php?view=song&song=".$row['id']."'>".$row['name']."</a>";
+  return "<a href='/song/".$row['id']."'>".$row['name']."</a>";
 }

@@ -1,7 +1,7 @@
 <?php
   $song=$_GET['song'];
   if (!$song) {
-    header("Location: index.php"); // revert to index
+    header("Location: /index.php"); // revert to index
     exit();
   }
 
@@ -14,15 +14,14 @@
 ?>
 
 <div class='header'>
-  <a href='index.php'>Return to song library</a>
+  <a href='/index.php'>Return to song library</a>
 </div>
 
 <div id="putTheWidgetHere"></div>
   <script type="text/JavaScript">
 		SC.oEmbed("<?php echo $song['url'];?>", {color: "000000"},
 		  document.getElementById("putTheWidgetHere"));
-	</script>;
-</div>
+	</script>
 
 <?php
 // Display table with this song.

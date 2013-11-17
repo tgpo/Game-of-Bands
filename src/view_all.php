@@ -1,7 +1,7 @@
 <div class='header'>
   Select individual rounds, songs or bandits to navigate. <br />
-  <a href='index.php?view=fame'>View Hall of Fame</a> <br />
-  <a href='index.php?view=rounds'>View Rounds by Theme</a> <br />
+  <a href='/hall_of_fame'>View Hall of Fame</a> <br />
+  <a href='/all_rounds'>View Rounds by Theme</a> <br />
 
   Viewing Complete Song Library:
 </div>

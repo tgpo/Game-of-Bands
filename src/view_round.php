@@ -1,7 +1,7 @@
 <?php
   $round = $_GET['round'];
   if (!$round) {
-    header("Location: index.php"); // revert to index
+    header("Location: /index.php"); // revert to index
     exit();
   }
 
@@ -15,8 +15,7 @@
 ?>
 
 <div class='header'>
-  <a href='index.php'>Return to song library</a><br>
-  
+  <a href='/index.php'>Return to song library</a><br />
   Viewing Round <?php echo $roundDetails['number']; ?> :
     "<?php echo $roundDetails['theme']; ?>"
 </div>

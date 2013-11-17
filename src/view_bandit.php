@@ -1,13 +1,13 @@
 <?php
   $bandit = $_GET['bandit'];
   if (!$bandit) {
-    header("Location: index.php"); // revert to index
+    header("Location: /index.php"); // revert to index
     exit();
   }
 ?>
 
 <div class='header'>
-  <a href='index.php'>Return to song library</a> <br>
+  <a href='/index.php'>Return to song library</a> <br>
   Viewing <?php echo $bandit; ?>'s profile:
 </div>
 

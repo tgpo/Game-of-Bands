@@ -1,15 +1,32 @@
 
 RewriteEngine on
 
+#remove www from domain
+RewriteCond %{HTTP_HOST} !^gameofbands\.co
+RewriteRule (.*) http://gameofbands.co/$1 [R=301,L]
+
 DirectoryIndex index.php index.htm index.html index.shtml index.xhtml index.wml index.perl index.pl index.plx index.ppl index.cgi index.jsp index.js index.jp index.php4 index.php3 index.phtml default.htm default.html home.htm
 
-RewriteCond %{HTTP_HOST} ^gameofbands\.co$ [OR]
-RewriteCond %{HTTP_HOST} ^www\.gameofbands\.co$
-RewriteRule ^/?$ "http\:\/\/gameofbands\.co\/index\.php" [R=301,L]
+RewriteCond %{HTTP_HOST} ^gameofbands\.co\/index\.php$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.gameofbands\.co\/index\.php$
+RewriteRule ^/?$ "http\:\/\/gameofbands\.co" [R=301,L]
 
-# Rewrite rules for old file names. Not sure if they are correct.
-RewriteRule ^/viewBandit.php\?(.*)$      /index.php?view=bandit&$1       [R]
-RewriteRule ^/viewHallofFame.php$        /index.php?view=fame            [R]
-RewriteRule ^/viewRound.php\?round=(.*)$ /index.php?view=round&round=$1  [R]
-RewriteRule ^/viewRound.php$             /index.php?view=rounds          [R]
-RewriteRule ^/viewSong.php\?(.*)$        /index.php?view=song&$1         [R]
+#Redirect old URLs to new locations
+Redirect 301 /viewHallofFame.php http://gameofbands.co/hall_of_fame
+
+
+# SEO Friendly URLs
+RewriteRule ^/?bandit/([^.]+)/?$ index.php?view=bandit&bandit=$1 [L,QSA]
+RewriteRule ^/?song/([^.]+)/?$ index.php?view=song&song=$1 [L,QSA]
+RewriteRule ^/?round/([^.]+)/?$ index.php?view=round&round=$1 [L,QSA]
+RewriteRule ^hall_of_fame$ index.php?view=fame [L,QSA]
+RewriteRule ^all_rounds$ index.php?view=rounds [L,QSA]
+
+# Disallow directory Listing
+Options -Indexes
+
+#Disallow viewing .htaccess file
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>
