@@ -22,6 +22,7 @@
 		SC.oEmbed("<?php echo $song['url'];?>", {color: "000000"},
 		  document.getElementById("putTheWidgetHere"));
 	</script>
+	<p><a href="<?php echo $song['url'];?>">Listen To Song</a></p>
 
 <?php
 // Display table with this song.
