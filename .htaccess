@@ -3,6 +3,7 @@ RewriteEngine on
 
 #remove www from domain
 RewriteCond %{HTTP_HOST} !^gameofbands\.co
+RewriteCond %{HTTP_HOST} !^localhost
 RewriteRule (.*) http://gameofbands.co/$1 [R=301,L]
 
 DirectoryIndex index.php index.htm index.html index.shtml index.xhtml index.wml index.perl index.pl index.plx index.ppl index.cgi index.jsp index.js index.jp index.php4 index.php3 index.phtml default.htm default.html home.htm
