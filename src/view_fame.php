@@ -9,11 +9,37 @@
   $db = database_connect();
 
   // BEST SONGS
-  // Orders the table by votes, then selects the first entry of each group.
-  // Still needs to be modified to display equal maximums.
-  $songs = $db->query('SELECT * FROM (SELECT * FROM songs WHERE votes IS NOT NULL ORDER BY votes DESC) AS s GROUP BY round DESC');
+  // Calculate table with maximum votes from each round.
+  // Join with songs that have the same number of votes.
+  $query = 'SELECT * FROM songs
+    JOIN
+      (SELECT round, MAX(votes) AS vote FROM songs
+       WHERE votes > 0
+       GROUP BY round
+      ) AS themax
+    ON songs.round = themax.round AND songs.votes = themax.vote
+    ORDER BY songs.round DESC';  
+  $songs = $db->query($query);
   display_songs($songs);
 
+
+  // Query individual winners
+  function query_winners($db, $type) {
+    // Calculate table with maximum votes from each round.
+    // Join with bandits that have the same number of votes.
+    $vote  = $type.'vote';
+    $query = "SELECT id, name, songs.round AS round, votes, $type AS winner, $vote AS winnervotes
+      FROM songs
+      JOIN
+        (SELECT round, MAX($vote) AS vote FROM songs
+         WHERE $vote > 0
+         GROUP BY round
+        ) AS themax
+      ON songs.round = themax.round AND songs.$vote = themax.vote
+      ORDER BY songs.round DESC";
+    return $db->query($query);
+  }
+  
   // Display individual winners
   function display_winners($result) {
     echo "<table>";
@@ -31,11 +57,7 @@
   }
   
   // BEST MUSICIANS
- 
-  // Orders the table by votes, then selects the first entry of each group.
-  // Still needs to be modified to display equal maximums.
-  $result = $db->query("SELECT id, name, round, votes, music AS winner, musicvote AS winnervotes FROM (SELECT * FROM songs WHERE votes IS NOT NULL ORDER BY musicvote DESC) AS s GROUP BY round DESC");
-  
+  $result = query_winners($db, 'music');
   echo "<div class='float'>";
     echo "<div class='header'>";
     echo "The Game of Bands Hall of Fame - Winning Musicians";
@@ -44,7 +66,7 @@
   echo "</div>";
 
   // BEST LYRICISTS
-  $result = $db->query("SELECT id, name, round, votes, lyrics AS winner, lyricsvote AS winnervotes FROM (SELECT * FROM songs WHERE votes IS NOT NULL ORDER BY lyricsvote DESC) AS s GROUP BY round DESC");
+  $result = query_winners($db, 'lyrics');
   echo "<div class='float'>";
     echo "<div class='header'>";
     echo "The Game of Bands Hall of Fame - Winning Lyricists";
@@ -53,7 +75,7 @@
   echo "</div>";
   
   // BEST VOCALISTS
-  $result = $db->query("SELECT id, name, round, votes, vocals AS winner, vocalsvote AS winnervotes FROM (SELECT * FROM songs WHERE votes IS NOT NULL ORDER BY vocalsvote DESC) AS s GROUP BY round DESC");
+  $result = query_winners($db, 'vocals');
   echo "<div class='float'>";
     echo "<div class='header'>";
     echo "The Game of Bands Hall of Fame - Winning Vocalists";
