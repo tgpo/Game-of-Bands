@@ -7,6 +7,9 @@ require_once( 'src/gob_user.php' );
 $reddit = new reddit($reddit_user, $reddit_password);
 loggedin_check();
 
+mysql_connect("localhost", $mysql_user, $mysql_password) or die(mysql_error());
+mysql_select_db("xxxdatabasexxx") or die(mysql_error());
+
 if(isset($_POST['leaveTeam'])){
 	$user = $_SESSION['GOB']['name'];
 	$response = $reddit->sendMessage('/r/waitingforgobot', $user . ' Wants To Leave His Team', $user . ' wants to leave team 1.');
@@ -49,8 +52,7 @@ if(isset($_POST['submitSong'])){
 	
 	$response = $reddit->sendMessage('tgpo', 'Team', $user . ' submitted the song ' . $name );
 	
-	redirect('user_dashboard');
-	
+	redirect('index');
 }
 
 function redirect($pagename){

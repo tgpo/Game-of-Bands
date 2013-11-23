@@ -5,7 +5,7 @@
   <script src="//connect.soundcloud.com/sdk.js"></script>
   <script>
     SC.initialize({
-      client_id: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      client_id: "xxxclient_idxxx",
       redirect_uri: "http://gameofbands.co/index.php",
     });
   </script>
@@ -28,7 +28,6 @@
   </div>
   
   <div id="content">
-
 
 	  <?php
 	    // Decide which data to display
