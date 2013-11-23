@@ -6,7 +6,7 @@ mod_check();
 ?>
 <?php
 mysql_connect("localhost", $mysql_user, $mysql_password) or die(mysql_error());
-mysql_select_db("xxxdatabasexxx") or die(mysql_error());
+mysql_select_db($mysql_db) or die(mysql_error());
 
 $id=mysql_real_escape_string($_GET['id']);
 
@@ -16,9 +16,16 @@ $song = mysql_fetch_array($result); ?>
 <h1>Edit Song</h1>
 <form method="post" action="admin_process.php">
 	<input type="hidden" name="id" value="<?=$id ?>">
+	<label>Approved</label>
+	<input type="checkbox" name="approved" value="Yes" <?php if($song['approved']) echo "checked"; ?> />
+	<br />
 
 	<label>Round</label>
 	<input type="text" name="round" value="<?php echo $song['round']; ?>" />
+	<br />
+	
+	<label>Team Number</label>
+	<input type="text" name="teamnumber" value="<?php echo $song['teamnumber']; ?>" />
 	<br />
 	
 	<label>Song Name</label>

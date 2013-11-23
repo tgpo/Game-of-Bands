@@ -7,22 +7,38 @@ mod_check();
 
 <form method="post" action="admin_process.php">
 	<div class="box left">
-		<h2>Post Round Start Threads</h2>
-		<label>Round</label>
-		<input type="text" name="Round" />
-		<br />
-		<button type="submit" value="Post Consolidation" name="postroundstart">Post Round Start Threads</button>
+		<h2>Sunday</h2>
+		<div class="box left">
+			<span class="corner-banner live"> 
+				<em>Live</em> 
+			</span> 
+			<h2>1. Post Song Voting Thread</h2>
+			<br />
+			<button type="submit" value="Post Song Voting Thread" name="postvote">Post Voting Thread</button>
+		</div>
+		<div class="box left">
+			<span class="corner-banner live"> 
+				<em>Live</em> 
+			</span> 
+			<h2>2. Post Bandit Signups</h2>
+			<label>Round</label>
+			<input type="text" name="Round" />
+			<br />
+			<button type="submit" value="Post Signups" name="postroundstart">Post Signups</button>
+		</div>
 	</div>
-	<!--  In development -->
 	<div class="box left">
-		<span class="corner-banner"> 
-            <em>Beta</em> 
-        </span> 
-		<h2>Get Signups</h2>
-		<label>Round</label>
-		<input type="text" name="Round2" />
-		<br />
-		<button type="submit" value="Post Consolidation" name="getsignups">Get Signups</button>
+		<h2>Wednesday</h2>
+		<div class="box left">
+			<span class="corner-banner live"> 
+				<em>Live</em> 
+			</span> 
+			<h2>1. Start New Round</h2>
+			<label>Round</label>
+			<input type="text" name="Round2" />
+			<br />
+			<button type="submit" value="Post Start Threads" name="getsignups">Start Round!</button>
+		</div>
 	</div>
 </form>
 

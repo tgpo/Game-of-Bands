@@ -13,11 +13,12 @@
     <body>
         <div class="header-container">
             <header class="wrapper clearfix">
-                <h1 class="title">Game of Bands Admin</h1>
+                <h1 class="title"><a href="/admin" class="home">Game of Bands Admin</a></h1>
                 <nav>
                     <ul>
                         <li><a href="addsong.php">Add Song</a></li>
 						<li><a href="songlist.php">Song List</a></li>
+						<li><a href="roundlist.php">Round List</a></li>
                     </ul>
                 </nav>
             </header>

@@ -10,7 +10,7 @@
   $db           = database_connect();
   $roundDetails = query_round_details($db, $round);
 
-  $songs = $db->prepare('SELECT * FROM songs WHERE round=:round');
+  $songs = $db->prepare('SELECT * FROM songs WHERE round=:round and approved=1');
   $songs->execute(array('round' => $round));
 ?>
 

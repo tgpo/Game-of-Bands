@@ -8,7 +8,7 @@
   require_once('query.php');
 
   $db    = database_connect();
-  $query = $db->prepare('SELECT * FROM songs WHERE id=:song');
+  $query = $db->prepare('SELECT * FROM songs WHERE id=:song and approved=1');
   $query->execute(array('song' => $song));
   $song  = $query->fetch();
 ?>

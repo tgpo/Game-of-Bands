@@ -11,7 +11,7 @@
   require_once('query.php');
   
   $db    = database_connect();
-  $songs = $db->query('SELECT * FROM songs ORDER by id DESC');
+  $songs = $db->query('SELECT * FROM songs WHERE approved=1 ORDER by id DESC');
   display_songs($songs);
 ?>
 </div>

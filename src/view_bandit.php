@@ -16,7 +16,7 @@
   require_once('query.php');
   
   $db    = database_connect();  
-  $query = $db->prepare('SELECT * FROM songs WHERE (lyrics=:lyrics OR music=:music OR vocals=:vocals)');
+  $query = $db->prepare('SELECT * FROM songs WHERE (lyrics=:lyrics OR music=:music OR vocals=:vocals) AND approved=1');
   $query->execute(array('music' => $bandit, 'lyrics' => $bandit, 'vocals' => $bandit));
   display_songs($query);
 ?>
