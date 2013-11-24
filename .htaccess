@@ -22,6 +22,7 @@ RewriteRule ^/?song/([^.]+)/?$ index.php?view=song&song=$1 [L,QSA]
 RewriteRule ^/?round/([^.]+)/?$ index.php?view=round&round=$1 [L,QSA]
 RewriteRule ^hall_of_fame$ index.php?view=fame [L,QSA]
 RewriteRule ^login_request$ index.php?view=login_request [L,QSA]
+RewriteRule ^user_dashboard$ index.php?view=user_dashboard [L,QSA]
 RewriteRule ^all_rounds$ index.php?view=rounds [L,QSA]
 
 # Disallow directory Listing
