@@ -64,7 +64,7 @@ if ($_SESSION['GOB']['loggedin'])
 	$response = $client->fetch("https://oauth.reddit.com/r/gameofbands/about.json");
 	$_SESSION['GOB']['ismod'] = $response["result"]['data']['user_is_moderator'];
 	
-	header('Location: user_submitsong.php');
+	header('Location: /user_submitsong');
 	
 } else {
 	$authUrl = $client->getAuthenticationUrl($authorizeUrl, $redirectUrl, array("scope" => "identity,read", "state" => "SomeUnguessableValue"));

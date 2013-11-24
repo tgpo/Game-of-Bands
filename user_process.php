@@ -14,11 +14,11 @@ if(isset($_POST['leaveTeam'])){
 	$user = $_SESSION['GOB']['name'];
 	$response = $reddit->sendMessage('/r/waitingforgobot', $user . ' Wants To Leave His Team', $user . ' wants to leave team 1.');
 	
-	redirect('index');
+	redirect();
 }
 
 if(isset($_POST['submitSongPage'])){
-	redirect('user_submitsong');
+	redirect('/user_submitsong');
 }
 
 if(isset($_POST['submitSong'])){
@@ -52,10 +52,10 @@ if(isset($_POST['submitSong'])){
 	
 	$response = $reddit->sendMessage('tgpo', 'Team', $user . ' submitted the song ' . $name );
 	
-	redirect('index');
+	redirect();
 }
 
-function redirect($pagename){
-	header('Location: '.$pagename.'.php');
+function redirect($page = 'index.php'){
+	header('Location: '.$page);
 }
 ?>
