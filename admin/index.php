@@ -13,6 +13,7 @@ mod_check();
 				<em>Live</em> 
 			</span> 
 			<h2>1. Post Song Voting Thread</h2>
+			<p>Posts the voting thread for all submitted songs.</p>
 			<br />
 			<button type="submit" value="Post Song Voting Thread" name="postvote">Post Voting Thread</button>
 		</div>
@@ -21,6 +22,7 @@ mod_check();
 				<em>Live</em> 
 			</span> 
 			<h2>2. Post Bandit Signups</h2>
+			<p>Posts the bandit signup and theme idea/voting threads.</p>
 			<label>Round</label>
 			<input type="text" name="Round" />
 			<br />
@@ -34,6 +36,7 @@ mod_check();
 				<em>Live</em> 
 			</span> 
 			<h2>1. Start New Round</h2>
+			<p>Creates teams. Chooses winning theme. Posts team assignment and bandit consolidation threads.</p>
 			<label>Round</label>
 			<input type="text" name="Round2" />
 			<br />
