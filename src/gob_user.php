@@ -10,10 +10,10 @@ function is_loggedin(){
 	return ($_SESSION['GOB']['loggedin'] ? true : false);
 }
 
-function loggedin_check($page = 'index'){
+function loggedin_check($page = 'index.php'){
 	if (!$_SESSION['GOB']['loggedin'])
 	{
-		header('Location: ' . $page . '.php');
+		header('Location: ' . $page);
 		die;
 	}
 }

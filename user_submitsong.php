@@ -1,6 +1,6 @@
 <?php
 include 'header.php';
-loggedin_check('login_request');
+loggedin_check('/login_request');
 require_once( 'src/secrets.php' );
 
 mysql_connect("localhost", $mysql_user, $mysql_password) or die(mysql_error());
