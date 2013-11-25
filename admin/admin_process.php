@@ -9,7 +9,7 @@ $mainsubreddit = 'gameofbands';
 mod_check();
 
 mysql_connect("localhost", $mysql_user, $mysql_password) or die(mysql_error());
-mysql_select_db("xxxdatabasexxx") or die(mysql_error());
+mysql_select_db($mysql_db) or die(mysql_error());
 
 function redirect($pagename){
 	header('Location: '.$pagename.'.php');
@@ -132,6 +132,60 @@ if(isset($_POST['getsignups'])){
 	
 	//Make it happen!
 	assignTeams($mainsubreddit,$round,$signupID,$musiciansSignupID,$lyricistsSignupID,$vocalistSignupID,getWinningTheme($mainsubreddit,$themeID,$reddit),$reddit);
+}
+
+// Determine highest voted song and post winner
+if(isset($_POST['postwinners'])){
+	$round = $_POST['Round4'];
+	
+	//Get our saved data about this round
+	$result = mysql_query("SELECT * FROM rounds WHERE number='$round'") or die(mysql_error());
+	$postIDs = mysql_fetch_array($result);
+	$songvotingthread = substr($postIDs['songvotingthreadID'], 3);
+	
+	$commentpool = $reddit->getpostcomments($mainsubreddit,$songvotingthread,999);
+	$commentpool = $commentpool[1]->data->children;
+	
+	/*echo "<pre>";
+	print_r($commentpool);
+	echo "</pre>"; */
+	
+	$result = mysql_query("SELECT * FROM songs WHERE round='$round'") or die(mysql_error());
+	
+	echo "<h2>Votes</h2>";
+	while($row = mysql_fetch_array($result)){
+		echo "<br />" . $row['name'] . " - ";
+		
+		$postTemplate = "**Team " . $row['teamnumber'] . "**";
+		//$postTemplate = "**Team " . $row['teamnumber'] . "** Vote";
+		$songTemplate = trim(json_encode($postTemplate), '"');
+		
+		$i = 0;
+		//Run through all comments
+		foreach ($commentpool as $parent) {
+			//We found the team vote post!
+			if (strpos($parent->data->body, $songTemplate) !== false) {
+				echo "Song Votes: " . $parent->data->ups . "<br />";
+				//Find our post array in the comment pool
+				$childpool = $commentpool[$i];
+				
+				//Run through comments to find out voting comments
+				foreach ($childpool->data->replies->data->children as $subchildren) {
+					if ($subchildren->data->body == "**Music Vote**")
+						echo " Music Vote: " . $subchildren->data->ups ;
+					
+					if ($subchildren->data->body == "**Lyrics Vote**")
+						echo " Lyrics Vote: " . $subchildren->data->ups ;
+						
+					if ($subchildren->data->body == "**Vocal Vote**")
+						echo " Vocals Vote: " . $subchildren->data->ups ;
+				}
+			}
+			$i++;
+		}
+	}
+	
+	
 }
 
 //Runs through Theme Voting post and determines post with highest karma
