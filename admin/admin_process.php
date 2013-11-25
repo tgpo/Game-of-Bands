@@ -146,15 +146,10 @@ if(isset($_POST['postwinners'])){
 	$commentpool = $reddit->getpostcomments($mainsubreddit,$songvotingthread,999);
 	$commentpool = $commentpool[1]->data->children;
 	
-	/*echo "<pre>";
-	print_r($commentpool);
-	echo "</pre>"; */
-	
 	$result = mysql_query("SELECT * FROM songs WHERE round='$round'") or die(mysql_error());
 	
-	echo "<h2>Votes</h2>";
 	while($row = mysql_fetch_array($result)){
-		echo "<br />" . $row['name'] . " - ";
+		$songname = $row['name'];
 		
 		$postTemplate = "**Team " . $row['teamnumber'] . "**";
 		//$postTemplate = "**Team " . $row['teamnumber'] . "** Vote";
@@ -165,26 +160,34 @@ if(isset($_POST['postwinners'])){
 		foreach ($commentpool as $parent) {
 			//We found the team vote post!
 			if (strpos($parent->data->body, $songTemplate) !== false) {
-				echo "Song Votes: " . $parent->data->ups . "<br />";
+				$votes = $parent->data->ups;
 				//Find our post array in the comment pool
 				$childpool = $commentpool[$i];
 				
 				//Run through comments to find out voting comments
 				foreach ($childpool->data->replies->data->children as $subchildren) {
-					if ($subchildren->data->body == "**Music Vote**")
-						echo " Music Vote: " . $subchildren->data->ups ;
+					if ($subchildren->data->body == "**Music Vote**") {
+						$musicvote = $subchildren->data->ups;
+					}
 					
-					if ($subchildren->data->body == "**Lyrics Vote**")
-						echo " Lyrics Vote: " . $subchildren->data->ups ;
+					if ($subchildren->data->body == "**Lyrics Vote**") {
+						$lyricsvote = $subchildren->data->ups;
+					}
 						
-					if ($subchildren->data->body == "**Vocal Vote**")
-						echo " Vocals Vote: " . $subchildren->data->ups ;
+					if ($subchildren->data->body == "**Vocal Vote**") {
+						$vocalsvote = $subchildren->data->ups;
+					}
 				}
 			}
 			$i++;
 		}
+		$sql = "UPDATE songs SET votes = '$votes', musicvote = '$musicvote', lyricsvote = '$lyricsvote',  vocalsvote = '$vocalsvote' WHERE name = '$songname'";
+		
+		call_db_stay($sql);
+		
 	}
-	
+	mysql_close();
+	redirect('index');
 	
 }
 
@@ -541,8 +544,6 @@ function call_db_stay($sql){
 			die('Error: ' . mysql_error());
 		}
 	}
-
-	mysql_close();
 }
 
 function titleSearch($searcharray,$strSearchFor) {
