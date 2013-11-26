@@ -5,10 +5,20 @@
   <script src="//connect.soundcloud.com/sdk.js"></script>
   <script>
     SC.initialize({
-      client_id: "xxxclient_idxxx",
+      client_id: "5839c7c20cacba125c0540cbf85614ab",
       redirect_uri: "http://gameofbands.co/index.php",
     });
   </script>
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-45997039-1', 'gameofbands.co');
+	  ga('send', 'pageview');
+
+	</script>
 </head>
 <body>
   <div id='headerimage'></div>

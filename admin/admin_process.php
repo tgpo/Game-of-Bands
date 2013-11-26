@@ -184,12 +184,100 @@ if(isset($_POST['postwinners'])){
 		$sql = "UPDATE songs SET votes = '$votes', musicvote = '$musicvote', lyricsvote = '$lyricsvote',  vocalsvote = '$vocalsvote' WHERE name = '$songname'";
 		
 		call_db_stay($sql);
-		
 	}
+	
+
+  // BEST SONGS
+  // Calculate table with maximum votes from each round.
+  // Join with songs that have the same number of votes.
+   $postTemplate = "   
+**Round " . $round . " Winners**  
+
+Congratulations to all teams who submitted a song, you're all winners! Except here are the real winners:
+
+**Winning Tracks** \n\n";
+
+$result = mysql_query("
+	SELECT  *
+	FROM    songs 
+	WHERE   round = '$round' 
+	HAVING  votes =
+	(
+	  SELECT  votes
+	  FROM    songs 
+	  WHERE   round = '$round'
+	  ORDER BY votes DESC
+	  LIMIT 1  
+	)");
+	
+   while($row = mysql_fetch_array($result)){
+	$postTemplate .= "* [" . $row['name'] . "](http://gameofbands.co/song/" . $row['id'] . ") by " . $row['music'] . ", " . $row['lyrics'] . ", " . $row['vocals'];
+   }
+
+$postTemplate .= "
+  
+**Top Players**
+
+* Top Vocalist ";
+
+$result = query_winners('vocals', $round);
+	
+   while($row = mysql_fetch_array($result)){
+	$postTemplate .= "[" . $row['vocals'] . "](http://gameofbands.co/bandit/" . $row['vocals'] . "), ";
+   }
+
+$postTemplate .= " \n\n         
+
+* Top Lyricist ";
+
+$result = query_winners('lyrics', $round);
+	
+   while($row = mysql_fetch_array($result)){
+	$postTemplate .= "[" . $row['lyrics'] . "](http://gameofbands.co/bandit/" . $row['lyrics'] . ")";
+   }
+
+$postTemplate .= " \n\n 
+
+* Top Muscian ";
+
+$result = query_winners('music', $round);
+	
+   while($row = mysql_fetch_array($result)){
+	$postTemplate .= "[" . $row['music'] . "](http://gameofbands.co/bandit/" . $row['music'] . ")";
+   }
+   
+$postTemplate .= " \n\n
+Congratulations!
+
+Flair is forth coming!";
+	$response = $reddit->createStory('Congratulations to the winners of Round ' . $round . "!", '', $mainsubreddit, $postTemplate);
+
+	
+	
 	mysql_close();
 	redirect('index');
 	
 }
+
+  // Query individual winners
+  function query_winners($type, $round) {
+    // Calculate table with maximum votes from each round.
+    // Join with bandits that have the same number of votes.
+    $votetype  = $type.'vote';
+    $query = "SELECT  *
+	FROM    songs 
+	WHERE   round = '$round' 
+	HAVING  $votetype =
+	(
+	  SELECT  $votetype
+	  FROM    songs 
+	  WHERE   round = '$round'
+	  ORDER BY $votetype DESC
+	  LIMIT 1  
+	)";
+	
+	return mysql_query($query);
+  }
 
 //Runs through Theme Voting post and determines post with highest karma
 function getWinningTheme($mainsubreddit,$themeID,$reddit) {

@@ -40,9 +40,6 @@ $currentround = $round['number'];
 			<button type="submit" value="Post Start Threads" name="getsignups">Start Round!</button>
 		</div>
 		<div class="box left">
-			<span class="corner-banner"> 
-				<em>Alpha</em> 
-			</span> 
 			<h2>2. Post Winner of ending round</h2>
 			<p>Creates teams. Chooses winning theme. Posts team assignment and bandit consolidation threads.</p>
 			<label>Round</label>
