@@ -12,7 +12,16 @@ $round  = $query->fetch();
 $currentround = $round['number'];
 ?>
 
-<form method="post" action="admin_process.php">
+<script>
+$(document).ready(function(){
+	$('#adminform').submit(function() {
+		var c = confirm("You are about to post to reddit and change the website database!\n\n You sure you want to do that?");
+		return c; 
+	});
+});
+</script>
+
+<form id="adminform" method="post" action="admin_process.php">
 	<div class="box left">
 		<h2>Sunday</h2>
 		<div class="box left">
