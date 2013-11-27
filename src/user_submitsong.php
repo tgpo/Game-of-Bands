@@ -2,11 +2,11 @@
 loggedin_check('/login_request');
 
 require_once('query.php');
-$db    = database_connect();
+$db       = database_connect();
 $username = $_SESSION['GOB']['name'];
 
 $query = $db->query('SELECT * FROM rounds order by number desc limit 1');
-$round  = $query->fetch();
+$round = $query->fetch();
 $currentround = $round['number'];
 
 $query = $db->query('SELECT * FROM songs WHERE submitby=:username and round=:currentround');
