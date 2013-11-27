@@ -1,66 +1,46 @@
 <?php
 require_once( 'includes/gob_admin.php' );
-require_once( 'includes/admin_header.php' );
-
 mod_check();
-
-require_once('../src/query.php');
-$db    = database_connect();
-
-$query = $db->query('SELECT * FROM rounds order by number desc limit 1');
-$round  = $query->fetch();
-$currentround = $round['number'];
 ?>
 
-<script>
-$(document).ready(function(){
-	$('#adminform').submit(function() {
-		var c = confirm("You are about to post to reddit and change the website database!\n\n You sure you want to do that?");
-		return c; 
-	});
-});
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
 
-<form id="adminform" method="post" action="admin_process.php">
-	<div class="box left">
-		<h2>Sunday</h2>
-		<div class="box left">
-			<h2>1. Post Song Voting Thread for Round <?php echo $currentround; ?></h2>
-			<p>Posts the voting thread for all submitted songs.</p>
-			<br />
-			<button type="submit" value="Post Song Voting Thread" name="postvote">Post Voting Thread</button>
-		</div>
-		<div class="box left">
-			<h2>2. Post Signups for Round <?php echo ($currentround + 1); ?></h2>
-			<p>Posts the bandit signup and theme idea/voting threads.</p>
-			<input type="hidden" name="Round" value="<?php echo ($currentround + 1); ?>" />
-			<br />
-			<button type="submit" value="Post Signups" name="postroundstart">Post Signups</button>
-		</div>
-	</div>
-	<div class="box left">
-		<h2>Wednesday</h2>
-		<div class="box left">
-			<h2>1. Start New Round</h2>
-			<p>Creates teams. Chooses winning theme. Posts team assignment and bandit consolidation threads.</p>
-			<label>Round</label>
-			<input type="text" name="Round2" />
-			<br />
-			<button type="submit" value="Post Start Threads" name="getsignups">Start Round!</button>
-		</div>
-		<div class="box left">
-			<h2>2. Post Winner of ending round</h2>
-			<p>Creates teams. Chooses winning theme. Posts team assignment and bandit consolidation threads.</p>
-			<label>Round</label>
-			<input type="text" name="Round4" />
-			<br />
-			<button type="submit" value="Post Winners" name="postwinners">Post Winners</button>
-		</div>
-	</div>
-</form>
+  <link rel="stylesheet" href="css/styles.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+  <div class="header-container">
+    <header class="wrapper clearfix">
+        <h1 class="title"><a href="/admin" class="home">Game of Bands Admin</a></h1>
+        <nav>
+            <ul>
+                <li><a href="addsong.php">Add Song</a></li>
+                <li><a href="songlist.php">Song List</a></li>
+                <li><a href="roundlist.php">Round List</a></li>
+            </ul>
+        </nav>
+    </header>
+  </div>
 
-<div class="clear"></div>
-
-<?php
-require_once( 'includes/admin_footer.php' );
-?>
+  <div class="main-container">
+    <?php
+      // Decide which data to display
+      switch ($_GET['view']) {
+        case 'addsong'          : include_once 'addsong.php';        break;
+        case 'editsong'         : include_once 'editsong.php';       break;
+        case 'editround'        : include_once 'editround.php';      break;
+        case 'roundlist'        : include_once 'roundlist.php';      break;
+        case 'songlist'         : include_once 'songlist.php';       break;
+        default                 : include_once 'dashboard.php';      break;
+      }
+    ?>
+  </div>	
+</body>
+</html>

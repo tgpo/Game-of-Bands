@@ -1,10 +1,7 @@
 <?php
 require_once( 'includes/gob_admin.php' );
-require_once( 'includes/admin_header.php' );
 require_once( '../src/secrets.php' );
-mod_check();
-?>
-<?php
+
 mysql_connect("localhost", $mysql_user, $mysql_password) or die(mysql_error());
 mysql_select_db($mysql_db) or die(mysql_error());
 
@@ -80,6 +77,3 @@ $song = mysql_fetch_array($result); ?>
 	
 	<input type="submit" value="Edit Song" name="editSong">
 </form>
-<?php
-require_once( 'includes/admin_footer.php' );
-?>

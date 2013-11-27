@@ -1,10 +1,3 @@
-<?php
-require_once( 'includes/gob_admin.php' );
-require_once( 'includes/admin_header.php' );
-
-mod_check();
-?>
-
 <h1>Add New Song</h1>
 <form method="post" action="admin_process.php">
 	<label>Round</label>
@@ -58,7 +51,3 @@ mod_check();
 	
 	<input type="submit" value="Add Song" name="addSong">
 </form>
-
-<?php
-require_once( 'includes/admin_footer.php' );
-?>
