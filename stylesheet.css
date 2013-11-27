@@ -77,17 +77,16 @@ div#welcomebar{
 }
 
 
-div#content {
+section#content {
 	overflow:hidden;
-	padding-left: 50px;
-	padding-right: 50px;
+	padding: 0 50px;
 }
 
 div#putTheWidgetHere {
 	margin-bottom:20px;
 }
 
-div#fineprint {
+footer {
 	margin-top:20px;
 	margin-bottom: 10px;
 	font-family: verdana, sans-serif;

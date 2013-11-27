@@ -1,7 +1,10 @@
+<?php
+require_once( 'src/gob_user.php' );
+?>
 <html>
 <head>
+  <title>The Game of Bands Song Depository | A reddit game of making music</title>
   <link rel="stylesheet" type="text/css" href="/stylesheet.css" />
-  <title>The Game of Bands Song Depository</title>
   <script src="//connect.soundcloud.com/sdk.js"></script>
   <script>
     SC.initialize({
@@ -26,22 +29,20 @@
 		<a href="/" id="returnhome"></a>
 
 		<div id='welcomebar'>
-			Welcome to the Game of Bands Song Depository. Stay a while and listen.
+			<span id="welcome">Welcome to the Game of Bands Song Depository. Stay a while and listen.</span>
 			<?php
-			  require_once( 'src/gob_user.php' );
-
 			  if (is_loggedin()) {
-				echo get_username() . "(" . get_karma() . ")";
-				if (is_mod()) { echo '<a href="/admin">Admin Panel</a> | '; }
-				echo ' <a href="/login.php/logout">Logout</a>';
+				echo ' <span class="username">' . get_username() . '</span><span class="karma">(' . get_karma() . ")</span>";
+				if (is_mod()) { echo '<a class="adminpanel" href="/admin">Admin Panel</a> | '; }
+				echo ' <a class="logout" href="/login.php/logout">Logout</a>';
 			  } else {
-				echo '<a href="/login.php">Login</a>';
+				echo '<a class="login" href="/login.php">Login</a>';
 			  }
 			?>
 		</div>
 	</header>
   
-  <div id="content">
+  <section id="content">
 
 	  <?php
 	    // Decide which data to display
@@ -57,13 +58,13 @@
 	      default       : include_once 'src/view_all.php';        break;
 	    }
 	  ?>
-	
-	  <div id='fineprint'>
-	    <p>gameofbands.co is a counterpart to the awesome Game of Bands community at
-	    <a href='http://gameofbands.reddit.com' target='_blank'>gameofbands.reddit.com</a>.</p>
-		<p>Site programming by RetroTheft, Orphoneus, and tgpo. Design by RetroTheft.
-	    All music and lyrics presented herein are copyright of their original creators.</p>
-	  </div>
-  </div>
+  </section>
+  
+  <footer>
+	<p class="redditlink">gameofbands.co is a counterpart to the awesome Game of Bands community at
+	<a href='http://gameofbands.reddit.com' target='_blank'>gameofbands.reddit.com</a>.</p>
+	<p class="credits">Site programming by RetroTheft, Orphoneus, and tgpo. Design by RetroTheft.
+	All music and lyrics presented herein are copyright of their original creators.</p>
+  </footer>
 </body>
 </html>
