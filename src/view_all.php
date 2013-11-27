@@ -6,7 +6,7 @@
   <a href='/all_rounds' class="roundbytheme">View Rounds by Theme</a> <br />
 </aside>
 
-<section id='songlist'>
+<section id='songtable'>
 <?php
   require_once('query.php');
   
