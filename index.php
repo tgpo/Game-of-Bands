@@ -29,7 +29,7 @@ require_once( 'src/gob_user.php' );
 		<a href="/" id="returnhome"></a>
 
 		<div id='welcomebar'>
-			<span id="welcome">Welcome to the Game of Bands Song Depository. Stay a while and listen.</span>
+			<span id="welcome">Game of Bands is a musical tournament where redditors band together, create a song in 10 days, and compete and critique their music.</span>
 			<?php
 			  if (is_loggedin()) {
 				echo ' <span class="username">' . get_username() . '</span><span class="karma">(' . get_karma() . ")</span>";
