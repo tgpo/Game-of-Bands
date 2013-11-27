@@ -47,19 +47,33 @@ div.lyrics{
 	line-height: 21px;
 }
 	
-div#headerimage{
-background:url(images/gobheader.png) left top no-repeat; width:100%; overflow:hidden;
-height:150px;
+header {
+	background:url('images/gobheader.png') left top no-repeat #000;
+	height:190px;
+	overflow:hidden;
+	width:100%;
+}
+header h1 {
+	position: absolute;
+	right: 0;
+	text-indent: -99999px;
+}
+header a#returnhome {
+	display: block;
+	height: 150px;
+	width: 270px;
 }
 
-div#banner{
+div#welcomebar{
+	background: #000;
 	margin-bottom:20px;
-	border-top: 1px solid grey;
-	border-bottom:  1px solid grey;
+	border: solid grey;
+	border-width:  1px 0;
 	padding:2px;
 	text-align: center;
-	color: white;
+	color: #fff;
 	font-size: 9pt;
+	height: 30px;
 }
 
 

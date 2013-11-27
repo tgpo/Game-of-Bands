@@ -21,21 +21,25 @@
 	</script>
 </head>
 <body>
-  <div id='headerimage'></div>
-  <div id='banner'>
-    Welcome to the Game of Bands Song Depository. Stay a while and listen.
-    <?php
-      require_once( 'src/gob_user.php' );
-    
-      if (is_loggedin()) {
-        echo get_username() . "(" . get_karma() . ")";
-        if (is_mod()) { echo '<a href="/admin">Admin Panel</a> | '; }
-        echo ' <a href="/login.php/logout">Logout</a>';
-      } else {
-        echo '<a href="/login.php">Login</a>';
-      }
-    ?>
-  </div>
+	<header>
+		<h1 id="header1">Game of Bands - A reddit game of making music</h1>
+		<a href="/" id="returnhome"></a>
+
+		<div id='welcomebar'>
+			Welcome to the Game of Bands Song Depository. Stay a while and listen.
+			<?php
+			  require_once( 'src/gob_user.php' );
+
+			  if (is_loggedin()) {
+				echo get_username() . "(" . get_karma() . ")";
+				if (is_mod()) { echo '<a href="/admin">Admin Panel</a> | '; }
+				echo ' <a href="/login.php/logout">Logout</a>';
+			  } else {
+				echo '<a href="/login.php">Login</a>';
+			  }
+			?>
+		</div>
+	</header>
   
   <div id="content">
 
