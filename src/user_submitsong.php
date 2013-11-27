@@ -9,7 +9,7 @@ $query = $db->query('SELECT * FROM rounds order by number desc limit 1');
 $round = $query->fetch();
 $currentround = $round['number'];
 
-$query = $db->query('SELECT * FROM songs WHERE submitby=:username and round=:currentround');
+$query = $db->prepare('SELECT * FROM songs WHERE submitby=:username and round=:currentround');
 $query->execute(array('username' => $username, 'currentround' => $currentround));
 $song  = $query->fetch();
  ?>
