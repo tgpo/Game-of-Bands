@@ -6,12 +6,13 @@
   }
 ?>
 
-<div class='header'>
-  <a href='/index.php'>Return to song library</a> <br>
-  Viewing <?php echo $bandit; ?>'s profile:
-</div>
+<aside id="otherviews">
+  <a href='/index.php' class="returnhome">Return to song library</a>
+</aside>
 
-<div id='content'>
+<h2><?php echo $bandit; ?>'s Game of Bands profile</h2>
+
+<section id='profile'>
 <?php
   require_once('query.php');
   
@@ -20,4 +21,4 @@
   $query->execute(array('music' => $bandit, 'lyrics' => $bandit, 'vocals' => $bandit));
   display_songs($query);
 ?>
-</div>
+</section>

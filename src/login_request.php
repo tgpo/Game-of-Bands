@@ -7,6 +7,6 @@
 	$currentround = $song['number'];
 ?>
 
-<h1>Submit Song for Round <?php echo $currentround; ?></h1>
-<h2>You must be logged in to submit a song</h2>
-<p><a href="/login.php">Click Here</a> to login.</p>
+<h2>Submit Song for Round <?php echo $currentround; ?></h2>
+<h3 class="warning">You must be logged in to submit a song</h3>
+<p class="warning"><a class="login" href="/login.php">Click Here</a> to login.</p>

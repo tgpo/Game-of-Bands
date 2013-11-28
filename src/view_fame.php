@@ -1,8 +1,11 @@
-<div class='header'>
-  <a href='index.php'>Return to song library</a> <br>
-  The Game of Bands Hall of Fame - Winning Songs
-</div>
+<aside id="otherviews">
+  <a href='/index.php' class="returnhome">Return to song library</a>
+</aside>
 
+<h2>Game of Bands Hall of Fame</h2>
+
+<h3>Winning Songs</h3>
+<section id="halloffame">
 <?php
   require_once('query.php');
 
@@ -42,44 +45,45 @@
   
   // Display individual winners
   function display_winners($result) {
-    echo "<table>";
-  	echo "<tr><th>Round</th><th>Song Title</th><th>Votes</th><th>Winner</th><th>Votes</th></tr>";
+    echo "<table class='winnertable'>";
+  	echo "<thead><tr><th>Round</th><th>Song Title</th><th>Votes</th><th>Winner</th><th>Votes</th></tr></thead></tbody>";
     foreach ($result as $row) {
   		echo "<tr>";
-  	  echo "<td>".a_round($row['number'],$row['round'])."</td>";
-  	  echo "<td>".a_song ($row)."</td>";
-  	  echo "<td>".$row['votes']."</td>";
-  	  echo "<td>".a_bandit($row['winner'])."</td>";
-  	  echo "<td>".$row['winnervotes']."</td>";
+  	  echo "<td class='round'>".a_round($row['number'],$row['round'])."</td>";
+  	  echo "<td class='songname'>".a_song ($row)."</td>";
+  	  echo "<td class='songvotes'>".$row['votes']."</td>";
+  	  echo "<td class='bandit'>".a_bandit($row['winner'])."</td>";
+  	  echo "<td class='banditvote'>".$row['winnervotes']."</td>";
   	  echo "</tr>";
     }
-    echo "</table>";
+    echo "</tbody></table>";
   }
   
   // BEST MUSICIANS
   $result = query_winners($db, 'music');
-  echo "<div class='float'>";
-    echo "<div class='header'>";
-    echo "The Game of Bands Hall of Fame - Winning Musicians";
-    echo "</div>";
+  echo "<section class='float'>";
+    echo "<h3>";
+    echo "Winning Musicians";
+    echo "</h3>";
     display_winners($result);
-  echo "</div>";
+  echo "</section>";
 
   // BEST LYRICISTS
   $result = query_winners($db, 'lyrics');
-  echo "<div class='float'>";
-    echo "<div class='header'>";
-    echo "The Game of Bands Hall of Fame - Winning Lyricists";
-    echo "</div>";
+  echo "<section class='float'>";
+    echo "<h3>";
+    echo "Winning Lyricists";
+    echo "</h3>";
     display_winners($result);
-  echo "</div>";
+  echo "</section>";
   
   // BEST VOCALISTS
   $result = query_winners($db, 'vocals');
-  echo "<div class='float'>";
-    echo "<div class='header'>";
-    echo "The Game of Bands Hall of Fame - Winning Vocalists";
-    echo "</div>";
+  echo "<section class='float'>";
+    echo "<h3>";
+    echo "Winning Vocalists";
+    echo "</h3>";
     display_winners($result);
-  echo "</div>";
+  echo "</section>";
 ?>
+</section>

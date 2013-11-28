@@ -14,12 +14,14 @@
   $songs->execute(array('round' => $round));
 ?>
 
-<div class='header'>
-  <a href='/index.php'>Return to song library</a><br />
-  Viewing Round <?php echo $roundDetails['number']; ?> :
-    "<?php echo $roundDetails['theme']; ?>"
-</div>
+<aside id="otherviews">
+  <a href='/index.php' class="returnhome">Return to song library</a>
+</aside>
 
+<h2>Game of Bands Round <?php echo $roundDetails['number']; ?> :
+    "<?php echo $roundDetails['theme']; ?>" </h2>
+
+<section id="songlist">
 <?php
 	// Display all songs for this round.
 	display_songs($songs);
@@ -27,16 +29,17 @@
 	// Display previous and next round
 	$details = query_round_details($db, $round-1);
 	if ($details) {
-		echo "<div class='header'>";
+		echo "<span class='previousRound'>";
 		echo "Previous Round: ".a_round_details($details);
-		echo "</div>";
+		echo "</span>";
 	}
 	
 	$details = query_round_details($db, $round+1);
 	if ($details) {
-		echo "<div class='header'>";
+		echo "<span class='nextRound'>";
 		echo "Next Round: ".a_round_details($details);
-		echo "</div>";
+		echo "</span>";
 	}
 
 ?>
+</section>

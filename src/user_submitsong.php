@@ -14,7 +14,7 @@ $query->execute(array('username' => $username, 'currentround' => $currentround))
 $song  = $query->fetch();
  ?>
 
-<h1>Submit Song for Round <?php echo $currentround; ?></h1>
+<h2>Submit Song for Round <?php echo $currentround; ?></h2>
 
 <?php if (empty($song['name'])) { ?>
 
