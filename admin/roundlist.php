@@ -3,7 +3,7 @@ require_once( 'includes/gob_admin.php' );
 require_once( '../src/secrets.php' );
 
 mysql_connect("localhost", $mysql_user, $mysql_password) or die(mysql_error());
-mysql_select_db('xxxdatabasexxx') or die(mysql_error());
+mysql_select_db($mysql_db) or die(mysql_error());
 
 $result = mysql_query("SELECT * FROM rounds ORDER BY number DESC") or die(mysql_error()); ?>
 
@@ -22,7 +22,7 @@ $result = mysql_query("SELECT * FROM rounds ORDER BY number DESC") or die(mysql_
 			echo "<tr>";
 				echo "<td>" . $row['number'] . "</td>";
 				echo "<td>" . $row['theme'] . "</td>";
-				echo '<td><a href="index.php?view=editround.php&id='.$row['number'].'">Edit</a></td>';
+				echo '<td><a href="index.php?view=editround&id='.$row['number'].'">Edit</a></td>';
 			echo "</tr>";
 		}
 		?>

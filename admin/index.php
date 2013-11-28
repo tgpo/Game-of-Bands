@@ -21,9 +21,9 @@ mod_check();
         <h1 class="title"><a href="/admin" class="home">Game of Bands Admin</a></h1>
         <nav>
             <ul>
-                <li><a href="addsong.php">Add Song</a></li>
-                <li><a href="songlist.php">Song List</a></li>
-                <li><a href="roundlist.php">Round List</a></li>
+                <li><a href="index.php?view=addsong">Add Song</a></li>
+                <li><a href="index.php?view=songlist">Song List</a></li>
+                <li><a href="index.php?view=roundlist">Round List</a></li>
             </ul>
         </nav>
     </header>

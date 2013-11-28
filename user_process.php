@@ -35,7 +35,7 @@ if(isset($_POST['submitSong'])){
     ':approved'   => 'false'
     ));
   
-  $response = $reddit->sendMessage('tgpo', 'Team', $user . ' submitted the song ' . $name );
+  $response = $reddit->sendMessage('/r/gameofbands', 'Team', $user . ' submitted the song ' . $name );
   
   redirect();
 }

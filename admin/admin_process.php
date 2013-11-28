@@ -12,7 +12,7 @@ mysql_connect("localhost", $mysql_user, $mysql_password) or die(mysql_error());
 mysql_select_db($mysql_db) or die(mysql_error());
 
 function redirect($pagename){
-	header('Location: '.$pagename.'.php');
+	header('Location: index.php?view=' . $pagename);
 }
 
 // We need to post the Signup Threads
@@ -57,7 +57,7 @@ Press 1 to be returned to the main menu.";
 	
 	call_db($sql,'songlist');
 
-	redirect('index');
+	redirect('dashboard');
 }
 
 // Post song voting thread
@@ -255,7 +255,7 @@ Flair is forth coming!";
 	
 	
 	mysql_close();
-	redirect('index');
+	redirect('dashboard');
 	
 }
 
@@ -618,7 +618,7 @@ function call_db($sql,$nextPage){
 		{
 			die('Error: ' . mysql_error());
 		} else {
-			redirect('index.php?view='.$nextPage);
+			redirect($nextPage);
 		}
 	}
 

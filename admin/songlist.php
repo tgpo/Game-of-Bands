@@ -46,7 +46,7 @@ $result = mysql_query("SELECT * FROM songs ORDER BY round DESC") or die(mysql_er
 				echo "<td>";
 					if($row['winner']) echo 'Yes!';
 				echo "</td>";
-				echo '<td><a href="index?view=editsong&id='.$row['id'].'">Edit</a></td>';
+				echo '<td><a href="index.php?view=editsong&id='.$row['id'].'">Edit</a></td>';
 			echo "</tr>";
 			
 			$round = $row['round'];
