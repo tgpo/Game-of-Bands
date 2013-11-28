@@ -113,7 +113,7 @@ Listen * Vote * Comment";
 	
 	//Save our voting thread for later use
 	$sql = "UPDATE rounds SET songvotingthreadID = '$songvotingthread' WHERE number = '$currentround'";
-	call_db($sql,index);
+	call_db($sql,'dashboard');
 
 }
 
@@ -517,7 +517,7 @@ It's like leave a penny take a penny but for teammates. If you need a teammate t
 	
 	$sql = "UPDATE rounds SET theme = '$ourtheme[0]', consolidationID = '$consolidationID' WHERE number = '$round'";
 	
-	call_db($sql,'index');
+	call_db($sql,'dashboard');
 }
 
 if(isset($_POST['addSong'])){
@@ -618,7 +618,7 @@ function call_db($sql,$nextPage){
 		{
 			die('Error: ' . mysql_error());
 		} else {
-			redirect($nextPage);
+			redirect('index.php?view='.$nextPage);
 		}
 	}
 

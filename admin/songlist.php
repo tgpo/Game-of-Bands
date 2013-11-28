@@ -1,17 +1,14 @@
 <?php
 require_once( 'includes/gob_admin.php' );
-require_once( 'includes/admin_header.php' );
 require_once( '../src/secrets.php' );
 
-mod_check();
-?>
-
-<h1>Song List</h1>
-<?php
 mysql_connect("localhost", $mysql_user, $mysql_password) or die(mysql_error());
 mysql_select_db($mysql_db) or die(mysql_error());
 
-$result = mysql_query("SELECT * FROM songs ORDER BY round DESC") or die(mysql_error()); ?>
+$result = mysql_query("SELECT * FROM songs ORDER BY round DESC") or die(mysql_error());
+?>
+
+<h1>Song List</h1>
 
 <table>
 	<thead>
@@ -49,7 +46,7 @@ $result = mysql_query("SELECT * FROM songs ORDER BY round DESC") or die(mysql_er
 				echo "<td>";
 					if($row['winner']) echo 'Yes!';
 				echo "</td>";
-				echo '<td><a href="editsong.php?id='.$row['id'].'">Edit</a></td>';
+				echo '<td><a href="index?view=editsong&id='.$row['id'].'">Edit</a></td>';
 			echo "</tr>";
 			
 			$round = $row['round'];
@@ -57,6 +54,3 @@ $result = mysql_query("SELECT * FROM songs ORDER BY round DESC") or die(mysql_er
 		?>
 	</tbody>
 </table>
-<?php
-require_once( 'includes/admin_footer.php' );
-?>
