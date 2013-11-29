@@ -1,3 +1,10 @@
+<?php
+if(!defined('INDEX')) {
+	header('Location: ../index.php');
+	die;
+}
+?>
+
 <h1>Add New Song</h1>
 <form method="post" action="admin_process.php">
 	<label>Round</label>

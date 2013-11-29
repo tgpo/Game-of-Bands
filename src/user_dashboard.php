@@ -1,4 +1,8 @@
 <?php
+if(!defined('INDEX')) {
+	header('Location: ../index.php');
+	die;
+}
 loggedin_check();
 ?>
 

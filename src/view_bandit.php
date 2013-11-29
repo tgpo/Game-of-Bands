@@ -1,4 +1,9 @@
 <?php
+  if(!defined('INDEX')) {
+	header('Location: ../index.php');
+	die;
+  }
+
   $bandit = $_GET['bandit'];
   if (!$bandit) {
     header("Location: /index.php"); // revert to index

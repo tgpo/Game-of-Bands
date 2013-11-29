@@ -1,4 +1,9 @@
 <?php
+if(!defined('INDEX')) {
+	header('Location: ../index.php');
+	die;
+}
+
 loggedin_check('/login_request');
 
 require_once('query.php');

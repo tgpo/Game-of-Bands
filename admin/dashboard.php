@@ -1,4 +1,9 @@
 <?php
+if(!defined('INDEX')) {
+	header('Location: ../index.php');
+	die;
+}
+
 require_once('../src/query.php');
 $db    = database_connect();
 

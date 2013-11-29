@@ -1,3 +1,10 @@
+<?php
+if(!defined('INDEX')) {
+	header('Location: ../index.php');
+	die;
+}
+?>
+
 <aside id="otherviews">
   <a href='/index.php' class="returnhome">Return to song library</a>
 </aside>

@@ -1,4 +1,9 @@
 <?php
+  if(!defined('INDEX')) {
+	header('Location: ../index.php');
+	die;
+  }
+
   $round = $_GET['round'];
   if (!$round) {
     header("Location: /index.php"); // revert to index

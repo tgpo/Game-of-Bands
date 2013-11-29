@@ -1,4 +1,9 @@
 <?php
+  if(!defined('INDEX')) {
+	header('Location: ../index.php');
+	die;
+  }
+  
   $song=$_GET['song'];
   if (!$song) {
     header("Location: /index.php"); // revert to index

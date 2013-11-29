@@ -1,6 +1,8 @@
 <?php
 require_once( 'includes/gob_admin.php' );
 mod_check();
+
+define('INDEX', true);
 ?>
 
 <!DOCTYPE html>

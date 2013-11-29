@@ -1,4 +1,9 @@
 <?php
+if(!defined('INDEX')) {
+	header('Location: ../index.php');
+	die;
+}
+
 require_once( 'includes/gob_admin.php' );
 require_once( '../src/secrets.php' );
 

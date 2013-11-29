@@ -1,3 +1,9 @@
+<?php
+if(!defined('INDEX')) {
+	header('Location: ../index.php');
+	die;
+}
+?>
 <h2>Game of Bands Song Library</h2>
 <p>Select individual rounds, songs or bandits to navigate.</p>
 
