@@ -551,9 +551,9 @@ if(isset($_POST['addSong'])){
 }
 
 if(isset($_POST['postmessage'])){
-	$title = mysql_real_escape_string( $_POST["title"] );
-	$link = mysql_real_escape_string( $_POST["link"] );
-	$message = mysql_real_escape_string( $_POST["message"] );
+	$title = $_POST["title"];
+	$link = $_POST["link"];
+	$message = $_POST["message"];
 	
 	$response = $reddit->createStory($title, $link, $mainsubreddit, $message);
 
