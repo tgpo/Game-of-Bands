@@ -238,7 +238,7 @@ $result = query_winners('lyrics', $round);
 
 $postTemplate .= " \n\n 
 
-* Top Muscian ";
+* Top Musician ";
 
 $result = query_winners('music', $round);
 	
@@ -306,23 +306,23 @@ function getWinningTheme($mainsubreddit,$themeID,$reddit) {
 //Assign Teams, Assign Theme, Post Team Announcement Thread, Post Team Consolidation Thread
 function assignTeams($mainsubreddit,$round,$signupID,$musiciansSignupID,$lyricistsSignupID,$vocalistSignupID,$winningTheme,$reddit) {
 	
-	// Create list of muscians up signed up
+	// Create list of musician up signed up
 	$response = $reddit->getcommentreplies($mainsubreddit,$signupID,$musiciansSignupID);
 	$response = $response[1]->data->children[0]->data->replies->data->children;
-	$muscianPool = getMuscianList($response,'muscian ');
+	$musicianPool = getMusicianList($response,'musician ');
 	$playerPool = array();
 	
 	//Add them to the player pool
-	foreach($muscianPool as $bandits) {
+	foreach($musicianPool as $bandits) {
 		$playerPool[$bandits['name']]['name'] = $playerPool[$bandits['name']]['name'] . $bandits['name'];
-		$playerPool[$bandits['name']]['roles'] = $playerPool[$bandits['name']]['roles'] . "muscian ";
+		$playerPool[$bandits['name']]['roles'] = $playerPool[$bandits['name']]['roles'] . "musician ";
 	}
 
 	
 	// Create list of lyricists up signed up
 	$response = $reddit->getcommentreplies($mainsubreddit,$signupID,$lyricistsSignupID);
 	$response = $response[1]->data->children[0]->data->replies->data->children;
-	$lyricistPool = getMuscianList($response,'lyricist');
+	$lyricistPool = getMusicianList($response,'lyricist');
 	
 	//Add them to the player pool
 	foreach($lyricistPool as $bandits) {
@@ -340,7 +340,7 @@ function assignTeams($mainsubreddit,$round,$signupID,$musiciansSignupID,$lyricis
 	// Create list of vocalists up signed up
 	$response = $reddit->getcommentreplies($mainsubreddit,$signupID,$vocalistSignupID);
 	$response = $response[1]->data->children[0]->data->replies->data->children;
-	$vocalistPool = getMuscianList($response,'vocalist');
+	$vocalistPool = getMusicianList($response,'vocalist');
 	
 	//Add them to the player pool
 	foreach($vocalistPool as $bandits) {
@@ -356,7 +356,7 @@ function assignTeams($mainsubreddit,$round,$signupID,$musiciansSignupID,$lyricis
 	
 	//Run throuh our player lists and assign final role. If more than 1 role is signed up for, determine which roll will make the most number of complete teams
 	$finalbandits = array();
-	$finalbandits['muscian'] = array();
+	$finalbandits['musician'] = array();
 	$finalbandits['lyricist'] = array();
 	$finalbandits['vocalist'] = array();
 
@@ -392,9 +392,9 @@ function assignTeams($mainsubreddit,$round,$signupID,$musiciansSignupID,$lyricis
 		if(substr_count($bandits['roles'], ' ') == 3) {
 			//See which role is most in need and assign player to that role.
 			
-			if(count($finalbandits['muscian']) < count($finalbandits['lyricist'])){
-				if(count($finalbandits['muscian']) < count($finalbandits['vocalist'])) {
-					array_push($finalbandits['muscian'], $bandits['name']);
+			if(count($finalbandits['musician']) < count($finalbandits['lyricist'])){
+				if(count($finalbandits['musician']) < count($finalbandits['vocalist'])) {
+					array_push($finalbandits['musician'], $bandits['name']);
 					unset($playerPool[$bandits['name']]);
 				} else {
 					array_push($finalbandits['vocalist'], $bandits['name']);
@@ -415,13 +415,13 @@ function assignTeams($mainsubreddit,$round,$signupID,$musiciansSignupID,$lyricis
 
 	
 	//Shake It Up (The Cars)
-	shuffle($finalbandits['muscian']);
+	shuffle($finalbandits['musician']);
 	shuffle($finalbandits['lyricist']);
 	shuffle($finalbandits['vocalist']);
 	
 	/* Print Final Roles
-	echo "<h2>Muscians</h2>";
-	foreach($finalbandits['muscian'] as $bandits) {
+	echo "<h2>Musician</h2>";
+	foreach($finalbandits['musician'] as $bandits) {
 		print_r($bandits . " ");
 	}
 	echo "<h2>Lyricists</h2>";
@@ -439,7 +439,7 @@ function assignTeams($mainsubreddit,$round,$signupID,$musiciansSignupID,$lyricis
 	} */
 	
 	//Determine which role has the least assigned players
-	$shortestRole = min(count($finalbandits['muscian']),count($finalbandits['lyricist']),count($finalbandits['vocalist']));
+	$shortestRole = min(count($finalbandits['musician']),count($finalbandits['lyricist']),count($finalbandits['vocalist']));
 	
 	//Set our data ranges for ending the game and when voting ends.
 	//It assumes it's running on Sunday start day.
@@ -472,26 +472,26 @@ Feel free to join [the chat room](http://kiwiirc.com/client/irc.snoonet.org/game
 	
 	//Run through our final role pools and assign teams
 	for ($i = 0; $i < $shortestRole; $i++) {
-		$response = $reddit->addComment($announceID, "**Team " . ($i+1) . "**: \n\n* **Muscian:** " . $finalbandits['muscian'][$i] . "\n\n* **Lyricist:** " . $finalbandits['lyricist'][$i] . "\n\n* **Vocalist:** " . $finalbandits['vocalist'][$i]);
+		$response = $reddit->addComment($announceID, "**Team " . ($i+1) . "**: \n\n* **Musician:** " . $finalbandits['musician'][$i] . "\n\n* **Lyricist:** " . $finalbandits['lyricist'][$i] . "\n\n* **Vocalist:** " . $finalbandits['vocalist'][$i]);
 		
 		$teamnumber = $i+1;
-		$muscian = $finalbandits['muscian'][$i];
+		$musician = $finalbandits['musician'][$i];
 		$lyricist = $finalbandits['lyricist'][$i];
 		$vocalist = $finalbandits['vocalist'][$i];
 		
 		// Add new team to the database
-		$sql = "INSERT INTO teams (teamnumber, musician, lyricist, vocalist) VALUES ('$teamnumber', '$muscian', '$lyricist', '$vocalist')";
+		$sql = "INSERT INTO teams (round, teamnumber, musician, lyricist, vocalist) VALUES ('$round', '$teamnumber', '$musician', '$lyricist', '$vocalist')";
 		call_db_stay($sql);
 		
 		//Once assigned to a team, remove them from their role lists
-		unset($finalbandits['muscian'][$i]);
+		unset($finalbandits['musician'][$i]);
 		unset($finalbandits['lyricist'][$i]);
 		unset($finalbandits['vocalist'][$i]);
 	}
 	
 	//When we run out of complete teams, create list of players not assigned
-	foreach($finalbandits['muscian'] as $bandits) {
-		$Muscians .= "[" . $bandits . "](http://www.reddit.com/message/compose/?to=" . $bandits . "), " ;
+	foreach($finalbandits['musician'] as $bandits) {
+		$Musicians .= "[" . $bandits . "](http://www.reddit.com/message/compose/?to=" . $bandits . "), " ;
 	}
 
 	foreach($finalbandits['lyricist'] as $bandits) {
@@ -510,7 +510,7 @@ It's like leave a penny take a penny but for teammates. If you need a teammate t
 
 **Note** The comments of established teams are removed, so it's more clear who's still available.
 ***
-**Muscians** " . $Muscians . " \n ***
+**Musician** " . $Musicians . " \n ***
 **Lyricists** " . $Lyricists . " \n ***
 **Vocalists** " . $Vocalists;
 	$response = $reddit->createStory('Team Consolidation Thread for Round ' . $round, '', $mainsubreddit, $postTemplate);
@@ -557,6 +557,40 @@ if(isset($_POST['addSong'])){
 	$sql = "INSERT INTO songs (name, url, music, lyrics, vocals, lyricsheet, round, votes, winner, rating, musicvote, lyricsvote, vocalsvote, teamnumber, approved) VALUES ('$name', '$url', '$music', '$lyrics', '$vocals', '$lyricsheet', '$round', '$votes', '$winner', NULL, '$musicvote', '$lyricsvote', '$vocalsvote', '$teamnumber', '$approved')";
 	
 	call_db($sql,'songlist');
+}
+
+
+if(isset($_POST['addTeam'])){
+	$round = mysql_real_escape_string( $_POST["round"] );
+	$teamnumber = mysql_real_escape_string( $_POST["teamnumber"] );
+	$musician = mysql_real_escape_string( $_POST["musician"] );
+	$lyricist = mysql_real_escape_string( $_POST["lyricist"] );
+	$vocalist = mysql_real_escape_string( $_POST["vocalist"] );
+
+	$sql = "INSERT INTO teams (round, teamnumber, musician, lyricist, vocalist) VALUES ('$round', '$teamnumber', '$musician', '$lyricist', '$vocalist')";
+	
+	call_db($sql,'teamlist');
+}
+
+if(isset($_POST['editTeam'])){
+	
+	$id = mysql_real_escape_string( $_POST["id"] );
+	$round = mysql_real_escape_string( $_POST["round"] );
+	$teamnumber = mysql_real_escape_string( $_POST["teamnumber"] );
+	$musician = mysql_real_escape_string( $_POST["musician"] );
+	$lyricist = mysql_real_escape_string( $_POST["lyricist"] );
+	$vocalist = mysql_real_escape_string( $_POST["vocalist"] );
+	
+	if(isset($_POST['delete_team']))
+	{
+		$sql = "DELETE FROM teams WHERE id = '$id'";
+		
+	} else {
+		$sql = "UPDATE teams SET round = '$round', teamnumber = '$teamnumber', musician = '$musician', lyricist = '$lyricist', vocalist = '$vocalist' WHERE id = '$id'";
+	}
+	
+	call_db($sql,'teamlist');
+
 }
 
 if(isset($_POST['postmessage'])){
@@ -678,21 +712,21 @@ function commentContainsSearch($searcharray,$strSearchFor) {
     }
 }
 
-function getMuscianList($searcharray,$role) {
-	$muscianPool = array();
+function getMusicianList($searcharray,$role) {
+	$musicianPool = array();
 	foreach ($searcharray as $children) {
 		$authorName = $children->data->author;
-		if (!isset($muscianPool[$authorName])) {
+		if (!isset($musicianPool[$authorName])) {
 			
-			$muscianPool[$authorName] = array();
-			$muscianPool[$authorName]['name'] = $authorName;
-			$muscianPool[$authorName]['roles'] = $role;
+			$musicianPool[$authorName] = array();
+			$musicianPool[$authorName]['name'] = $authorName;
+			$musicianPool[$authorName]['roles'] = $role;
 
 		}
 
     }
 
-	return ($muscianPool);
+	return ($musicianPool);
 }
 
 ?>

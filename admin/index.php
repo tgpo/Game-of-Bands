@@ -24,8 +24,9 @@ define('INDEX', true);
         <nav>
             <ul>
                 <li><a href="index.php?view=addsong">Add Song</a></li>
-                <li><a href="index.php?view=songlist">Song List</a></li>
-                <li><a href="index.php?view=roundlist">Round List</a></li>
+                <li><a href="index.php?view=songlist">Songs</a></li>
+                <li><a href="index.php?view=roundlist">Rounds</a></li>
+				<li><a href="index.php?view=teamlist">Teams</a></li>
                 <li><a href="index.php?view=postmessage">Post Message</a></li>
             </ul>
             <div class="clearfix"></div>
@@ -43,6 +44,9 @@ define('INDEX', true);
         case 'roundlist'        : include_once 'roundlist.php';      break;
         case 'songlist'         : include_once 'songlist.php';       break;
         case 'postmessage'      : include_once 'postmessage.php';    break;
+		case 'teamlist'         : include_once 'teamlist.php';       break;
+		case 'addteam'          : include_once 'addteam.php';        break;
+		case 'editteam'         : include_once 'editteam.php';       break;
         default                 : include_once 'dashboard.php';      break;
       }
     ?>
