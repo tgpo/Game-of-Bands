@@ -26,7 +26,9 @@ define('INDEX', true);
                 <li><a href="index.php?view=addsong">Add Song</a></li>
                 <li><a href="index.php?view=songlist">Song List</a></li>
                 <li><a href="index.php?view=roundlist">Round List</a></li>
+				<li><a href="index.php?view=postmessage">Post Message</a></li>
             </ul>
+			<div class="clearfix"></div>
         </nav>
     </header>
   </div>
@@ -40,6 +42,7 @@ define('INDEX', true);
         case 'editround'        : include_once 'editround.php';      break;
         case 'roundlist'        : include_once 'roundlist.php';      break;
         case 'songlist'         : include_once 'songlist.php';       break;
+		case 'postmessage'      : include_once 'postmessage.php';    break;
         default                 : include_once 'dashboard.php';      break;
       }
     ?>

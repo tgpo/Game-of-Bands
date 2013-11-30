@@ -64,11 +64,6 @@ body {
     font: 16px/26px Helvetica, Helvetica Neue, Arial;
 }
 
-.wrapper {
-    width: 90%;
-    margin: 0 5%;
-}
-
 /* ===================
     ALL: Orange Theme
    =================== */
@@ -103,7 +98,6 @@ nav ul {
 }
 
 nav a {
-    display: block;
     margin-bottom: 10px;
     padding: 15px 0;
 
@@ -183,10 +177,8 @@ nav a:hover {
    ==================== */
 
     nav a {
-        float: left;
-        width: 27%;
-        margin: 0 1.7%;
-        padding: 25px 2%;
+        margin: 0;
+        padding: 8px 2%;
         margin-bottom: 0;
     }
 
@@ -233,8 +225,8 @@ nav a:hover {
     }
 
     nav {
-        float: right;
-        width: 38%;
+        clear:both;
+        width: 100%;
     }
 
 /* ============
@@ -259,8 +251,7 @@ nav a:hover {
    =============== */
 
     .wrapper {
-        width: 1026px; /* 1140px - 10% for margins */
-        margin: 0 auto;
+		padding: 0 10px;
     }
 }
 

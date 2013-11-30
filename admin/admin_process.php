@@ -549,6 +549,17 @@ if(isset($_POST['addSong'])){
 	
 	call_db($sql,'songlist');
 }
+
+if(isset($_POST['postmessage'])){
+	$title = mysql_real_escape_string( $_POST["title"] );
+	$link = mysql_real_escape_string( $_POST["link"] );
+	$message = mysql_real_escape_string( $_POST["message"] );
+	
+	$response = $reddit->createStory($title, $link, $mainsubreddit, $message);
+
+	redirect('dashboard');
+}
+
 if(isset($_POST['editSong'])){
 	
 	$id = mysql_real_escape_string( $_POST["id"] );
