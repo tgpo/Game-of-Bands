@@ -474,6 +474,15 @@ Feel free to join [the chat room](http://kiwiirc.com/client/irc.snoonet.org/game
 	for ($i = 0; $i < $shortestRole; $i++) {
 		$response = $reddit->addComment($announceID, "**Team " . ($i+1) . "**: \n\n* **Muscian:** " . $finalbandits['muscian'][$i] . "\n\n* **Lyricist:** " . $finalbandits['lyricist'][$i] . "\n\n* **Vocalist:** " . $finalbandits['vocalist'][$i]);
 		
+		$teamnumber = $i+1;
+		$muscian = $finalbandits['muscian'][$i];
+		$lyricist = $finalbandits['lyricist'][$i];
+		$vocalist = $finalbandits['vocalist'][$i];
+		
+		// Add new team to the database
+		$sql = "INSERT INTO teams (teamnumber, musician, lyricist, vocalist) VALUES ('$teamnumber', '$muscian', '$lyricist', '$vocalist')";
+		call_db_stay($sql);
+		
 		//Once assigned to a team, remove them from their role lists
 		unset($finalbandits['muscian'][$i]);
 		unset($finalbandits['lyricist'][$i]);
