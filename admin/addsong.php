@@ -11,6 +11,10 @@ if(!defined('INDEX')) {
 	<input type="text" name="round" />
 	<br />
 	
+	<label>Team Number</label>
+	<input type="text" name="teamnumber" />
+	<br />
+	
 	<label>Song Name</label>
 	<input type="text" name="name" />
 	<br />

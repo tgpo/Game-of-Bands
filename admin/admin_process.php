@@ -533,6 +533,7 @@ if(isset($_POST['addSong'])){
 	$lyricsvote = mysql_real_escape_string( $_POST["lyricsvote"] );
 	$musicvote = mysql_real_escape_string( $_POST["musicvote"] );
 	$vocalsvote = mysql_real_escape_string( $_POST["vocalsvote"] );
+	$teamnumber = mysql_real_escape_string( $_POST["teamnumber"] );
 
 	if(isset($_POST['winner']) && 
 	   $_POST['winner'] == 'Yes') 
@@ -541,8 +542,10 @@ if(isset($_POST['addSong'])){
 	} else {
 		$winner = false;
 	}
+	
+	$approved = true;
 
-	$sql = "INSERT INTO songs (name, url, music, lyrics, vocals, lyricsheet, round, votes, winner, rating, musicvote, lyricsvote, vocalsvote) VALUES ('$name', '$url', '$music', '$lyrics', '$vocals', '$lyricsheet', '$round', '$votes', '$winner', NULL, '$musicvote', '$lyricsvote', '$vocalsvote')";
+	$sql = "INSERT INTO songs (name, url, music, lyrics, vocals, lyricsheet, round, votes, winner, rating, musicvote, lyricsvote, vocalsvote, teamnumber, approved) VALUES ('$name', '$url', '$music', '$lyrics', '$vocals', '$lyricsheet', '$round', '$votes', '$winner', NULL, '$musicvote', '$lyricsvote', '$vocalsvote', '$teamnumber', '$approved')";
 	
 	call_db($sql,'songlist');
 }
