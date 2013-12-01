@@ -28,18 +28,22 @@ require_once( 'src/gob_user.php' );
   <header>
     <h1 id="header1">Game of Bands - A reddit game of making music</h1>
     <a href="/" id="returnhome"></a>
+	<nav id="accountLinks">
+	      <?php
+        if (is_loggedin()) {
+			echo ' <span class="username">' . get_username() . '</span><span class="karma">(' . get_karma() . ")</span>";
+			
+			if (is_mod()) { echo '<a class="adminpanel" href="/admin">Admin Panel</a> | '; }
+			
+			echo ' <a class="logout" href="/login.php/logout">Logout</a>';
+		} else {
+			echo '<a class="login" href="/login.php">Login</a>';
+        }
+      ?>
+	</nav>
 
     <div id='welcomebar'>
       <span id="welcome">Game of Bands is a musical tournament where redditors band together, create a song in 10 days, and compete and critique their music.</span>
-      <?php
-        if (is_loggedin()) {
-        echo ' <span class="username">' . get_username() . '</span><span class="karma">(' . get_karma() . ")</span>";
-        if (is_mod()) { echo '<a class="adminpanel" href="/admin">Admin Panel</a> | '; }
-        echo ' <a class="logout" href="/login.php/logout">Logout</a>';
-        } else {
-        echo '<a class="login" href="/login.php">Login</a>';
-        }
-      ?>
     </div>
   </header>
   
