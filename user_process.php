@@ -8,10 +8,27 @@ loggedin_check();
 $reddit = new reddit($reddit_user, $reddit_password);
 
 if(isset($_POST['leaveTeam'])){
-  $user     = $_SESSION['GOB']['name'];
-  $response = $reddit->sendMessage('/r/waitingforgobot', $user . ' Wants To Leave His Team', $user . ' wants to leave team 1.');
+  $bandit     = $_SESSION['GOB']['name'];
   
-  redirect();
+  mysql_connect("localhost", $mysql_user, $mysql_password) or die(mysql_error());
+  mysql_select_db($mysql_db) or die(mysql_error());
+  $result = mysql_query("SELECT * FROM rounds order by number desc limit 1 ") or die(mysql_error()); 
+  $round = mysql_fetch_array($result);
+  
+  $currentround = $round['number'];
+  $currentround = 34;  
+  
+  echo 'Round' . $currentround;
+  
+  $result = mysql_query("SELECT * FROM teams WHERE musician='$bandit' OR lyricist='$bandit' OR vocalist='$bandit' AND round='$currentround' limit 1") or die(mysql_error()); 
+  $team = mysql_fetch_array($result);
+  
+  echo "You Are On Team Number " . $team['teamnumber'];
+  
+  //$response = $reddit->sendMessage('tgpo', $bandit . ' Has left Team', $bandit . ' wants to leave team 1.');
+  
+  
+  //redirect();
 }
 
 if(isset($_POST['submitSongPage'])){
@@ -28,7 +45,7 @@ if(isset($_POST['submitSong'])){
     ':music'      => $_POST["music"],
     ':lyrics'     => $_POST["lyrics"],
     ':vocals'     => $_POST["vocals"],
-    ':lyricsheet' => $_POST["lyricsheet"]
+    ':lyricsheet' => $_POST["lyricsheet"],
     ':round'      => $_POST["round"],
     ':teamnumber' => $_POST["teamnumber"],
     ':submitby'   => $user,

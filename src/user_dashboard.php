@@ -10,4 +10,5 @@ loggedin_check();
 
 <form method="post" action="/user_process.php">
 	<button type="submit" value="Leave Song" name="submitSongPage">Submit Song</button>
+	<?php //<button type="submit" value="Leave Song" name="leaveTeam">Leave</button> ?>
 </form>
