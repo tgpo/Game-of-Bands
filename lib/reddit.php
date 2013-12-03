@@ -107,6 +107,24 @@ class reddit{
 		}
 		return $response;
 	}
+	
+	/***************************************************************************
+	* Function: readMessage
+	* Description: Mark a Message as Read
+	* API: http://www.reddit.com/dev/api#POST_api_read_message
+	* Params: id (string): The fullname of the message to mark as read
+	***************************************************************************/
+	public function readMessage($id){
+		$response = null;
+		if ($id){
+			$urlMessage = "{$this->apiHost}/read_message";
+			$postData = sprintf("id=%s&uh=%s",
+				$id,
+				$this->modHash);
+			$response = $this->runCurl($urlMessage, $postData);
+		}
+		return $response;
+	}
     
     /**
     * Get user subscriptions
@@ -117,6 +135,16 @@ class reddit{
     public function getSubscriptions(){
         $urlSubscriptions = "http://www.reddit.com/reddits/mine.json";
         return $this->runCurl($urlSubscriptions);
+    }
+	
+    /**
+    * Get user inbox messages
+    *
+    * Get the inbox messages for a user
+    */
+    public function getInboxMessages(){
+        $urlInboxMessages = "http://www.reddit.com/message/messages/.json";
+        return $this->runCurl($urlInboxMessages);
     }
     
     /**

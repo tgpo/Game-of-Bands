@@ -47,6 +47,7 @@ define('INDEX', true);
 		case 'teamlist'         : include_once 'teamlist.php';       break;
 		case 'addteam'          : include_once 'addteam.php';        break;
 		case 'editteam'         : include_once 'editteam.php';       break;
+		case 'inbox'            : include_once 'inbox.php';          break;
         default                 : include_once 'dashboard.php';      break;
       }
     ?>
