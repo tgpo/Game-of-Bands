@@ -10,7 +10,7 @@ require_once('query.php');
 $db       = database_connect();
 $username = $_SESSION['GOB']['name'];
 
-$query = $db->query('SELECT * FROM rounds order by number desc limit 1');
+$query = $db->query('SELECT * FROM rounds WHERE theme IS NOT NULL AND theme <> "NULL" order by number desc limit 1');
 $round = $query->fetch();
 $currentround = $round['number'];
 

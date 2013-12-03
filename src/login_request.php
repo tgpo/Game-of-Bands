@@ -6,7 +6,7 @@ if(!defined('INDEX')) {
   require_once('query.php');
   
   $db     = database_connect();
-	$query = $db->query("SELECT * FROM rounds order by number desc limit 1 ") or die(mysql_error()); 
+	$query = $db->query("SELECT * FROM rounds WHERE theme IS NOT NULL AND theme <> 'NULL' order by number desc limit 1") or die(mysql_error()); 
 	$song  = $query->fetch();
 	$currentround = $song['number'];
 ?>
