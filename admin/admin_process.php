@@ -146,13 +146,13 @@ if(isset($_POST['postwinners'])){
 	$commentpool = $reddit->getpostcomments($mainsubreddit,$songvotingthread,999);
 	$commentpool = $commentpool[1]->data->children;
 	
+	
 	$result = mysql_query("SELECT * FROM songs WHERE round='$round'") or die(mysql_error());
 	
 	while($row = mysql_fetch_array($result)){
 		$songname = $row['name'];
 		
-		$postTemplate = "**Team " . $row['teamnumber'] . "**";
-		//$postTemplate = "**Team " . $row['teamnumber'] . "** Vote";
+		$postTemplate = "**Team " . $row['teamnumber'] . "** Vote";
 		$songTemplate = trim(json_encode($postTemplate), '"');
 		
 		$i = 0;
@@ -166,15 +166,15 @@ if(isset($_POST['postwinners'])){
 				
 				//Run through comments to find out voting comments
 				foreach ($childpool->data->replies->data->children as $subchildren) {
-					if ($subchildren->data->body == "**Music Vote**") {
+					if ($subchildren->data->body == "Music Vote") {
 						$musicvote = $subchildren->data->ups;
 					}
 					
-					if ($subchildren->data->body == "**Lyrics Vote**") {
+					if ($subchildren->data->body == "Lyrics Vote") {
 						$lyricsvote = $subchildren->data->ups;
 					}
 						
-					if ($subchildren->data->body == "**Vocal Vote**") {
+					if ($subchildren->data->body == "Vocals Vote") {
 						$vocalsvote = $subchildren->data->ups;
 					}
 				}
@@ -233,7 +233,7 @@ $postTemplate .= " \n\n
 $result = query_winners('lyrics', $round);
 	
    while($row = mysql_fetch_array($result)){
-	$postTemplate .= "[" . $row['lyrics'] . "](http://gameofbands.co/bandit/" . $row['lyrics'] . ")";
+	$postTemplate .= "[" . $row['lyrics'] . "](http://gameofbands.co/bandit/" . $row['lyrics'] . "), ";
    }
 
 $postTemplate .= " \n\n 
@@ -243,7 +243,7 @@ $postTemplate .= " \n\n
 $result = query_winners('music', $round);
 	
    while($row = mysql_fetch_array($result)){
-	$postTemplate .= "[" . $row['music'] . "](http://gameofbands.co/bandit/" . $row['music'] . ")";
+	$postTemplate .= "[" . $row['music'] . "](http://gameofbands.co/bandit/" . $row['music'] . "), ";
    }
    
 $postTemplate .= " \n\n
@@ -452,7 +452,7 @@ function assignTeams($mainsubreddit,$round,$signupID,$musiciansSignupID,$lyricis
 		
 Team assignments are listed in the comments below.
 
-This round will end at **8pm UTC Sunday " . date('M d, Y', $startdate) . "**. Songs must be submitted [here](http://gameofbands.co/user_submitsong.php) by the end-of-round deadline. Submissions will be linked in a single voting post shortly after.  Voting will continue for 3 days ending at **8pm UTC Wednesday " . date('M d, Y', $enddate) . "**, upon which votes will be tallied, results posted, and flair awarded.
+This round will end at **8pm UTC Sunday " . date('M d, Y', $startdate) . "**. Songs must be submitted [here](http://gameofbands.co/user_submitsong) by the end-of-round deadline. Submissions will be linked in a single voting post shortly after.  Voting will continue for 3 days ending at **8pm UTC Wednesday " . date('M d, Y', $enddate) . "**, upon which votes will be tallied, results posted, and flair awarded.
 
 By popular upvote count this round's theme is **[" . $ourtheme[0] . "](". $ourtheme[1] .")** \n\n Each team is responsible for contacting its members, and submitting a link to any audio site **that plays their submission in a web browser** There is no distinct \"team consolidation period\".  Team members are **strongly encouraged** to comment in their team thread below *as soon as possible*.  If any team has difficulty assembling, there will be a new team consolidation post shortly after, and teams missing members as well as any registrants who could not be placed or registered late are free to self-organize into new teams.  Non-team submissions are welcome and encouraged, but are not eligible for the official contest win , though maybe for other prizes or w/e;.
 --- 

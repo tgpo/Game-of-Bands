@@ -392,7 +392,8 @@ a.home:hover { text-decoration: underline; }
 h2 { font-size: 17px; }
 .left { float: left; }
 .clear { clear: both; }
-.box { background: #f7f7f7; border: 1px solid #ccc; margin: 5px; overflow:hidden; padding: 7px; position: relative; }
+.box { background: #f7f7f7; border: 1px solid #ccc; margin: 5px; overflow:hidden; padding: 7px; position: relative; width: 300px; }
+.box .box { width: 275px; }
 
 table { border: 1px solid #ccc; border-collapse: collapse; font-size: 12px; }
 table thead th { background: #404040; border: 1px solid #777; border-bottom: 2px solid #222; color: #fff; font-size: 14px;  padding: 2px 5px;}
