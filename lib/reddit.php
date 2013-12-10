@@ -86,6 +86,21 @@ class reddit{
         return $this->runCurl($urlUser);
     }
 	
+    /**
+    * Get stylesheet
+    *
+    * Get data for the subreddit's stylesheet
+    * @link http://www.reddit.com/dev/api#GET_stylesheet
+    */
+    public function getStylesheet($sr){
+		if ($sr) {
+			$stylesheet = "http://www.reddit.com/r/{$sr}/about/stylesheet.json";
+		}
+        $response = $this->runCurl($stylesheet);
+		
+		return $response->data->stylesheet;
+    }
+	
 	/***************************************************************************
 	* Function: Send Message To User
 	* Description: Send a message to a user.
