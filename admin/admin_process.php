@@ -44,12 +44,10 @@ function postMessage(){
 			break;
 		default:
 		   $sql = "INSERT INTO messages (user_to, user_from, body, date_sent) VALUES ('$to', '$from', '$body', '$date')";
-			call_db_stay($sql);
+		   call_db_stay($sql);
 	}
 	
-	$message =  '<li data-id="' . mysql_insert_id()  . '" class="new">' . $body . "<br /><small>to: </small>" . $to . " <small>From: </small>" . $from . " <small>Sent: </small>" . $date . "<br /><a href='#' class='delete'>Delete</a></li>";
-	
-	echo $message;
+	echo mysql_insert_id();
 }
 
 if($_POST['action'] == "markMessageRead") {
