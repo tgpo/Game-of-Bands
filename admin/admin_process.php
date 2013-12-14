@@ -15,6 +15,67 @@ function redirect($pagename){
 	header('Location: index.php?view=' . $pagename);
 }
 
+if(isset($_POST['postMessage'])){
+  postMessage();
+}
+
+function postMessage(){
+	$to = mysql_real_escape_string( $_POST["user_to"] );
+	$from = mysql_real_escape_string( $_POST["user_from"] );
+	$body = mysql_real_escape_string( $_POST["body"] );
+	$date = date('Y-m-d');
+	
+	switch ($to) {
+		case "allmods":
+			$result = mysql_query("SELECT * FROM bandits WHERE is_mod = 1 ") or die(mysql_error());
+			while($bandits = mysql_fetch_array($result)){
+				$user_to = $bandits['name'];
+				$sql = "INSERT INTO messages (user_to, user_from, body, date_sent) VALUES ('$user_to', '$from', '$body', '$date')";
+				call_db_stay($sql);
+			}
+			break;
+		case "everyone":
+			$result = mysql_query("SELECT * FROM bandits ") or die(mysql_error());
+			while($bandits = mysql_fetch_array($result)){
+				$user_to = $bandits['name'];
+				$sql = "INSERT INTO messages (user_to, user_from, body, date_sent) VALUES ('$user_to', '$from', '$body', '$date')";
+				call_db_stay($sql);
+			}
+			break;
+		default:
+		   $sql = "INSERT INTO messages (user_to, user_from, body, date_sent) VALUES ('$to', '$from', '$body', '$date')";
+			call_db_stay($sql);
+	}
+	
+	$message =  '<li data-id="' . mysql_insert_id()  . '" class="new">' . $body . "<br /><small>to: </small>" . $to . " <small>From: </small>" . $from . " <small>Sent: </small>" . $date . "<br /><a href='#' class='delete'>Delete</a></li>";
+	
+	echo $message;
+}
+
+if($_POST['action'] == "markMessageRead") {
+  readMessage();
+}
+
+function readMessage(){
+	$id = $_POST['id'];
+	$new = false;
+
+	$sql = "UPDATE messages SET new = '$new' WHERE id = '$id'";
+	call_db_stay($sql);
+}
+
+if(isset($_POST['deleteMessage'])){
+  deleteMessage();
+}
+
+function deleteMessage(){
+	$id = $_POST['id'];
+
+	$sql = "DELETE FROM messages WHERE id = '$id'";
+	call_db_stay($sql);
+}
+
+
 // We need to post the Signup Threads
 if(isset($_POST['postroundstart'])){
 	$postTemplate = "Reply to the appropriate comment to sign up for this round of Game of Bands.
