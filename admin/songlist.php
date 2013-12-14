@@ -14,6 +14,7 @@ $result = mysql_query("SELECT * FROM songs ORDER BY round DESC") or die(mysql_er
 ?>
 
 <h1>Song List</h1>
+<a href="index.php?view=addsong">Add Song</a>
 
 <table>
 	<thead>

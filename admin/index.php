@@ -15,7 +15,7 @@ define('INDEX', true);
   <meta name="viewport" content="width=device-width">
 
   <link rel="stylesheet" href="css/styles.css">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
   <div class="header-container">
@@ -23,7 +23,6 @@ define('INDEX', true);
         <h1 class="title"><a href="/admin" class="home">Game of Bands Admin</a></h1>
         <nav>
             <ul>
-                <li><a href="index.php?view=addsong">Add Song</a></li>
                 <li><a href="index.php?view=songlist">Songs</a></li>
                 <li><a href="index.php?view=roundlist">Rounds</a></li>
 				<li><a href="index.php?view=teamlist">Teams</a></li>
@@ -48,6 +47,7 @@ define('INDEX', true);
 		case 'addteam'          : include_once 'addteam.php';        break;
 		case 'editteam'         : include_once 'editteam.php';       break;
 		case 'inbox'            : include_once 'inbox.php';          break;
+		case 'editcss'          : include_once 'editcss.php';        break;
         default                 : include_once 'dashboard.php';      break;
       }
     ?>
