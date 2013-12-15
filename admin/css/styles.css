@@ -26,6 +26,8 @@ h3 { font-size: 14px; }
 /* Page Header */
 header { background: #445; color: #fff; font-size: 10px; height: 13px; margin: 0 auto; padding: 10px; text-align: left; }
 header h1 { font-size: 15px; margin: 0; padding: 0; }
+header #menu { display: none; }
+header #menu img { width: 33px; position: relative; float: left; left: -8px; top: -8px; }
     
     /* Message Styles */
     #showMessages { float:  right; }
@@ -39,6 +41,7 @@ header h1 { font-size: 15px; margin: 0; padding: 0; }
 #leftnav li a:hover { background: #EAF2FA; color: #333; }
 
 /* Table Styles */
+table.stacktable { display: none; }
 table { border: 1px solid #ccc; border-collapse: collapse; font-size: 12px; }
 table thead th { background: #404040; border: 1px solid #777; border-bottom: 2px solid #222; color: #fff; font-size: 14px;  padding: 2px 5px;}
 table tbody td { border: 1px solid #eee; padding: 2px 5px; }
@@ -86,3 +89,19 @@ a.home:hover { text-decoration: underline; }
     	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#0EBFE9), color-stop(100%,#4A777A)); /* webkit */
     }
     .corner-banner em {letter-spacing:1px;font-style:normal;font-size:13px !important;color:#fff;text-transform:uppercase;line-height:12px;display:block;}
+
+@media screen and (max-width: 780px) {
+    header #menu {
+        display: block;
+    }
+    table,
+    #leftnav {
+        display: none;
+    }
+    #container #page {
+        margin: 0;
+    }
+    table.stacktable {
+        display: block;
+    }
+}

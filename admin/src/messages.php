@@ -4,8 +4,6 @@ if(!defined('INDEX')) {
 	die;
 }
 
-
-
 function displayMessages($currentuser){
   $db = database_connect();
 
@@ -49,7 +47,7 @@ function displayBanditDropdown(){
 <script>
 $(document).ready(function(){
     $("#showMessages").click(function(){
-      $('#messagesContainer').slideDown();
+      $('#messagesContainer').slideToggle();
     })
     $("#messages #postMessage").click(function(event){
 	      event.stopPropagation();
@@ -73,6 +71,7 @@ $(document).ready(function(){
                     if($('#noMessages')){
                         $('#noMessages').remove();
                     }
+                    $('#messageCount').text( parseInt($('#messageCount').text()) + 1);
 			          };
 		        }
 	      });
@@ -85,6 +84,10 @@ $(document).ready(function(){
 	      $(this).parent().fadeOut(300, function() {
             if(($("#messagelist li").length - 1) == 0) {
                 $("#messagelist").prepend('<li id="noMessages">No Messages</li>');
+            }
+            
+            if($(this).hasClass("new")){
+              $('#messageCount').text( parseInt($('#messageCount').text()) - 1);
             }
 
             $(this).remove();
@@ -111,6 +114,7 @@ $(document).ready(function(){
 		        data: {action: 'markMessageRead', id: messageID},
 		        type: 'post',
 		        success: function(output) {
+              $('#messageCount').text( parseInt($('#messageCount').text()) - 1);
         		}
 	      });
     });
