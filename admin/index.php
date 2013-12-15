@@ -3,9 +3,17 @@ require_once( 'includes/gob_admin.php' );
 mod_check();
 
 require_once('../src/query.php');
-$db    = database_connect();
 
 define('INDEX', true);
+
+function writeNewMessageCount(){
+  $db    = database_connect();
+  $currentuser = $_SESSION['GOB']['name'];
+  if ($res = $db->query("SELECT COUNT(*) FROM messages WHERE user_to = '$currentuser' AND new = '1' order by date_sent desc")) {
+    echo $res->fetchColumn();
+  }
+  
+}
 ?>
 
 <!DOCTYPE html>
@@ -15,16 +23,42 @@ define('INDEX', true);
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title></title>
   <meta name="description" content="">
-  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="width=device-width, minimumscale=1.0, maximum-scale=1.0" />
 
   <link rel="stylesheet" href="css/styles.css">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="lib/sidr/jquery.sidr.min.js"></script>
+  <link rel="stylesheet" href="lib/sidr/stylesheets/jquery.sidr.dark.css">
+  <script src="lib/stacktable/stacktable.js"></script>
+
+  <script>
+  $(document).ready(function() {
+    $("#menu").sidr({
+      name:     "leftNav",
+      source:   "#leftnav",
+      displace: false,
+      onOpen: function(){
+        $('.sidr-inner').prepend('<a style="display: block;padding: 15px;" id="closeMenu">Close</a>');
+      },
+      onClose: function(){
+        $('.sidr-inner #closeMenu').remove();
+      }
+    });
+    $("body").on("click", "#closeMenu", function(event){
+      $.sidr('close', 'leftNav');
+    });
+	
+    $('table').stacktable({class:'mobileTable'});
+
+  });
+  </script>
 </head>
 <body>
   <div class="header-container">
     <header class="wrapper clearfix">
+      <a id="menu" href="#"><img src="/images/ico.menu.png" /></a>
       <h1 class="title left"><a href="/admin" class="home">Game of Bands Admin</a></h1>
-      <span id="showMessages"><img src="/images/ico.email.gif"></span>
+      <span id="showMessages"><img src="/images/ico.email.gif"><span id="messageCount"><?php writeNewMessageCount(); ?></span></span>
       <section id="messagesContainer"><?php require('src/messages.php'); ?></section>
       <div class="clearfix"></div>
     </header>
