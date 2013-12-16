@@ -2,15 +2,17 @@
 require_once( 'includes/gob_admin.php' );
 mod_check();
 
-require_once('../src/query.php');
+require_once( '../src/query.php' );
 
 define('INDEX', true);
 
 function writeNewMessageCount(){
   $db    = database_connect();
   $currentuser = $_SESSION['GOB']['name'];
-  if ($res = $db->query("SELECT COUNT(*) FROM messages WHERE user_to = '$currentuser' AND new = '1' order by date_sent desc")) {
-    echo $res->fetchColumn();
+  $messages = $db->prepare('SELECT COUNT(*) FROM messages WHERE user_to=:currentuser AND new = 1 order by date_sent desc');
+
+  if ($res = $messages->execute(array('currentuser' => $currentuser))) {
+    echo $messages->fetchColumn();
   }
   
 }

@@ -32,7 +32,12 @@ header #menu img { width: 33px; position: relative; float: left; left: -8px; top
     /* Message Styles */
     #showMessages { float:  right; }
     #messages { color: #505050; }
-    #messagesContainer { display:none; background: #fff; border: 1px solid #ccc; padding: 7px; position: absolute; right: 7px; top: 33px; }
+    #messagesContainer { display:none; background: #fff; border: 1px solid #eee; padding: 7px; position: absolute; right: 7px; top: 33px; }
+    #messagelist { border: 1px solid #777; list-style: none; padding: 0; }
+    #messagelist li { border-top: 1px solid #777; font-size: 13px; padding: 4px; }
+    #messagelist li:first-child { border-top: none; }
+    #messagelist small { font-weight: bold; }
+    #messages .new { background: #CDFFFF; }
 
 /* Left Navigation */
 #leftnav h3 { background: #d7d7d7; border-top: 1px solid #eee; color: #404040; font-family: Georgia, "Times New Roman", Times, serif; font-size: 14px; margin: 0; padding: 4px; }

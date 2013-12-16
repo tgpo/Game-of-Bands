@@ -4,23 +4,25 @@ if(!defined('INDEX')) {
 	die;
 }
 
+
 function displayMessages($currentuser){
   $db = database_connect();
+  $messages = $db->prepare('SELECT COUNT(*) FROM messages WHERE user_to=:currentuser AND new = 1 order by date_sent desc');
+  $messages->execute(array('currentuser' => $currentuser));
 
-  if ($res = $db->query("SELECT COUNT(*) FROM messages WHERE user_to = '$currentuser' order by date_sent desc")) {
-    if ($res->fetchColumn() > 0) {
-      $messages = $db->query("SELECT * FROM messages WHERE user_to = '$currentuser' order by date_sent desc");
+  if ($messages->fetchColumn() > 0) {
+    $messages = $db->prepare('SELECT * FROM messages WHERE user_to=:currentuser AND new = 1 order by date_sent desc');
+    $messages->execute(array('currentuser' => $currentuser));
 
-      foreach ($messages as $message) {
-        echo '<li data-id="' .$message['id']  . '"';
+    foreach ($messages as $message) {
+      echo '<li data-id="' .$message['id']  . '"';
+
+      if($message['new']) echo ' class="new"';
   
-        if($message['new']) echo ' class="new"';
-    
-        echo ">" . $message['body'] . "<br /><small>to: </small>" . $message['user_to'] . " <small>From: </small>" . $message['user_from'] . " <small>Sent: </small>" . $message['date_sent'] . "<br /><a href='#' class='delete'>Delete</a></li>";
-      }
-    } else {
-      echo '<li id="noMessages">No Messages</li>';
+      echo ">" . $message['body'] . "<br /><small>From: </small>" . $message['user_from'] . " <small>Sent: </small>" . $message['date_sent'] . "<br /><a href='#' class='delete'>Delete</a></li>";
     }
+  } else {
+    echo '<li id="noMessages">No Messages</li>';
   }
   
 }
@@ -34,7 +36,9 @@ function displayBanditDropdown(){
   
   $selectHTML = '<select id="user_to" name="user_to" />';
   $selectHTML .= '<option value="allmods">All Moderators</option>';
-  $selectHTML .= '<option value="everyone">Everyone</option>';
+  if ($bandit['is_mod']) {
+    $selectHTML .= '<option value="everyone">Everyone</option>';
+  }
   $selectHTML .= '<optgroup label="Moderators">' . $moderators . '</optgroup>';
   $selectHTML .= '<optgroup label="Bandits">' . $standards . '</optgroup>';
   $selectHTML .= '</select>';
@@ -62,7 +66,7 @@ $(document).ready(function(){
 		        type: 'post',
 		        success: function(output) {
                 if(user_to == "<? echo $_SESSION['GOB']['name'] ?>" || user_to == "allmods" || user_to == "everyone") {
-                    var messageHTML =  '<li style="display:none;" data-id="' + output  + '" class="new justAdded">' + body + "<br /><small>to: </small>" + user_to + " <small>From: </small>" + user_from + " <small>Sent: </small> <?php echo date('Y-m-d') ?>  <br /><a href='#' class='delete'>Delete</a></li>";
+                    var messageHTML =  '<li style="display:none;" data-id="' + output  + '" class="new justAdded">' + body + "<br /><small>From: </small>" + user_from + " <small>Sent: </small> <?php echo date('Y-m-d') ?>  <br /><a href='#' class='delete'>Delete</a></li>";
   
 				            $("#messagelist").prepend(messageHTML);
                     $("#messagelist li.justAdded").fadeIn().removeClass("justAdded");
@@ -121,10 +125,6 @@ $(document).ready(function(){
 
 });
 </script>
-<style type="text/css">
-#messagelist { border: 1px solid #eee; }
-#messages .new { background: #ccc; }
-</style>
   <div id="messages">
     <h2>Messages</h2>
 	  <ul id="messagelist">
