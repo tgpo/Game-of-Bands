@@ -4,16 +4,15 @@ mod_check();
 
 require_once( '../src/query.php' );
 
-define('INDEX', true);
+define( 'INDEX', true );
 
 function writeNewMessageCount(){
-  $db    = database_connect();
-  $currentuser = $_SESSION['GOB']['name'];
-  $messages = $db->prepare('SELECT COUNT(*) FROM messages WHERE user_to=:currentuser AND new = 1 order by date_sent desc');
+    $db = database_connect();
+    $currentuser = $_SESSION['GOB']['name'];
+    $messagecount = $db->prepare('SELECT COUNT(*) FROM messages WHERE user_to=:currentuser AND new = 1 order by date_sent desc');
+    $messagecount->execute(array('currentuser' => $currentuser));
 
-  if ($res = $messages->execute(array('currentuser' => $currentuser))) {
-    echo $messages->fetchColumn();
-  }
+    echo $messagecount->fetchColumn();
   
 }
 ?>

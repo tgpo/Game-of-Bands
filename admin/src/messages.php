@@ -5,7 +5,6 @@ if( !defined('INDEX') ) {
 
 }
 
-
 function displayMessages($currentuser){
     $db = database_connect();
     $messagecount = $db->prepare('SELECT COUNT(*) FROM messages WHERE user_to=:currentuser order by date_sent desc');
@@ -38,7 +37,7 @@ function displayBanditDropdown(){
   
   $selectHTML = '<select id="user_to" name="user_to" />';
   $selectHTML .= '<option value="allmods">All Moderators</option>';
-  if ($bandit['is_mod']) {
+  if ( is_mod() ) {
     $selectHTML .= '<option value="everyone">Everyone</option>';
   }
   $selectHTML .= '<optgroup label="Moderators">' . $moderators . '</optgroup>';
@@ -64,10 +63,12 @@ $(document).ready(function(){
         var body = $(this).prev('#messageBody').find("#body").val();
 
         $.ajax({
-            url: 'src/messages/process.php',
+            url: '/admin/src/messages/process.php',
             data: {postMessage: 'postMessage', user_to: user_to, user_from: user_from, body: body},
             type: 'post',
             success: function(output) {
+                $('#messageSent').remove();
+
                 if(user_to == "<? echo $_SESSION['GOB']['name'] ?>" || user_to == "allmods" || user_to == "everyone") {
                     var messageHTML =  '<li style="display:none;" data-id="' + output  + '" class="new justAdded">' + body + "<br /><small>From: </small>" + user_from + " <small>Sent: </small> <?php echo date('Y-m-d') ?>  <br /><a href='#' class='delete'>Delete</a></li>";
   
@@ -79,7 +80,10 @@ $(document).ready(function(){
                         $('#noMessages').remove();
                     }
                     $('#messageCount').text( parseInt($('#messageCount').text()) + 1);
-                };
+                } else {
+                    $("#messageBody").after('<li id="messageSent" style="display: none; ">Message Sent</li>');
+                    $('#messageSent').fadeIn();
+                }
             }
         });
 
@@ -103,7 +107,7 @@ $(document).ready(function(){
         var messageID = $(this).parent().attr('data-id');
 
         $.ajax({
-            url: 'src/messages/process.php',
+            url: '/admin/src/messages/process.php',
             data: {deleteMessage: 'deleteMessage', id: messageID},
             type: 'post',
             success: function(output) {
@@ -117,7 +121,7 @@ $(document).ready(function(){
         $(this).removeClass('new');
         var messageID = $(this).attr('data-id');
         $.ajax({
-            url: 'src/messages/process.php',
+            url: '/admin/src/messages/process.php',
             data: {markMessageRead: 'markMessageRead', id: messageID},
             type: 'post',
             success: function(output) {

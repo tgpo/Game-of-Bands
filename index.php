@@ -1,11 +1,24 @@
 <?php
 define('INDEX', true);
 require_once( 'src/gob_user.php' );
+require_once( 'src/query.php' );
+
+function writeNewMessageCount(){
+    $db = database_connect();
+    $currentuser = $_SESSION['GOB']['name'];
+    $messagecount = $db->prepare('SELECT COUNT(*) FROM messages WHERE user_to=:currentuser AND new = 1 order by date_sent desc');
+    $messagecount->execute(array('currentuser' => $currentuser));
+
+    echo $messagecount->fetchColumn();
+  
+}
+
 ?>
 <html>
 <head>
   <title>The Game of Bands Song Depository | A reddit game of making music</title>
   <link rel="stylesheet" type="text/css" href="/stylesheet.css" />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="//connect.soundcloud.com/sdk.js"></script>
   <script>
     SC.initialize({
@@ -30,16 +43,21 @@ require_once( 'src/gob_user.php' );
     <a href="/" id="returnhome"></a>
 	<nav id="accountLinks">
 	      <?php
-        if (is_loggedin()) {
+        if ( is_loggedin() ) {
 			echo ' <span class="username">' . get_username() . '</span><span class="karma">(' . get_karma() . ")</span>";
 			
-			if (is_mod()) { echo '<a class="adminpanel" href="/admin">Admin Panel</a> | '; }
+			if ( is_mod() ) { echo '<a class="adminpanel" href="/admin">Admin Panel</a> | '; }
 			
 			echo ' <a class="logout" href="/login.php/logout">Logout</a>';
+      ?>
+       <span id="showMessages"><img src="/images/ico.email.gif"><span id="messageCount"><?php writeNewMessageCount(); ?></span></span>
+       <section id="messagesContainer"><?php require('admin/src/messages.php'); ?></section>
+      <?php
 		} else {
 			echo '<a class="login" href="/login.php">Login</a>';
         }
       ?>
+     
 	</nav>
 
     <div id='welcomebar'>

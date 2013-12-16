@@ -36,13 +36,15 @@ function postMessage(){
             break;
 
         case "everyone":
-            $result = $db->query('SELECT * FROM bandits');
+            if( is_mod() ) {
+                $result = $db->query('SELECT * FROM bandits');
 
-            while($bandits = mysql_fetch_array($result)){
-                $user_to = $bandits['name'];
+                while($bandits = mysql_fetch_array($result)){
+                    $user_to = $bandits['name'];
 
-                $messages = $db->prepare('INSERT INTO messages (user_to, user_from, body, date_sent) VALUES (:to, :from, :body, :date)');
-                $messages->execute(array('to' => $to, 'from' => $from, 'body' => $body, 'date' => $date));
+                    $messages = $db->prepare('INSERT INTO messages (user_to, user_from, body, date_sent) VALUES (:to, :from, :body, :date)');
+                    $messages->execute(array('to' => $to, 'from' => $from, 'body' => $body, 'date' => $date));
+                }
             }
 
             break;
