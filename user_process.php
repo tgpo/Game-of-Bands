@@ -1,63 +1,71 @@
-<?php session_start(); ?>
-<?php
+<?php session_start();
+
 require_once('lib/reddit.php');
 require_once('src/query.php');
 require_once('src/gob_user.php');
 
 loggedin_check();
-$reddit = new reddit($reddit_user, $reddit_password);
 
-if(isset($_POST['leaveTeam'])){
-  $bandit     = $_SESSION['GOB']['name'];
-  
-  mysql_connect("localhost", $mysql_user, $mysql_password) or die(mysql_error());
-  mysql_select_db($mysql_db) or die(mysql_error());
-  $result = mysql_query("SELECT * FROM rounds order by number desc limit 1 ") or die(mysql_error()); 
-  $round = mysql_fetch_array($result);
-  
-  $currentround = $round['number'];
-  $currentround = 34;  
-  
-  echo 'Round' . $currentround;
-  
-  $result = mysql_query("SELECT * FROM teams WHERE musician='$bandit' OR lyricist='$bandit' OR vocalist='$bandit' AND round='$currentround' limit 1") or die(mysql_error()); 
-  $team = mysql_fetch_array($result);
-  
-  echo "You Are On Team Number " . $team['teamnumber'];
-  
-  //$response = $reddit->sendMessage('tgpo', $bandit . ' Has left Team', $bandit . ' wants to leave team 1.');
-  
-  
-  //redirect();
+if( isset($_POST['leaveTeam']) ){
+  leaveTeam();
+
+} elseif ( isset($_POST['submitSongPage']) ) {
+  goSubmitSongPage();
+
+} elseif( isset($_POST['submitSong']) ){
+  submitSong();
+
 }
 
-if(isset($_POST['submitSongPage'])){
-  redirect('/user_submitsong');
+function leaveTeam(){
+    $user = $_SESSION['GOB']['name'];
+    $response = $reddit->sendMessage('/r/waitingforgobot', $user . ' Wants To Leave His Team', $user . ' wants to leave team 1.');
+    
+    redirect();
+
 }
 
-if(isset($_POST['submitSong'])){
-  $db    = database_connect();  
-  $sql   = "INSERT INTO songs (name, url, music, lyrics, vocals, lyricsheet, round, teamnumber, submitby, approved) VALUES (:name, :url, :music, :lyrics, :vocals, :lyricsheet, :round, :teamnumber, :submitby, :approved)";
-  $query = $db->prepare($sql);
-  $query->execute(array(
-    ':name'       => $_POST["songname"],
-    ':url'        => $_POST["url"],
-    ':music'      => $_POST["music"],
-    ':lyrics'     => $_POST["lyrics"],
-    ':vocals'     => $_POST["vocals"],
-    ':lyricsheet' => $_POST["lyricsheet"],
-    ':round'      => $_POST["round"],
-    ':teamnumber' => $_POST["teamnumber"],
-    ':submitby'   => $user,
-    ':approved'   => 'false'
-    ));
-  
-  $response = $reddit->sendMessage('/r/gameofbands', 'Team', $user . ' submitted the song ' . $name );
-  
-  redirect();
+function goSubmitSongPage(){
+    redirect('/user_submitsong');
+
+}
+
+function submitSong(){
+	$reddit = new reddit($reddit_user, $reddit_password);
+    $db = database_connect();
+
+    $user = $_SESSION['GOB']['name'];
+    $round = $_POST["round"];
+    $teamnumber = $_POST["teamnumber"];
+    $name = $_POST["songname"];
+    $url = $_POST["url"];
+    $lyrics = $_POST["lyrics"];
+    $music = $_POST["music"];
+    $vocals = $_POST["vocals"];
+    $lyricsheet = $_POST["lyricsheet"];
+
+    $newSong = $db->prepare('INSERT INTO songs (name, url, music, lyrics, vocals, lyricsheet, round, teamnumber, submitby, approved) VALUES (:name, :url, :music, :lyrics, :vocals, :lyricsheet, :round, :teamnumber, :submitby, :approved)');
+    $newSong->execute(array(':name' => $name,
+                          ':url' => $url,
+                          ':music' => $music,
+                          ':lyrics' => $lyrics,
+                          ':vocals' => $vocals,
+                          ':lyricsheet' => $lyricsheet,
+                          ':round' => $round,
+                          ':teamnumber' => $teamnumber,
+                          ':submitby' => $user,
+                          ':approved' => false
+	));
+
+    
+    $response = $reddit->sendMessage('/r/gameofbands', 'Team ' . $teamnumber, $user . ' submitted the song ' . $name );
+    
+    redirect();
+
 }
 
 function redirect($page = 'index.php'){
-  header('Location: '.$page);
+    header('Location: '.$page);
+
 }
 ?>

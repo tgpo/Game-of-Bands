@@ -98,10 +98,10 @@ function writeNewMessageCount(){
               case 'addsong'          : include_once 'addsong.php';        break;
               case 'editsong'         : include_once 'editsong.php';       break;
               case 'editround'        : include_once 'editround.php';      break;
-              case 'roundlist'        : include_once 'roundlist.php';      break;
-              case 'songlist'         : include_once 'songlist.php';       break;
+              case 'roundlist'        : include_once 'src/roundlist.php';  break;
+              case 'songlist'         : include_once 'src/songlist.php';   break;
               case 'postmessage'      : include_once 'postmessage.php';    break;
-              case 'teamlist'         : include_once 'teamlist.php';       break;
+              case 'teamlist'         : include_once 'src/teamlist.php';   break;
               case 'addteam'          : include_once 'addteam.php';        break;
               case 'editteam'         : include_once 'editteam.php';       break;
               case 'inbox'            : include_once 'inbox.php';          break;

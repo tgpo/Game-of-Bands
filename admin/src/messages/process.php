@@ -24,26 +24,26 @@ function postMessage(){
 
     switch ($to) {
         case "allmods":
-            $result = $db->query('SELECT * FROM bandits WHERE is_mod = 1');
+            $bandits = $db->query('SELECT * FROM bandits WHERE is_mod = 1');
 
-            while($bandits = mysql_fetch_array($result)){
-                $user_to = $bandits['name'];
+            foreach ($bandits as $bandit) {
+                $user_to = $bandit['name'];
 
                 $messages = $db->prepare('INSERT INTO messages (user_to, user_from, body, date_sent) VALUES (:to, :from, :body, :date)');
-                $messages->execute(array('to' => $to, 'from' => $from, 'body' => $body, 'date' => $date));
+                $messages->execute(array('to' => $user_to, 'from' => $from, 'body' => $body, 'date' => $date));
             }
 
             break;
 
         case "everyone":
             if( is_mod() ) {
-                $result = $db->query('SELECT * FROM bandits');
+                $bandits = $db->query('SELECT * FROM bandits');
 
-                while($bandits = mysql_fetch_array($result)){
-                    $user_to = $bandits['name'];
+                foreach ($bandits as $bandit) {
+                    $user_to = $bandit['name'];
 
                     $messages = $db->prepare('INSERT INTO messages (user_to, user_from, body, date_sent) VALUES (:to, :from, :body, :date)');
-                    $messages->execute(array('to' => $to, 'from' => $from, 'body' => $body, 'date' => $date));
+                    $messages->execute(array('to' => $user_to, 'from' => $from, 'body' => $body, 'date' => $date));
                 }
             }
 
