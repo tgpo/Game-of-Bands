@@ -1,10 +1,13 @@
 <?php
-if(!defined('INDEX')) {
-	header('Location: ../index.php');
-	die;
+if( !defined('INDEX') ) {
+    header('Location: ../index.php');
+    die;
+
 }
 
-require_once('../src/query.php');
+require_once( 'includes/gob_admin.php' );
+require_once( '../src/secrets.php' );
+require_once( '../src/query.php' );
 $db    = database_connect();
 
 $query = $db->query('SELECT * FROM rounds order by number desc limit 1');

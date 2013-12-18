@@ -86,6 +86,15 @@ function writeNewMessageCount(){
                 <li><a href="index.php?view=postmessage">Post Message</a></li>
             </ul>
           </li>
+          <li>
+            <h3>Under Development</h3>
+          </li>
+          <li>
+            <ul>
+                <li><a href="index.php?view=inbox">/u/GameofBands Inbox</a></li>
+                <li><a href="index.php?view=editcss">edit Reddit CSS</a></li>
+            </ul>
+          </li>
         </ul>
         <div class="clearfix"></div>
       </nav>
@@ -95,18 +104,18 @@ function writeNewMessageCount(){
           <?php
             // Decide which data to display
             switch ($_GET['view']) {
-              case 'addsong'          : include_once 'addsong.php';        break;
-              case 'editsong'         : include_once 'editsong.php';       break;
-              case 'editround'        : include_once 'editround.php';      break;
-              case 'roundlist'        : include_once 'src/roundlist.php';  break;
-              case 'songlist'         : include_once 'src/songlist.php';   break;
-              case 'postmessage'      : include_once 'postmessage.php';    break;
-              case 'teamlist'         : include_once 'src/teamlist.php';   break;
-              case 'addteam'          : include_once 'addteam.php';        break;
-              case 'editteam'         : include_once 'editteam.php';       break;
-              case 'inbox'            : include_once 'inbox.php';          break;
-              case 'editcss'          : include_once 'editcss.php';        break;
-              default                 : include_once 'dashboard.php';      break;
+              case 'addsong'          : include_once 'src/addsong.php';        break;
+              case 'editsong'         : include_once 'src/editsong.php';       break;
+              case 'editround'        : include_once 'src/editround.php';      break;
+              case 'roundlist'        : include_once 'src/roundlist.php';      break;
+              case 'songlist'         : include_once 'src/songlist.php';       break;
+              case 'postmessage'      : include_once 'src/postmessage.php';    break;
+              case 'teamlist'         : include_once 'src/teamlist.php';       break;
+              case 'addteam'          : include_once 'src/addteam.php';        break;
+              case 'editteam'         : include_once 'src/editteam.php';       break;
+              case 'inbox'            : include_once 'src/inbox.php';          break;
+              case 'editcss'          : include_once 'src/editcss.php';        break;
+              default                 : include_once 'src/dashboard.php';      break;
             }
           ?>
         </div>

@@ -36,7 +36,7 @@ $teams = $db->query('SELECT * FROM teams ORDER BY round DESC');
                 echo "<td>" . $team['musician'] . "</td>";
                 echo "<td>" . $team['lyricist'] . "</td>";
                 echo "<td>" . $team['vocalist'] . "</td>";
-                echo '<td><a href="index.php?view=editteam&id='.$row['id'].'">Edit</a></td>';
+                echo '<td><a href="index.php?view=editteam&id='.$team['id'].'">Edit</a></td>';
             echo "</tr>";
         }
         ?>
