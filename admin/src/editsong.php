@@ -19,7 +19,7 @@ $song = $query->fetch();
 ?>
 
 <h2>Edit Song</h2>
-<form method="post" action="admin_process.php">
+<form method="post" action="src/songs/editSongProcess.php">
     <input type="hidden" name="id" value="<?php echo $song['id']; ?>">
 
     <label>Approved</label>

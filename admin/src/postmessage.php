@@ -8,7 +8,7 @@ if( !defined('INDEX') ) {
 ?>
 
 <h2>Post as /u/GameofBands</h2>
-<form method="post" action="admin_process.php">
+<form method="post" action="src/reddit/makeNewPost.php">
     
     <label>Title</label><br />
     <input type="text" name="title" />

@@ -529,37 +529,6 @@ It's like leave a penny take a penny but for teammates. If you need a teammate t
 	call_db($sql,'dashboard');
 }
 
-if(isset($_POST['addSong'])){
-	$round = mysql_real_escape_string( $_POST["round"] );
-	$name = mysql_real_escape_string( $_POST["name"] );
-	$url = mysql_real_escape_string( $_POST["url"] );
-	$lyrics = mysql_real_escape_string( $_POST["lyrics"] );
-	$music = mysql_real_escape_string( $_POST["music"] );
-	$vocals = mysql_real_escape_string( $_POST["vocals"] );
-
-	$lyricsheet = mysql_real_escape_string( $_POST["lyricsheet"] );
-	$votes = mysql_real_escape_string( $_POST["votes"] );
-	$lyricsvote = mysql_real_escape_string( $_POST["lyricsvote"] );
-	$musicvote = mysql_real_escape_string( $_POST["musicvote"] );
-	$vocalsvote = mysql_real_escape_string( $_POST["vocalsvote"] );
-	$teamnumber = mysql_real_escape_string( $_POST["teamnumber"] );
-
-	if(isset($_POST['winner']) && 
-	   $_POST['winner'] == 'Yes') 
-	{
-		$winner = true;
-	} else {
-		$winner = false;
-	}
-	
-	$approved = true;
-
-	$sql = "INSERT INTO songs (name, url, music, lyrics, vocals, lyricsheet, round, votes, winner, rating, musicvote, lyricsvote, vocalsvote, teamnumber, approved) VALUES ('$name', '$url', '$music', '$lyrics', '$vocals', '$lyricsheet', '$round', '$votes', '$winner', NULL, '$musicvote', '$lyricsvote', '$vocalsvote', '$teamnumber', '$approved')";
-	
-	call_db($sql,'songlist');
-}
-
-
 if(isset($_POST['addTeam'])){
 	$round = mysql_real_escape_string( $_POST["round"] );
 	$teamnumber = mysql_real_escape_string( $_POST["teamnumber"] );
@@ -593,58 +562,6 @@ if(isset($_POST['editTeam'])){
 
 }
 
-if(isset($_POST['postmessage'])){
-	$title = $_POST["title"];
-	$link = $_POST["link"];
-	$message = $_POST["message"];
-	
-	$response = $reddit->createStory($title, $link, $mainsubreddit, $message);
-
-	redirect('dashboard');
-}
-
-if(isset($_POST['editSong'])){
-	
-	$id = mysql_real_escape_string( $_POST["id"] );
-	$round = mysql_real_escape_string( $_POST["round"] );
-	$teamnumber = mysql_real_escape_string( $_POST["teamnumber"] );
-	$name = mysql_real_escape_string( $_POST["name"] );
-	$url = mysql_real_escape_string( $_POST["url"] );
-	$lyrics = mysql_real_escape_string( $_POST["lyrics"] );
-	$music = mysql_real_escape_string( $_POST["music"] );
-	$vocals = mysql_real_escape_string( $_POST["vocals"] );
-	$lyricsheet = mysql_real_escape_string( $_POST["lyricsheet"] );
-	$votes = mysql_real_escape_string( $_POST["votes"] );
-	$lyricsvote = mysql_real_escape_string( $_POST["lyricsvote"] );
-	$musicvote = mysql_real_escape_string( $_POST["musicvote"] );
-	$vocalsvote = mysql_real_escape_string( $_POST["vocalsvote"] );
-
-	if(isset($_POST['winner']) && 
-	   $_POST['winner'] == 'Yes') 
-	{
-		$winner = true;
-	} else {
-		$winner = false;
-	}
-	if(isset($_POST['approved']) && 
-	   $_POST['approved'] == 'Yes') 
-	{
-		$approved = true;
-	} else {
-		$approved = false;
-	}
-	
-	if(isset($_POST['delete_song']))
-	{
-		$sql = "DELETE FROM songs WHERE id = '$id'";
-		
-	} else {
-		$sql = "UPDATE songs SET name = '$name', url = '$url' ,music = '$music', lyrics = '$lyrics', vocals = '$vocals', lyricsheet = '$lyricsheet', round = '$round', votes = '$votes', winner = '$winner', rating = NULL, musicvote = '$musicvote', lyricsvote = '$lyricsvote',  vocalsvote = '$vocalsvote', teamnumber = '$teamnumber', approved = '$approved' WHERE id = '$id'";
-	}
-	
-	call_db($sql,'songlist');
-
-}
 if(isset($_POST['editRound'])){
 	
 	$id = mysql_real_escape_string( $_POST["id"] );
