@@ -8,7 +8,7 @@ if( !defined('INDEX') ) {
 ?>
 
 <h2>Add New Team</h2>
-<form method="post" action="admin_process.php">
+<form method="post" action="src/game/addTeamProcess.php">
     <label>Round</label>
     <input type="text" name="round" />
     <br />

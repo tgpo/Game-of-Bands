@@ -19,7 +19,7 @@ $team = $query->fetch();
 ?>
 
 <h2>Edit Team</h2>
-<form method="post" action="admin_process.php">
+<form method="post" action="src/game/editTeamProcess.php">
     <input type="hidden" name="id" value="<?php echo $team['id']; ?>">
 
     <label>Round</label>

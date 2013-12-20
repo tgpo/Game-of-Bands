@@ -529,39 +529,6 @@ It's like leave a penny take a penny but for teammates. If you need a teammate t
 	call_db($sql,'dashboard');
 }
 
-if(isset($_POST['addTeam'])){
-	$round = mysql_real_escape_string( $_POST["round"] );
-	$teamnumber = mysql_real_escape_string( $_POST["teamnumber"] );
-	$musician = mysql_real_escape_string( $_POST["musician"] );
-	$lyricist = mysql_real_escape_string( $_POST["lyricist"] );
-	$vocalist = mysql_real_escape_string( $_POST["vocalist"] );
-
-	$sql = "INSERT INTO teams (round, teamnumber, musician, lyricist, vocalist) VALUES ('$round', '$teamnumber', '$musician', '$lyricist', '$vocalist')";
-	
-	call_db($sql,'teamlist');
-}
-
-if(isset($_POST['editTeam'])){
-	
-	$id = mysql_real_escape_string( $_POST["id"] );
-	$round = mysql_real_escape_string( $_POST["round"] );
-	$teamnumber = mysql_real_escape_string( $_POST["teamnumber"] );
-	$musician = mysql_real_escape_string( $_POST["musician"] );
-	$lyricist = mysql_real_escape_string( $_POST["lyricist"] );
-	$vocalist = mysql_real_escape_string( $_POST["vocalist"] );
-	
-	if(isset($_POST['delete_team']))
-	{
-		$sql = "DELETE FROM teams WHERE id = '$id'";
-		
-	} else {
-		$sql = "UPDATE teams SET round = '$round', teamnumber = '$teamnumber', musician = '$musician', lyricist = '$lyricist', vocalist = '$vocalist' WHERE id = '$id'";
-	}
-	
-	call_db($sql,'teamlist');
-
-}
-
 function call_db($sql,$nextPage){
 	if(is_mod()){
 		if (!mysql_query($sql))
