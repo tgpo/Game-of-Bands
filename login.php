@@ -17,8 +17,8 @@ if (isset($_GET["error"]))
 
 $authorizeUrl = 'https://ssl.reddit.com/api/v1/authorize';
 $accessTokenUrl = 'https://ssl.reddit.com/api/v1/access_token';
-$clientId = 'xxxclientIDxxx';
-$clientSecret = 'xxxclientSecretxxx';
+$clientId = 'xxxClient IDxxx';
+$clientSecret = 'xxxClient Secretxxx';
 
 $redirectUrl = "http://gameofbands.co/login.php";
 
@@ -63,6 +63,20 @@ if ($_SESSION['GOB']['loggedin'])
 	
 	$response = $client->fetch("https://oauth.reddit.com/r/gameofbands/about.json");
 	$_SESSION['GOB']['ismod'] = $response["result"]['data']['user_is_moderator'];
+	
+	$name = $_SESSION['GOB']['name'];
+	$is_mod = $_SESSION['GOB']['ismod'];
+	$banned = false;
+	
+	require('src/query.php');
+	$db    = database_connect();
+	
+	$query = $db->query("SELECT * FROM bandits WHERE name = '$name'");
+	$bandit = $query->fetch();
+	
+	if(!$bandit['name']){
+		$query = $db->query("INSERT INTO bandits (name, is_mod, banned) VALUES ('$name', '$is_mod', '$banned')");
+	}
 	
 	header('Location: /user_submitsong');
 	
