@@ -20,7 +20,7 @@ $round = $query->fetch();
 ?>
 
 <h2>Edit Round <?php echo $round['number']; ?></h2>
-<form method="post" action="admin_process.php">
+<form method="post" action="src/game/editRoundProcess.php">
     <input type="hidden" name="id" value="<?php echo $round['number']; ?>">
 
     <label>Theme</label>

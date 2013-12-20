@@ -562,30 +562,6 @@ if(isset($_POST['editTeam'])){
 
 }
 
-if(isset($_POST['editRound'])){
-	
-	$id = mysql_real_escape_string( $_POST["id"] );
-	$theme = mysql_real_escape_string( $_POST["theme"] );
-	$signupID = mysql_real_escape_string( $_POST["signupID"] );
-	$musiciansSignupID = mysql_real_escape_string( $_POST["musiciansSignupID"] );
-	$lyricistsSignupID = mysql_real_escape_string( $_POST["lyricistsSignupID"] );
-	$vocalistSignupID = mysql_real_escape_string( $_POST["vocalistSignupID"] );
-	$consolidationID = mysql_real_escape_string( $_POST["consolidationID"] );
-	$themeID = mysql_real_escape_string( $_POST["themeID"] );
-	$songvotingthreadID = mysql_real_escape_string( $_POST["songvotingthreadID"] );
-	
-	if(isset($_POST['delete_round']))
-	{
-		$sql = "DELETE FROM rounds WHERE number = '$id'";
-		
-	} else {
-		$sql = "UPDATE rounds SET theme = '$theme', signupID = '$signupID', musiciansSignupID = '$musiciansSignupID', lyricistsSignupID = '$lyricistsSignupID', vocalistSignupID = '$vocalistSignupID', consolidationID = '$consolidationID', themeID = '$themeID', songvotingthreadID = '$songvotingthreadID' WHERE number = '$id'";
-	}
-	
-	call_db($sql,'roundlist');
-
-}
-
 function call_db($sql,$nextPage){
 	if(is_mod()){
 		if (!mysql_query($sql))
