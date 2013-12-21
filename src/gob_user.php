@@ -48,8 +48,12 @@ function write_karma(){
 
 }
 
-function get_bandit_link(){
-    return '<a href="/bandit/' . get_username() . '">' . get_username() . '</a>';
+function get_bandit_links(){
+    $links = get_username() . get_karma();
+    $links .= ' | ' . '<a href="/bandit/';
+    $links .=  get_username() . '">' . 'My Profile' . '</a>';
+    $links .= ' | ' . '<a href="/user_submitsong">' . 'Submit Song' . '</a>' . ' | ';
+    return $links;
 
 }
 
