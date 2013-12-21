@@ -49,7 +49,7 @@ function write_karma(){
 }
 
 function get_bandit_link(){
-    return '<a href="bandit/' . get_username() . '">' . get_username() . '</a>';
+    return '<a href="/bandit/' . get_username() . '">' . get_username() . '</a>';
 
 }
 
