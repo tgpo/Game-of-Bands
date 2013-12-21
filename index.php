@@ -44,7 +44,7 @@ function writeNewMessageCount(){
 	<nav id="accountLinks">
 	      <?php
         if ( is_loggedin() ) {
-			echo ' <span class="username">' . get_bandit_link() . '</span><span class="karma">(' . get_karma() . ")</span>";
+			echo ' <span class="username">' . get_bandit_links() . '</span>';
 			
 			if ( is_mod() ) { echo '<a class="adminpanel" href="/admin">Admin Panel</a> | '; }
 			
