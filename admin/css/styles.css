@@ -13,6 +13,8 @@ h3 { font-size: 14px; }
 .align-center { text-align: center; }
 .align-right { text-align: right; }
 
+.hide { display: none; }
+
 .clearfix,
 .clear { clear: both; }
 

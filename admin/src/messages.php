@@ -19,7 +19,7 @@ function displayMessages($currentuser){
 
       if($message['new']) echo ' class="new"';
   
-      echo ">" . $message['body'] . "<br /><small>From: </small>" . $message['user_from'] . " <small>Sent: </small>" . $message['date_sent'] . "<br /><a href='#' class='delete'>Delete</a></li>";
+      echo ">" . $message['body'] . "<br /><small>From: </small>" . $message['user_from'] . " <small>Sent: </small>" . $message['date_sent'] . "<br /><a href='#' class='reply'>Reply</a> <a href='#' class='delete'>Delete</a></li>";
     }
 
   } else {
@@ -55,22 +55,44 @@ $(document).ready(function(){
     $("#showMessages").click(function(){
       $('#messagesContainer').slideToggle();
     })
+
+    $("#messages #postReply").click(function(event){
+        event.stopPropagation();
+
+        var parent_id = $(this).attr('data-parent_id');
+        var body = $('#messages #messageBody #body').val();
+
+        $.ajax({
+            url: '/admin/src/messages/process.php',
+            data: {replyMessage: 'replyMessage', parent_id: parent_id, body: body},
+            type: 'post',
+            success: function(output) {
+
+                $('#messageSent').remove();
+                $("#messageBody").after('<li id="messageSent" style="display: none; ">Message Sent</li>');
+                $('#messageSent').fadeIn();
+            }
+        });
+
+        return false;
+    });
+
     $("#messages #postMessage").click(function(event){
         event.stopPropagation();
 
         var user_to = $('#messages #user_to').val();
-        var user_from = "<? echo $_SESSION['GOB']['name'] ?>";
-        var body = $(this).prev('#messageBody').find("#body").val();
+        var body = $('#messages #messageBody #body').val();
 
         $.ajax({
             url: '/admin/src/messages/process.php',
-            data: {postMessage: 'postMessage', user_to: user_to, user_from: user_from, body: body},
+            data: {postMessage: 'postMessage', user_to: user_to, body: body},
             type: 'post',
             success: function(output) {
+
                 $('#messageSent').remove();
 
                 if(user_to == "<? echo $_SESSION['GOB']['name'] ?>" || user_to == "allmods" || user_to == "everyone") {
-                    var messageHTML =  '<li style="display:none;" data-id="' + output  + '" class="new justAdded">' + body + "<br /><small>From: </small>" + user_from + " <small>Sent: </small> <?php echo date('Y-m-d') ?>  <br /><a href='#' class='delete'>Delete</a></li>";
+                    var messageHTML =  '<li style="display:none;" data-id="' + output  + '" class="new justAdded">' + body + "<br /><small>From: </small> <? echo $_SESSION['GOB']['name'] ?> <small>Sent: </small> <?php echo date('Y-m-d') ?>  <br /><a href='#' class='delete'>Delete</a></li>";
   
                     $("#messagelist").prepend(messageHTML);
                     $("#messagelist li.justAdded").fadeIn().removeClass("justAdded");
@@ -88,6 +110,30 @@ $(document).ready(function(){
         });
 
         return false;
+    });
+
+    $("#messages").on("click", "#cancelReply", function(event){
+        event.stopPropagation();
+
+        $('#postReply').removeAttr('data-parent_id');
+
+        $('#messages .hide').removeClass('hide');
+        $('#messageReply, #cancelReply, #postReply').addClass('hide');
+
+    });
+
+    $("#messagelist").on("click", "a.reply", function(event){
+        event.stopPropagation();
+
+        var messageID = $(this).parent().attr('data-id');
+
+        $('#postReply').attr('data-parent_id',messageID);
+
+        $('#messages .hide').removeClass('hide');
+        $('#postMessage, #messageTo').addClass('hide');
+
+        return false;
+
     });
 
     $("#messagelist").on("click", "a.delete", function(event){
@@ -137,14 +183,19 @@ $(document).ready(function(){
     <ul id="messagelist">
         <?php displayMessages($_SESSION['GOB']['name']); ?>
     </ul>
-    <h5>Post New Message</h5>
+    <div id="messageReply" class="hide">
+        <h5>Reply</h5>
+    </div>
     <div id="messageTo">
+        <h5>Post New Message</h5>
         <label for="user_to">To</label>
         <?php displayBanditDropdown(); ?>
     </div>
     <div id="messageBody">
         <textarea id="body" rows="15" cols="25" name="body"></textarea>
     </div>
-
+    
+    <button id="cancelReply" class="left hide">Cancel</button>
+    <button id="postReply" class="hide">Post Reply</button>
     <button id="postMessage">Post Message</button>
 </div>
