@@ -28,16 +28,3 @@ The code is organized like this
     
     view*.php               # Legacy file support for
     display*.php            # Google until reindex occurs
-    
-## To Do
-    
-    • Auto determine winning song and post round winner thread
-        • Set winning bit in song database
-        • Can we auto-set css flair?
-    
-    • Start thinking about how best to handle consolidations / adding new teams
-        • Create Add New Team page that posts new team info to team annouce thread
-    
-    • Create Team Submit Song Form.
-        • Save to Song List, but don't show until voting starts
-        • Post submitted songs to round completion / vote post
