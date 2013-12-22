@@ -24,62 +24,14 @@ if(isset($_POST['postroundstart'])){
 	$gob->postSignups($_POST['Round']);
 
 	redirect('dashboard');
+
 }
 
 // Post song voting thread
 if(isset($_POST['postvote'])){
-	$result = mysql_query("SELECT * FROM rounds order by number desc limit 1 ") or die(mysql_error()); 
-	$round = mysql_fetch_array($result);
-	$currentround = $round['number'];
-	
-	$postTemplate = "All submitted songs can be found on the Game of Bands Website:
-[Game of Bands Song Depository, Round " . $currentround . ": " . $round['theme'] . "](http://gameofbands.co/round/" . $currentround . ")
+	$gob->postSongVotingThread();
 
-Listen * Vote * Comment";
-	$response = $reddit->createStory('Official voting post for Round ' . $currentround, '', $mainsubreddit, $postTemplate);
-	
-	/* Find our new post and save their IDs for future use */
-	sleep(3);
-	$getredditlisting = $reddit->getListing($mainsubreddit,5);
-	$getredditlisting = $getredditlisting->data->children;
-	
-	$songvotingthread = titleSearch($getredditlisting,'Official voting post for Round ' . $currentround);
-	
-	$result = mysql_query("SELECT * FROM songs WHERE round='$currentround'") or die(mysql_error());
-	
-	while($row = mysql_fetch_array($result)){
-
-		/* Post our song Comments */
-		$postTemplate = "**Team " . $row['teamnumber'] . "** Vote\n
-* **Music:** " . $row['music'] . "\n
-* **Lyrics:** " . $row['lyrics'] . "\n
-* **Vocals:** " . $row['vocals'] . "\n
-* **Track:** [" . $row['name'] . "](http://gameofbands.co/song/".$row['id'].")";
-
-		$response = $reddit->addComment($songvotingthread, $postTemplate);
-	}
-	
-	sleep(3);
-	$commentpool = $reddit->getcomments($mainsubreddit,$songvotingthread,999);
-	$commentpool = $commentpool->data->children;
-	
-	$result = mysql_query("SELECT * FROM songs WHERE round='$currentround'") or die(mysql_error());
-	while($row = mysql_fetch_array($result)){
-	
-		$postTemplate = "**Team " . $row['teamnumber'] . "** Vote";
-		$postTemplate = trim(json_encode($postTemplate), '"');
-	
-		$teamvotecomment = commentContainsSearch($commentpool,$postTemplate);
-	
-		/* Post our vote Comments */
-		$response = $reddit->addComment($teamvotecomment, 'Music Vote');
-		$response = $reddit->addComment($teamvotecomment, 'Lyrics Vote');
-		$response = $reddit->addComment($teamvotecomment, 'Vocals Vote');
-	}
-	
-	//Save our voting thread for later use
-	$sql = "UPDATE rounds SET songvotingthreadID = '$songvotingthread' WHERE number = '$currentround'";
-	call_db($sql,'dashboard');
+	redirect('dashboard');
 
 }
 
