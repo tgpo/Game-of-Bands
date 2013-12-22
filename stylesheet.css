@@ -116,3 +116,4 @@ footer {
 }
 
 #messagesContainer { display:none; background: #222; border: 1px solid #ccc; padding: 7px; position: absolute; right: 7px; top: 33px; }
+.hide { display: none; }

@@ -115,6 +115,7 @@ $(document).ready(function(){
     $("#messages").on("click", "#cancelReply", function(event){
         event.stopPropagation();
 
+        //Reply canceled. Clean up.
         $('#postReply').removeAttr('data-parent_id');
 
         $('#messages .hide').removeClass('hide');
@@ -127,8 +128,21 @@ $(document).ready(function(){
 
         var messageID = $(this).parent().attr('data-id');
 
+        //Mark message as read
+        $(this).removeClass('new');
+        $.ajax({
+            url: '/admin/src/messages/process.php',
+            data: {markMessageRead: 'markMessageRead', id: messageID},
+            type: 'post',
+            success: function(output) {
+              $('#messageCount').text( parseInt($('#messageCount').text()) - 1);
+            }
+        });
+
+        //Save the ID to be used as parent_id
         $('#postReply').attr('data-parent_id',messageID);
 
+        //Switch form to reply mode
         $('#messages .hide').removeClass('hide');
         $('#postMessage, #messageTo').addClass('hide');
 
