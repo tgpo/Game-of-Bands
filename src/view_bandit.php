@@ -22,7 +22,7 @@
   require_once('query.php');
   
   $db    = database_connect();  
-  $query = $db->prepare('SELECT * FROM songs WHERE (lyrics=:lyrics OR music=:music OR vocals=:vocals) AND approved=1');
+  $query = $db->prepare('SELECT * FROM songs WHERE (lyrics=:lyrics OR music=:music OR vocals=:vocals) AND approved=1 ORDER BY round DESC');
   $query->execute(array('music' => $bandit, 'lyrics' => $bandit, 'vocals' => $bandit));
   display_songs($query);
 ?>
