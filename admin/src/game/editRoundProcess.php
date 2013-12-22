@@ -30,7 +30,7 @@ function editRound(){
 
     if( isset($_POST['delete_round']) )
     {
-        $query = $db->prepare('DELETE FROM rounds WHERE id = :id');
+        $query = $db->prepare('DELETE FROM rounds WHERE number = :id');
         $query->execute(array('id' => $id));
 
     } else {
