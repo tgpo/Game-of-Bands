@@ -1,8 +1,12 @@
 <?php
-require_once('includes/gob_admin.php');
-require_once('../lib/reddit.php');
-require_once('../src/secrets.php');
+require_once( 'includes/gob_admin.php' );
+require_once( '../lib/reddit.php' );
+require_once( '../src/secrets.php' );
+require_once( '../src/query.php' );
+require_once( 'src/classes/gob.php' );
+
 $reddit = new reddit($reddit_user, $reddit_password);
+$gob = new gob($reddit_user, $reddit_password, 'gameofbands');
 
 $mainsubreddit = 'gameofbands';
 
@@ -17,45 +21,7 @@ function redirect($pagename){
 
 // We need to post the Signup Threads
 if(isset($_POST['postroundstart'])){
-	$postTemplate = "Reply to the appropriate comment to sign up for this round of Game of Bands.
-	
-You may sign up for multiple roles, but you will only be selected for one. Only direct replies to the 'sign up comments' will be considered as signing up. Any direct reply to the 'sign up comments' will be considered a sign up, no matter what the comment says. If you change your mind about a sign up please delete your comment.
-
-Press 1 to be returned to the main menu.";
-	$response = $reddit->createStory('Signups for Round ' . $_POST['Round'] . '; all roles.', '', $mainsubreddit, $postTemplate);
-
-	
-	$postTemplate = "Post theme ideas here. Up and down votes are considered in selecting a winner. Keep in mind that a theme must apply to **all the disciplines** in a team. Nominations which do not meet this criteria, or that have been done previously, will be removed.";
-	$response = $reddit->createStory('Theme voting post for Round ' . $_POST['Round'] . '.', '', $mainsubreddit, $postTemplate);
-	
-	/* Find our new posts and save their IDs for future use */
-	sleep(3);
-	$getredditlisting = $reddit->getListing($mainsubreddit,5);
-	$getredditlisting = $getredditlisting->data->children;
-	
-	$signupID = titleSearch($getredditlisting,'Signups for Round ' . $_POST['Round'] . '; all roles.');
-	$themeID = titleSearch($getredditlisting,'Theme voting post for Round ' . $_POST['Round'] . '.');
-	
-	/* Post our Signup Comments */
-	$response = $reddit->addComment($signupID, 'Musicians Reply Here');
-	$response = $reddit->addComment($signupID, 'Lyricists Reply Here');
-	$response = $reddit->addComment($signupID, 'Vocalists Reply Here');
-	
-	/* Find our new comments and save their IDs for future use */
-	sleep(3);
-	$commentpool = $reddit->getcomments($mainsubreddit,$signupID,5);
-	$commentpool = $commentpool->data->children;
-	
-	$musiciansSignuppostID = commentSearch($commentpool,'Musicians Reply Here');
-	$lyricistsSignuppostID = commentSearch($commentpool,'Lyricists Reply Here');
-	$vocalistSignuppostID = commentSearch($commentpool,'Vocalists Reply Here');
-	
-	$round = $_POST['Round'];
-
-	// Save our data to the databse
-	$sql = "INSERT INTO rounds (number, theme, signupID, musiciansSignupID, lyricistsSignupID, vocalistSignupID, consolidationID, themeID) VALUES ('$round', 'NULL', '$signupID', '$musiciansSignuppostID', '$lyricistsSignuppostID', '$vocalistSignuppostID', '','$themeID')";
-	
-	call_db($sql,'songlist');
+	$gob->postSignups($_POST['Round']);
 
 	redirect('dashboard');
 }
