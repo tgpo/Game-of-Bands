@@ -86,7 +86,7 @@ function writeNewMessageCount(){
   <footer>
   <p class="redditlink">gameofbands.co is a counterpart to the awesome Game of Bands community at
   <a href='http://gameofbands.reddit.com' target='_blank'>gameofbands.reddit.com</a>.</p>
-  <p class="credits">Site programming by RetroTheft, Orphoneus, and tgpo. Design by RetroTheft.
+  <p class="credits">Site programming by RetroTheft, Orphoneus, IAmTriumph, and tgpo. Design by RetroTheft.
   All music and lyrics presented herein are copyright of their original creators.</p>
   </footer>
 </body>
