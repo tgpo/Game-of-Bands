@@ -17,7 +17,7 @@ function writeNewMessageCount(){
 <html>
 <head>
   <title>The Game of Bands Song Depository | A reddit game of making music</title>
-  <link rel="stylesheet" type="text/css" href="/stylesheet.css" />
+  <link rel="stylesheet" type="text/css" href="/css/styles.css" />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="//connect.soundcloud.com/sdk.js"></script>
   <script>

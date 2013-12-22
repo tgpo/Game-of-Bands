@@ -49,7 +49,7 @@ div.lyrics{
 }
 	
 header {
-	background:url('images/gobheader.png') left top no-repeat #000;
+	background:url('/images/gobheader.png') left top no-repeat #000;
 	height:190px;
 	overflow:hidden;
 	width:100%;
