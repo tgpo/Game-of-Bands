@@ -21,39 +21,56 @@ $query->execute(array('username' => $username, 'currentround' => $currentround))
 $song  = $query->fetch();
  ?>
 
+<script>
+    $(document).ready(function(){
+        $("#submitSong").validate({
+            rules: {
+                teamnumber: {
+                    required: true,
+                    number: true
+                },
+                url: {
+                    required: true,
+                    url: true
+                }
+            }
+        });
+    });
+</script>
+
 <h2>Submit Song for Round <?php echo $currentround; ?></h2>
 
 <?php if (empty($song['name'])) { ?>
 
-    <form method="post" action="user_process.php">
+    <form id="submitSong" method="post" action="user_process.php">
         <input type="hidden" name="round" value="<?=$currentround ?>">
         
         <label>Team Number</label>
-        <input type="text" name="teamnumber" value="" />
+        <input type="text" id="teamnumber" name="teamnumber" value="" type="number" required/>
         <br />
         
         <label>Song Name</label>
-        <input type="text" name="songname" value="" />
+        <input type="text" id="songname" name="songname" value="" required/>
         <br />
         
         <label>Song URL</label>
-        <input type="text" name="url" value="" />
+        <input type="text" id="url" name="url" value="" type="url" required/>
         <br />
 
         <label>Lyrics Bandit</label>
-        <input type="text" name="lyrics" value="" />
+        <input type="text" id="lyrics" name="lyrics" value="" required/>
         <br />
         
         <label>Music Bandit</label>
-        <input type="text" name="music" value="" />
+        <input type="text" id="music" name="music" value="" required/>
         <br />
         
         <label>Vocals Bandit</label>
-        <input type="text" name="vocals" value="" />
+        <input type="text" id="vocals" name="vocals" value="" required/>
         <br />
         
         <label>Song Lyrics</label>
-        <textarea rows="5" cols="20" name="lyricsheet"></textarea>
+        <textarea rows="5" cols="20" id="lyricsheet" name="lyricsheet" required></textarea>
         <br />    
         
         <input type="submit" value="Submit Song" name="submitSong">
