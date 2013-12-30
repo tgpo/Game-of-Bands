@@ -1,10 +1,13 @@
 <?php session_start();
 
-require_once('lib/reddit.php');
-require_once('src/query.php');
 require_once('src/gob_user.php');
+require_once('lib/reddit.php');
+require_once('src/secrets.php');
+require_once('src/query.php');
 
 loggedin_check();
+
+$reddit = new reddit($reddit_user, $reddit_password);
 
 if( isset($_POST['leaveTeam']) ){
   leaveTeam();
@@ -13,7 +16,7 @@ if( isset($_POST['leaveTeam']) ){
   goSubmitSongPage();
 
 } elseif( isset($_POST['submitSong']) ){
-  submitSong();
+  submitSong($reddit_user, $reddit_password);
 
 }
 
@@ -30,19 +33,19 @@ function goSubmitSongPage(){
 
 }
 
-function submitSong(){
-	$reddit = new reddit($reddit_user, $reddit_password);
+function submitSong($reddit_user, $reddit_password){
+    $reddit = new reddit($reddit_user, $reddit_password);
     $db = database_connect();
 
     $user = $_SESSION['GOB']['name'];
-    $round = $_POST["round"];
-    $teamnumber = $_POST["teamnumber"];
-    $name = $_POST["songname"];
-    $url = $_POST["url"];
-    $lyrics = $_POST["lyrics"];
-    $music = $_POST["music"];
-    $vocals = $_POST["vocals"];
-    $lyricsheet = $_POST["lyricsheet"];
+    $round = filter_input(INPUT_POST, 'round', FILTER_SANITIZE_NUMBER_INT);
+    $teamnumber = filter_input(INPUT_POST, 'teamnumber', FILTER_SANITIZE_NUMBER_INT);
+    $name = filter_input(INPUT_POST, 'songname', FILTER_SANITIZE_URL);
+    $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_URL);
+    $lyrics = filter_input(INPUT_POST, 'lyrics', FILTER_SANITIZE_SPECIAL_CHARS);
+    $music = filter_input(INPUT_POST, 'music', FILTER_SANITIZE_SPECIAL_CHARS);
+    $vocals = filter_input(INPUT_POST, 'vocals', FILTER_SANITIZE_SPECIAL_CHARS);
+    $lyricsheet = filter_input(INPUT_POST, 'lyricsheet', FILTER_SANITIZE_SPECIAL_CHARS);
 
     $newSong = $db->prepare('INSERT INTO songs (name, url, music, lyrics, vocals, lyricsheet, round, teamnumber, submitby, approved) VALUES (:name, :url, :music, :lyrics, :vocals, :lyricsheet, :round, :teamnumber, :submitby, :approved)');
     $newSong->execute(array(':name' => $name,
@@ -55,11 +58,10 @@ function submitSong(){
                           ':teamnumber' => $teamnumber,
                           ':submitby' => $user,
                           ':approved' => false
-	));
+    ));
 
     
     $response = $reddit->sendMessage('/r/gameofbands', 'Team ' . $teamnumber, $user . ' submitted the song ' . $name );
-    
     redirect();
 
 }
@@ -68,4 +70,5 @@ function redirect($page = 'index.php'){
     header('Location: '.$page);
 
 }
+
 ?>
