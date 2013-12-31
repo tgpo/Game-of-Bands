@@ -83,7 +83,7 @@ function writeNewMessageCount(){
           </li>
           <li>
             <ul>
-                <li><a href="index.php?view=postmessage">Post Message</a></li>
+                <li><a href="index.php?view=postmessage">Make New Post</a></li>
             </ul>
           </li>
           <li>
