@@ -16,7 +16,7 @@ if( isset($_POST['leaveTeam']) ){
   goSubmitSongPage();
 
 } elseif( isset($_POST['submitSong']) ){
-  submitSong($reddit_user, $reddit_password);
+  submitSong($reddit);
 
 }
 
@@ -33,8 +33,7 @@ function goSubmitSongPage(){
 
 }
 
-function submitSong($reddit_user, $reddit_password){
-    $reddit = new reddit($reddit_user, $reddit_password);
+function submitSong($reddit){
     $db = database_connect();
 
     $user = $_SESSION['GOB']['name'];
