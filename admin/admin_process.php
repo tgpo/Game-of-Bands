@@ -19,7 +19,7 @@ function redirect($pagename){
 	header('Location: index.php?view=' . $pagename);
 }
 
-// We need to post the Signup Threads
+// Post the Signup Threads
 if(isset($_POST['postroundstart'])){
 	$gob->postSignups($_POST['Round']);
 
