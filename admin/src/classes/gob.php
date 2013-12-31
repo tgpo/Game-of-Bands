@@ -28,9 +28,9 @@ class gob{
 
         $postTemplate = "Reply to the appropriate comment to sign up for this round of Game of Bands.
     
-        You may sign up for multiple roles, but you will only be selected for one. Only direct replies to the 'sign up comments' will be considered as signing up. Any direct reply to the 'sign up comments' will be considered a sign up, no matter what the comment says. If you change your mind about a sign up please delete your comment.
+You may sign up for multiple roles, but you will only be selected for one. Only direct replies to the 'sign up comments' will be considered as signing up. Any direct reply to the 'sign up comments' will be considered a sign up, no matter what the comment says. If you change your mind about a sign up please delete your comment.
 
-        Press 1 to be returned to the main menu.";
+Press 1 to be returned to the main menu.";
 
         $response = $this->_reddit->createStory('Signups for Round ' . $round . '; all roles.', '', $this->mainsubreddit, $postTemplate);
         
