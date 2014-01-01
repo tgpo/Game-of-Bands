@@ -1,4 +1,3 @@
-
 RewriteEngine on
 
 #remove www from domain
@@ -25,6 +24,8 @@ RewriteRule ^login_request$ index.php?view=login_request [L,QSA]
 RewriteRule ^user_dashboard$ index.php?view=user_dashboard [L,QSA]
 RewriteRule ^user_submitsong$ index.php?view=user_submitsong [L,QSA]
 RewriteRule ^all_rounds$ index.php?view=rounds [L,QSA]
+RewriteRule ^edit_profile$ index.php?view=edit_profile [L,QSA]
+RewriteRule ^edit_profile_process$ edit_profile_process.php [L,QSA]
 
 # Disallow directory Listing
 Options -Indexes
