@@ -92,7 +92,7 @@ function writeNewMessageCount(){
           <li>
             <ul>
                 <li><a href="index.php?view=inbox">/u/GameofBands Inbox</a></li>
-                <li><a href="index.php?view=editcss">edit Reddit CSS</a></li>
+                <li><a href="index.php?view=editflair">edit Flair</a></li>
             </ul>
           </li>
         </ul>
@@ -114,7 +114,7 @@ function writeNewMessageCount(){
               case 'addteam'          : include_once 'src/addteam.php';        break;
               case 'editteam'         : include_once 'src/editteam.php';       break;
               case 'inbox'            : include_once 'src/inbox.php';          break;
-              case 'editcss'          : include_once 'src/editcss.php';        break;
+              case 'editflair'          : include_once 'src/editflair.php';        break;
               default                 : include_once 'src/dashboard.php';      break;
             }
           ?>
