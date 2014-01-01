@@ -15,10 +15,13 @@
   <a href='/index.php' class="returnhome">Return to song library</a>
 </aside>
 
-<h2><?php echo $bandit; ?>'s Game of Bands profile</h2>
+<h2><?php echo $bandit; ?>'s Game of Bands profile  <?php if($bandit == get_username()) write_edit_controls(); ?></h2> 
 
 <section id='profile'>
 <?php
+  
+  write_bandit_profile($bandit);
+  
   require_once('query.php');
   
   $db    = database_connect();  
