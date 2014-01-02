@@ -57,4 +57,50 @@ function get_bandit_links(){
 
 }
 
+function write_edit_controls(){
+  echo '&nbsp;[<a href="/edit_profile">Edit</a>]';
+
+}
+
+function write_bandit_profile($bandit){
+
+  $db = database_connect();
+  $query = $db->prepare('SELECT soundcloud_url, tools, website FROM bandits WHERE name=:bandit');
+  $query->execute(array('bandit' => $bandit));
+  $webname = "Website";
+  $scname = "Soundcloud";
+  $tname = "Tools/Gear";
+  $noentry = "Not specified";
+
+  while($row = $query->fetch(PDO::FETCH_ASSOC)){
+
+          $scu = $row['soundcloud_url']=="" ? $noentry  :  $row['soundcloud_url'];
+          $url = $row['website']=="" ? $noentry : $row['website'];	  
+	  $gear = $row['tools']=="" ? $noentry  : $row['tools'];
+
+          $link_bandit_soundcloud = $scu==$noentry ? 
+          '<td>' . $scname . '</td><td>' . $scu . '</td>'     :   '<td>' . $scname . '</td><td><a href="' . $scu . '" target="_blank">' . $scu . '</a></td>'; 
+
+          $link_bandit_website = $url==$noentry ?
+           '<td>' . $webname . '</td><td>' . $url . '</td>'   :   '<td>' . $webname . '</td><td><a href="' . $url . '" target="_blank">' . $url . '</a></td>';
+   
+           
+          
+          echo '<table> 
+				<th colspan="2">Bandit Info</th>
+				<tr>'
+				      .  $link_bandit_soundcloud  .
+				'</tr>
+				<tr>'
+			              .  $link_bandit_website  .
+				'</tr>
+				<tr>
+					<td>' . $tname . '</td><td>' . $gear . '</td>
+				</tr>
+			</table><br />';
+
+  }
+
+}
+
 ?>
