@@ -80,6 +80,7 @@ function writeNewMessageCount(){
         case 'user_submitsong'  : include_once 'src/user_submitsong.php'; break;
         case 'login_request'    : include_once 'src/login_request.php';   break;
         case 'edit_profile'     : include_once 'src/edit_profile.php';    break;
+        case 'irc'              : include_once 'src/irc.php';             break;
         default                 : include_once 'src/view_all.php';        break;
       }
     ?>
