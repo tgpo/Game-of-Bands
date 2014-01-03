@@ -11,7 +11,7 @@
 
 	$db = database_connect();
 	$query = $db->prepare('UPDATE bandits SET soundcloud_url=:scu, website=:url, tools=:gear WHERE name=:bandit');
-	$query->execute(array('scu' => $scu,'url' => $url,'gear' => $gear,'bandit' => $bandit);
+	$query->execute(array('scu' => $scu, 'url' => $url, 'gear' => $gear, 'bandit' => $bandit));
 	header('Location: /bandit/'  .  $bandit);
 
 ?>
