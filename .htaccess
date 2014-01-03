@@ -26,6 +26,7 @@ RewriteRule ^user_submitsong$ index.php?view=user_submitsong [L,QSA]
 RewriteRule ^all_rounds$ index.php?view=rounds [L,QSA]
 RewriteRule ^edit_profile$ index.php?view=edit_profile [L,QSA]
 RewriteRule ^edit_profile_process$ edit_profile_process.php [L,QSA]
+RewriteRule ^irc$ index.php?view=irc [L,QSA]
 
 # Disallow directory Listing
 Options -Indexes
