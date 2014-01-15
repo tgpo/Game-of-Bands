@@ -32,6 +32,7 @@ $(document).ready(function(){
       <p>Posts the voting thread for all submitted songs.</p>
       <br />
       <button type="submit" value="Post Song Voting Thread" name="postvote">Post Voting Thread</button>
+      <button type="submit" value="Post Late Comers" name="postlate">Post Late Comers</button>
     </div>
     <div class="box left">
       <h2>2. Post Signups for Round <?php echo ($currentround + 1); ?></h2>
