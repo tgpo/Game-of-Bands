@@ -55,7 +55,7 @@ if(!defined('INDEX')) {
   	echo "<thead><tr><th>Round</th><th>Song Title</th><th>Votes</th><th>Winner</th><th>Votes</th></tr></thead></tbody>";
     foreach ($result as $row) {
   		echo "<tr>";
-  	  echo "<td class='round'>".a_round($row['number'],$row['round'])."</td>";
+  	  echo "<td class='round'>".a_round($row['round'],$row['round'])."</td>";
   	  echo "<td class='songname'>".a_song ($row)."</td>";
   	  echo "<td class='songvotes'>".$row['votes']."</td>";
   	  echo "<td class='bandit'>".a_bandit($row['winner'])."</td>";
