@@ -22,7 +22,7 @@
   <a href='/index.php' class="returnhome">Return to song library</a>
 </aside>
 
-<h2><?php echo $song['name'];?></h2>
+<h2 id="songTitle" data-songid="<?php echo $song['id']; ?>"><?php echo $song['name'];?></h2>
 <h3>This song was created for Game of Bands round <?php echo $song['round']; ?></h3>
 
 <div id="putTheWidgetHere"></div>

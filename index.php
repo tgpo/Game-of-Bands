@@ -13,12 +13,78 @@ function writeNewMessageCount(){
   
 }
 
+function writeBestOfNomination(){
+    $db    = database_connect();
+    $songID = filter_input(INPUT_GET, 'song', FILTER_SANITIZE_NUMBER_INT);
+    $bandit = $_SESSION['GOB']['name'];
+
+    $query = $db->prepare('SELECT * FROM songs WHERE id=:songID');
+    $query->execute(array('songID' => $songID));
+    $song  = $query->fetch();
+
+    $query = $db->prepare("SELECT * FROM bestof2013 WHERE bandit = :bandit");
+    $query->execute(array( 'bandit' => $bandit ));
+    $bestOf = $query->fetch();
+
+    $html = "<ul>";
+
+    $html .= '<li';
+        if (isset($bestOf['bestSong'])) { $html .= ' class="done"';}
+    $html .= '>Best song<br /><a href="#" rel="bestSong" class="button" data-id="' . $songID . '">' . $song['name'] . '</a></li>';
+
+    $html .= '<li';
+        if (isset($bestOf['bestLyricist'])) { $html .= ' class="done"';}
+    $html .= '>Best Lyricist<br /><a href="#" rel="bestLyricist" class="button" data-id="' . $songID . '">' . $song['lyrics'] . '</a></li>';
+
+    $html .= '<li';
+        if (isset($bestOf['bestMusician'])) { $html .= ' class="done"';}
+    $html .= '>Best Musician<br /><a href="#" rel="bestMusician" class="button" data-id="' . $songID . '">' . $song['music'] . '</a></li>';
+
+    $html .= '<li';
+        if (isset($bestOf['bestVocalist'])) { $html .= ' class="done"';}
+    $html .= '>Best Vocalist<br /><a href="#" rel="bestVocalist" class="button" data-id="' . $songID . '">' . $song['vocals'] . '</a></li>';
+
+    $html .= '<li';
+        if (isset($bestOf['bestSave'])) { $html .= ' class="done"';}
+    $html .= '>Best Save (Someone who replaced a quitter on a team)<br />';
+        $html .= '<a href="#" rel="bestSave" class="button" data-id="' . $song['lyrics'] . " | " . $songID . '">' . $song['lyrics'] . '</a>';
+
+        $html .= '<a href="#" rel="bestSave" class="button" data-id="' . $song['music'] . " | " . $songID . '">' . $song['music'] . '</a>';
+
+        $html .= '<a href="#" rel="bestSave" class="button" data-id="' . $song['vocals'] . " | " . $songID . '">' . $song['vocals'] . '</a></li>';
+    
+    $html .= '<li';
+        if (isset($bestOf['underAppreciatedSong'])) { $html .= ' class="done"';}
+    $html .= '>Criminally under-appreciated song<br /><a href="#" rel="underAppreciatedSong" class="button" data-id="' . $songID . '">' . $song['name'] . '</a></li>';
+    
+    $html .= '<li';
+        if (isset($bestOf['underAppreciatedBandit'])) { $html .= ' class="done"';}
+    $html .= '>Criminally under-appreciated bandit<br />';
+
+        $html .= '<a href="#" rel="underAppreciatedBandit" class="button" data-id="' . $song['lyrics'] . " | " . $songID . '">' . $song['lyrics'] . '</a>';
+
+        $html .= '<a href="#" rel="underAppreciatedBandit" class="button" data-id="' . $song['music'] . " | " . $songID . '">' . $song['music'] . '</a>';
+
+        $html .= '<a href="#" rel="underAppreciatedBandit" class="button" data-id="' . $song['vocals'] . " | " . $songID . '">' . $song['vocals'] . '</a></li>';
+
+
+    $html .= '<li';
+        if (isset($bestOf['bestApplicationRound'])) { $html .= ' class="done"';}
+    $html .= '>Best application of a round\'s theme<br /><a href="#" rel="bestApplicationRound" class="button" data-id="' . $songID . '">' . $song['name'] . '</a></li>';
+    
+    $html .= '</ul>';
+    
+    echo $html;
+
+}
+
 ?>
 <html>
 <head>
   <title>The Game of Bands Song Depository | A reddit game of making music</title>
   <link rel="stylesheet" type="text/css" href="/css/styles.css" />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="/src/js/site.js"></script>
   <script src="/lib/js/jquery-validation-1.11.1/dist/jquery.validate.min.js"></script>
   <script src="//connect.soundcloud.com/sdk.js"></script>
   <script>
@@ -39,34 +105,53 @@ function writeNewMessageCount(){
   </script>
 </head>
 <body>
-  <header>
-    <h1 id="header1">Game of Bands - A reddit game of making music</h1>
-    <a href="/" id="returnhome"></a>
-	<nav id="accountLinks">
-	      <?php
-        if ( is_loggedin() ) {
-			echo ' <span class="username">' . get_bandit_links() . '</span>';
-			
-			if ( is_mod() ) { echo '<a class="adminpanel" href="/admin">Admin Panel</a> | '; }
-			
-			echo ' <a class="logout" href="/login.php/logout">Logout</a>';
-      ?>
-       <span id="showMessages"><img src="/images/ico.email.gif"><span id="messageCount"><?php writeNewMessageCount(); ?></span></span>
-       <section id="messagesContainer"><?php require('admin/src/messages.php'); ?></section>
+    <header>
       <?php
-		} else {
-			echo '<a class="login" href="/login.php">Login</a>';
-        }
-      ?>
-     
-	</nav>
+      if ( is_loggedin() ) { 
+          if ( filter_input(INPUT_GET, 'view', FILTER_SANITIZE_SPECIAL_CHARS) == "song") {
+              if ( filter_input(INPUT_GET, 'song', FILTER_SANITIZE_SPECIAL_CHARS) > 84) {
+                ?>
+                <section id="bestOf" style="display:none;">
+                    <div class="close">X</div>
+                    <h2>Best of 2013</h2>
+                    <p>Nominate the best songs of 2013</p>
+                    <?php 
+                        writeBestOfNomination();
+                    ?>
+                </section>
+                <?php
+              }
+          }
+      }
 
-    <div id='welcomebar'>
-      <span id="welcome">Game of Bands is a musical tournament where redditors band together, create a song in 10 days, and compete and critique their music.</span>
-    </div>
-  </header>
+      ?>
+        <h1 id="header1">Game of Bands - A reddit game of making music</h1>
+        <a href="/" id="returnhome"></a>
+        <nav id="accountLinks">
+            <?php
+            if ( is_loggedin() ) {
+                echo ' <span class="username">' . get_bandit_links() . '</span>';
+            
+                if ( is_mod() ) { echo '<a class="adminpanel" href="/admin">Admin Panel</a> | '; }
+            
+                echo ' <a class="logout" href="/login.php/logout">Logout</a>';
+              ?>
+               <span id="showMessages"><img src="/images/ico.email.gif"><span id="messageCount"><?php writeNewMessageCount(); ?></span></span>
+               <section id="messagesContainer"><?php require('admin/src/messages.php'); ?></section>
+              <?php
+            } else {
+                echo '<a class="login" href="/login.php">Login</a>';
+            }
+            ?>
+     
+        </nav>
+
+        <div id='welcomebar'>
+            <span id="welcome">Game of Bands is a musical tournament where redditors band together, create a song in 10 days, and compete and critique their music.</span>
+        </div>
+    </header>
   
-  <section id="content">
+    <section id="content">
 
     <?php
       // Decide which data to display
@@ -84,13 +169,14 @@ function writeNewMessageCount(){
         default                 : include_once 'src/view_all.php';        break;
       }
     ?>
-  </section>
+
+    </section>
   
-  <footer>
-  <p class="redditlink">gameofbands.co is a counterpart to the awesome Game of Bands community at
-  <a href='http://gameofbands.reddit.com' target='_blank'>gameofbands.reddit.com</a>.</p>
-  <p class="credits">Site programming by RetroTheft, Orphoneus, IAmTriumph, and tgpo. Design by RetroTheft.
-  All music and lyrics presented herein are copyright of their original creators.</p>
-  </footer>
+    <footer>
+        <p class="redditlink">gameofbands.co is a counterpart to the awesome Game of Bands community at
+        <a href='http://gameofbands.reddit.com' target='_blank'>gameofbands.reddit.com</a>.</p>
+        <p class="credits">Site programming by RetroTheft, Orphoneus, IAmTriumph, and tgpo. Design by RetroTheft.
+          All music and lyrics presented herein are copyright of their original creators.</p>
+    </footer>
 </body>
 </html>
