@@ -4,7 +4,7 @@ $(document).ready(function(){
 
     });
 
-    if($('#songtable .round .round').text() > 10) {
+    if($('#songtable .round .round').text() > 9 && $('#songtable .round .round').text() < 36) {
         $('#bestOf').slideDown();
     }
 

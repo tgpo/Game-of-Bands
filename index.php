@@ -109,7 +109,7 @@ function writeBestOfNomination(){
       <?php
       if ( is_loggedin() ) { 
           if ( filter_input(INPUT_GET, 'view', FILTER_SANITIZE_SPECIAL_CHARS) == "song") {
-              if ( filter_input(INPUT_GET, 'song', FILTER_SANITIZE_SPECIAL_CHARS) > 84) {
+              if ( filter_input(INPUT_GET, 'song', FILTER_SANITIZE_SPECIAL_CHARS) > 78 && filter_input(INPUT_GET, 'song', FILTER_SANITIZE_SPECIAL_CHARS) < 257) {
                 ?>
                 <section id="bestOf" style="display:none;">
                     <div class="close">X</div>
