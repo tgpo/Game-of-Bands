@@ -53,4 +53,23 @@ if($lyrics) {
 	echo nl2br($lyrics);
 	echo "</div>";
 }
+else {
+	$mailSafeSongTitle  =  urlencode($song['name']);
+	$mailSafeSongURL    =  urlencode("http://www.gameofbands.co/song/"  .  $song['id']);
+	$mailSafeMusicBanditLink   =  urlencode("http://www.reddit.com/message/compose/?to="  .  $song['music']);
+	$mailSafeLyricsBanditLink  =  urlencode("http://www.reddit.com/message/compose/?to="  .  $song['lyrics']);
+	$mailSafeVocalsBanditLink  =  urlencode("http://www.reddit.com/message/compose/?to="  .  $song['vocals']);
+	
+	$missingLyricsLink  =  '<h4>';
+	$missingLyricsLink .=  '<a href="mailto:retrotheft@gameofbands.co?subject-Missing%20lyrics%20for%20song%20';
+	$missingLyricsLink .=  $song['id']  .  '&body-'  .  'name:%20'  .  $mailSafeSongTitle  .  '\nlink:%20';
+	$missingLyricsLink .=  $mailSafeSongURL  .  "\n";
+	$missingLyricsLink .=  'Musician:%20'  .  $mailSafeMusicBanditLink  .  '\n';
+	$missingLyricsLink .=  'Lyricist:%20'  .  $mailSafeMusicBanditLink  .  '\n';
+	$missingLyricsLink .=  'Vocalist:%20'  .  $mailSafeMusicBanditLink  .  '\n';
+	$missingLyricsLink .=  '">Report Missing Lyricsheet</a></h4>';
+
+        echo $missingLyricsLink;
+	
+}
 ?>
