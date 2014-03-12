@@ -4,6 +4,8 @@ require_once( '../../includes/gob_admin.php' );
 require_once( '../../../src/secrets.php' );
 require_once( '../../../src/query.php' );
 
+loggedin_check();
+
 if( isset($_POST['postMessage']) ){
   postMessage();
 
@@ -27,13 +29,15 @@ function postMessage(){
 
     switch ($user_to) {
         case "allmods":
-            $bandits = $db->query('SELECT * FROM bandits WHERE is_mod = 1');
+            if( is_mod() ) {
+                $bandits = $db->query('SELECT * FROM bandits WHERE is_mod = 1');
 
-            foreach ($bandits as $bandit) {
-                $user_to = $bandit['name'];
+                foreach ($bandits as $bandit) {
+                    $user_to = $bandit['name'];
 
-                $messages = $db->prepare('INSERT INTO messages (user_to, user_from, body, date_sent) VALUES (:user_to, :from, :body, :date)');
-                $messages->execute(array('user_to' => $user_to, 'from' => $from, 'body' => $body, 'date' => $date));
+                    $messages = $db->prepare('INSERT INTO messages (user_to, user_from, body, date_sent) VALUES (:user_to, :from, :body, :date)');
+                    $messages->execute(array('user_to' => $user_to, 'from' => $from, 'body' => $body, 'date' => $date));
+                }
             }
 
             break;
