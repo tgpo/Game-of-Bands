@@ -1,4 +1,6 @@
 <?php
+header('Content-type: text/html; charset=utf-8');
+
 define('INDEX', true);
 require_once( 'src/gob_user.php' );
 require_once( 'src/query.php' );
@@ -13,74 +15,10 @@ function writeNewMessageCount(){
   
 }
 
-function writeBestOfNomination(){
-    $db    = database_connect();
-    $songID = filter_input(INPUT_GET, 'song', FILTER_SANITIZE_NUMBER_INT);
-    $bandit = $_SESSION['GOB']['name'];
-
-    $query = $db->prepare('SELECT * FROM songs WHERE id=:songID');
-    $query->execute(array('songID' => $songID));
-    $song  = $query->fetch();
-
-    $query = $db->prepare("SELECT * FROM bestof2013 WHERE bandit = :bandit");
-    $query->execute(array( 'bandit' => $bandit ));
-    $bestOf = $query->fetch();
-
-    $html = "<ul>";
-
-    $html .= '<li';
-        if (isset($bestOf['bestSong'])) { $html .= ' class="done"';}
-    $html .= '>Best song<br /><a href="#" rel="bestSong" class="button" data-id="' . $songID . '">' . $song['name'] . '</a></li>';
-
-    $html .= '<li';
-        if (isset($bestOf['bestLyricist'])) { $html .= ' class="done"';}
-    $html .= '>Best Lyricist<br /><a href="#" rel="bestLyricist" class="button" data-id="' . $songID . '">' . $song['lyrics'] . '</a></li>';
-
-    $html .= '<li';
-        if (isset($bestOf['bestMusician'])) { $html .= ' class="done"';}
-    $html .= '>Best Musician<br /><a href="#" rel="bestMusician" class="button" data-id="' . $songID . '">' . $song['music'] . '</a></li>';
-
-    $html .= '<li';
-        if (isset($bestOf['bestVocalist'])) { $html .= ' class="done"';}
-    $html .= '>Best Vocalist<br /><a href="#" rel="bestVocalist" class="button" data-id="' . $songID . '">' . $song['vocals'] . '</a></li>';
-
-    $html .= '<li';
-        if (isset($bestOf['bestSave'])) { $html .= ' class="done"';}
-    $html .= '>Best Save (Someone who replaced a quitter on a team)<br />';
-        $html .= '<a href="#" rel="bestSave" class="button" data-id="' . $song['lyrics'] . " | " . $songID . '">' . $song['lyrics'] . '</a>';
-
-        $html .= '<a href="#" rel="bestSave" class="button" data-id="' . $song['music'] . " | " . $songID . '">' . $song['music'] . '</a>';
-
-        $html .= '<a href="#" rel="bestSave" class="button" data-id="' . $song['vocals'] . " | " . $songID . '">' . $song['vocals'] . '</a></li>';
-    
-    $html .= '<li';
-        if (isset($bestOf['underAppreciatedSong'])) { $html .= ' class="done"';}
-    $html .= '>Criminally under-appreciated song<br /><a href="#" rel="underAppreciatedSong" class="button" data-id="' . $songID . '">' . $song['name'] . '</a></li>';
-    
-    $html .= '<li';
-        if (isset($bestOf['underAppreciatedBandit'])) { $html .= ' class="done"';}
-    $html .= '>Criminally under-appreciated bandit<br />';
-
-        $html .= '<a href="#" rel="underAppreciatedBandit" class="button" data-id="' . $song['lyrics'] . " | " . $songID . '">' . $song['lyrics'] . '</a>';
-
-        $html .= '<a href="#" rel="underAppreciatedBandit" class="button" data-id="' . $song['music'] . " | " . $songID . '">' . $song['music'] . '</a>';
-
-        $html .= '<a href="#" rel="underAppreciatedBandit" class="button" data-id="' . $song['vocals'] . " | " . $songID . '">' . $song['vocals'] . '</a></li>';
-
-
-    $html .= '<li';
-        if (isset($bestOf['bestApplicationRound'])) { $html .= ' class="done"';}
-    $html .= '>Best application of a round\'s theme<br /><a href="#" rel="bestApplicationRound" class="button" data-id="' . $songID . '">' . $song['name'] . '</a></li>';
-    
-    $html .= '</ul>';
-    
-    echo $html;
-
-}
-
 ?>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>The Game of Bands Song Depository | A reddit game of making music</title>
   <link rel="stylesheet" type="text/css" href="/css/styles.css" />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -106,25 +44,6 @@ function writeBestOfNomination(){
 </head>
 <body>
     <header>
-      <?php
-      if ( is_loggedin() ) { 
-          if ( filter_input(INPUT_GET, 'view', FILTER_SANITIZE_SPECIAL_CHARS) == "song") {
-              if ( filter_input(INPUT_GET, 'song', FILTER_SANITIZE_SPECIAL_CHARS) > 78 && filter_input(INPUT_GET, 'song', FILTER_SANITIZE_SPECIAL_CHARS) < 257) {
-                ?>
-                <section id="bestOf" style="display:none;">
-                    <div class="close">X</div>
-                    <h2>Best of 2013</h2>
-                    <p>Nominate the best songs of 2013</p>
-                    <?php 
-                        writeBestOfNomination();
-                    ?>
-                </section>
-                <?php
-              }
-          }
-      }
-
-      ?>
         <h1 id="header1">Game of Bands - A reddit game of making music</h1>
         <a href="/" id="returnhome"></a>
         <nav id="accountLinks">
@@ -147,7 +66,7 @@ function writeBestOfNomination(){
         </nav>
 
         <div id='welcomebar'>
-            <span id="welcome">Game of Bands is a musical tournament where redditors band together, create a song in 10 days, and compete and critique their music.</span>
+            <span id="welcome">Eleven days to take a song from conception to completion to competition!</span>
         </div>
     </header>
   
@@ -166,6 +85,7 @@ function writeBestOfNomination(){
         case 'login_request'    : include_once 'src/login_request.php';   break;
         case 'edit_profile'     : include_once 'src/edit_profile.php';    break;
         case 'irc'              : include_once 'src/irc.php';             break;
+        case 'bestof2013'       : include_once 'src/bestof2013-1.php';    break;
         default                 : include_once 'src/view_all.php';        break;
       }
     ?>

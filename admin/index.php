@@ -114,8 +114,10 @@ function writeNewMessageCount(){
               case 'addteam'          : include_once 'src/addteam.php';        break;
               case 'editteam'         : include_once 'src/editteam.php';       break;
               case 'inbox'            : include_once 'src/inbox.php';          break;
-              case 'editflair'          : include_once 'src/editflair.php';        break;
+              case 'editflair'        : include_once 'src/editflair.php';      break;
+              case 'bestof2013'       : include_once 'src/bestOf2013.php';     break;
               default                 : include_once 'src/dashboard.php';      break;
+
             }
           ?>
         </div>

@@ -1,26 +1,19 @@
 $(document).ready(function(){
-    $('#bestOf .close').click(function(){
-    	$('#bestOf').slideUp();
 
-    });
-
-    if($('#songtable .round .round').text() > 9 && $('#songtable .round .round').text() < 36) {
-        $('#bestOf').slideDown();
-    }
-
-    $('#bestOf .button').click(function(event){
+    $('#bestOfVoting .button').click(function(event){
         event.stopPropagation();
 
         //Song Nomination
         var catagory = $(this).attr('rel');
-        var nomination = $(this).attr('data-id');
+        var vote = $(this).attr('data-id');
+        
+        $(this).parents('ul').addClass('done').find('.done').removeClass('done');
 
         $(this).addClass('done');
-        $(this).parent().addClass('done');
 
         $.ajax({
             url: '/src/bestOfProcess.php',
-            data: {nominateSong: 'nominateSong', catagory: catagory, nomination: nomination},
+            data: {voteSong: 'voteSong', catagory: catagory, vote: vote},
             type: 'post',
             success: function(output) {
             }
@@ -28,5 +21,35 @@ $(document).ready(function(){
 
         return false;
     });
+    
+    $('#bestOfVoting .listen').click(function(event){
+
+        SC.oEmbed($(this).attr('data-url'), {
+            color: "000000",
+            auto_play: true,
+            maxheight: 166,
+            maxwidth: 400
+        },
+        document.getElementById("soundcloudBlock"));
+        
+        
+        $.getJSON("/src/songInfo.php", { song: $(this).attr('data-id') } )
+            .done(function( data ) {
+                $('#titleBlock').text(data.name);
+                
+                $('#lyricsBlock').html(data.lyricsheet);
+                $('#roundBlock').text('Round ' + data.round + ': ' + data.theme);
+                $('#bandBlock .lyrics').text(data.banditLyrics);
+                $('#bandBlock .music').text(data.banditMusic);
+                $('#bandBlock .vocals').text(data.banditVocals);
+            });
+        
+        if($('#votingWidget').is(":hidden")) {
+            $('#votingWidget').slideDown();
+        }
+        
+        return false;
+    });
+    
 
 });

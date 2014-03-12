@@ -4,17 +4,21 @@ require_once( 'secrets.php' );
 require_once( 'query.php' );
 require_once( 'gob_user.php' );
 
-if( isset($_POST['nominateSong']) ){
-  nominateSong();
+loggedin_check();
+
+if( isset($_POST['voteSong']) ){
+  voteSong();
 
 }
 
-function nominateSong(){
+function voteSong(){
     $db = database_connect();
 
     $bandit = get_username();
     $catagory = filter_input(INPUT_POST, 'catagory', FILTER_SANITIZE_SPECIAL_CHARS);
-    $nomination = filter_input(INPUT_POST, 'nomination', FILTER_SANITIZE_SPECIAL_CHARS);
+    $vote = filter_input(INPUT_POST, 'vote', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+
 
     $validColumns = array(
         'bestSong',
@@ -33,17 +37,17 @@ function nominateSong(){
 
     // Check if this user has already submitted a nomination
     //If so, update rather than add a new row
-    $query = $db->prepare("SELECT * FROM bestof2013 WHERE bandit = :bandit");
+    $query = $db->prepare("SELECT * FROM finalBestof2013 WHERE bandit = :bandit");
     $query->execute(array( 'bandit' => $bandit ));
     $row = $query->fetch();
     
     if(!$row['bandit']){
-        $query = $db->prepare('INSERT INTO bestof2013 (bandit, ' . $catagory . ') VALUES (:bandit, :nomination)');
-        $query->execute(array( 'bandit' => $bandit, 'nomination' => $nomination ));
-
+        $query = $db->prepare('INSERT INTO finalBestof2013 (bandit, ' . $catagory . ') VALUES (:bandit, :vote)');
+        $query->execute(array( 'bandit' => $bandit, 'vote' => $vote ));
+        
     } else {
-        $query = $db->prepare('UPDATE bestof2013 SET ' . $catagory . '=:nomination WHERE bandit=:bandit');
-        $query->execute(array( 'nomination' => $nomination, 'bandit' => $bandit ));
+            $query = $db->prepare('UPDATE finalBestof2013 SET ' . $catagory . '=:vote WHERE bandit=:bandit');
+            $query->execute(array( 'vote' => $vote, 'bandit' => $bandit ));
 
     }
 

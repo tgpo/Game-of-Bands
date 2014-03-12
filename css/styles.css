@@ -175,7 +175,7 @@ footer {
 	background:-moz-linear-gradient( center top, #bbbbbb 5%, #444444 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bbbbbb', endColorstr='#444444');
 	background-color:#bbbbbb;
-	border: #999;
+	border: 1px solid #999;
 	color:#ddd;
 	text-shadow:1px 1px 0px #222222;
 
@@ -186,8 +186,79 @@ footer {
 	background:url('/images/ico.check.png') 1px 1px no-repeat, -moz-linear-gradient( center top, #bbbbbb 5%, #444444 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bbbbbb', endColorstr='#444444');
 	background-color:#bbbbbb;
-	border: #999;
+	border: 1px solid #999;
 	color:#ddd;
 	text-shadow:1px 1px 0px #222222;
 
 }
+#bestOfVoting h2{
+    border-bottom: 1px dotted #444;
+    margin-bottom: 5px;
+    padding-bottom: 6px;
+}
+#bestOfVoting ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#bestOfVoting ul li {
+    padding: 5px 0;
+}
+
+#votingWidget {
+    background: #000;
+    border: 1px solid #fff;
+    display: none;
+    height: 90%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 10px;
+    position:fixed;
+    right: 20px;
+    top: 35px;
+    width:412px;
+    
+}
+#soundcloudBlock {
+    height: 166px;
+    padding: 10px 0;
+    width:400px;
+    
+}
+#titleBlock {
+    font-size: 21px;
+}
+#roundBlock {
+    font-size: 12px;
+}
+#bandBlock {
+    background: #f7f7f7;
+    border: 1px solid #444;
+    color: #404040;
+    font-size: 11px;
+    margin: 0 0 10px;
+    padding: 4px 10px;
+}
+#bandBlock ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#bandBlock ul li{
+    float: left;
+    padding: 2px 20px;
+}
+#bandBlock ul li.music{
+    background: url('http://d.thumbs.redditmedia.com/0O_wB02wZakV8XGu.png') left top no-repeat;
+}
+#bandBlock ul li.lyrics{
+    background: url('http://d.thumbs.redditmedia.com/AKDIfCqdJBOS08Qo.png') left top no-repeat;
+}
+#bandBlock ul li.vocals{
+    background: url('http://b.thumbs.redditmedia.com/b8QrLlLq0k-ijZe7.png') left top no-repeat;
+}
+#lyricsBlock {
+    font-size: 12px;
+}
+
+.clear {clear: both;}
