@@ -16,6 +16,11 @@
   $query = $db->prepare('SELECT * FROM songs WHERE id=:song and approved=1');
   $query->execute(array('song' => $song));
   $song  = $query->fetch();
+  
+  $round  = $song['round'];
+  
+  $roundDetails = query_round_details($db, $round);
+  
 ?>
 
 <aside id="otherviews">
@@ -23,7 +28,7 @@
 </aside>
 
 <h2 id="songTitle" data-songid="<?php echo $song['id']; ?>"><?php echo $song['name'];?></h2>
-<h3>This song was created for Game of Bands round <?php echo $song['round']; ?></h3>
+<h3>This song was created for Game of Bands round <?php echo $round  .  ' : "'  .  $roundDetails['theme']  .  '"'; ?> </h3>
 
 <div id="putTheWidgetHere"></div>
   <script type="text/JavaScript">
@@ -36,11 +41,8 @@
 // Display table with this song.
 display_songs(array($song));
 
-$round  = $song['round'];
-$lyrics = $song['lyricsheet'];
 
-// Display round details
-$details = query_round_details($db, $round);
+$lyrics = $song['lyricsheet'];
 
 // Display lyrics if available
 if($lyrics) {
@@ -50,5 +52,24 @@ if($lyrics) {
 	echo "<div class='lyrics'>";
 	echo nl2br($lyrics);
 	echo "</div>";
+}
+else {
+	$mailSafeSongTitle  =  urlencode($song['name']);
+	$mailSafeSongURL    =  urlencode("http://www.gameofbands.co/song/"  .  $song['id']);
+	$mailSafeMusicBanditLink   =  urlencode("http://www.reddit.com/message/compose/?to="  .  $song['music']);
+	$mailSafeLyricsBanditLink  =  urlencode("http://www.reddit.com/message/compose/?to="  .  $song['lyrics']);
+	$mailSafeVocalsBanditLink  =  urlencode("http://www.reddit.com/message/compose/?to="  .  $song['vocals']);
+	
+	$missingLyricsLink  =  '<h4>';
+	$missingLyricsLink .=  '<a href="mailto:retrotheft@gameofbands.co?subject-Missing%20lyrics%20for%20song%20';
+	$missingLyricsLink .=  $song['id']  .  '&body-'  .  'name:%20'  .  $mailSafeSongTitle  .  '\nlink:%20';
+	$missingLyricsLink .=  $mailSafeSongURL  .  "\n";
+	$missingLyricsLink .=  'Musician:%20'  .  $mailSafeMusicBanditLink  .  '\n';
+	$missingLyricsLink .=  'Lyricist:%20'  .  $mailSafeMusicBanditLink  .  '\n';
+	$missingLyricsLink .=  'Vocalist:%20'  .  $mailSafeMusicBanditLink  .  '\n';
+	$missingLyricsLink .=  '">Report Missing Lyricsheet</a></h4>';
+
+        echo $missingLyricsLink;
+	
 }
 ?>
