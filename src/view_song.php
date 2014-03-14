@@ -61,8 +61,8 @@ else {
 	$mailSafeVocalsBanditLink  =  urlencode("http://www.reddit.com/message/compose/?to="  .  $song['vocals']);
 	
 	$missingLyricsLink  =  '<h4>';
-	$missingLyricsLink .=  '<a href="mailto:retrotheft@gameofbands.co?subject-Missing%20lyrics%20for%20song%20';
-	$missingLyricsLink .=  $song['id']  .  '&body-'  .  'name:%20'  .  $mailSafeSongTitle  .  '\nlink:%20';
+	$missingLyricsLink .=  '<a href="mailto:retrotheft@gameofbands.co?subject=Missing%20lyrics%20for%20song%20';
+	$missingLyricsLink .=  $song['id']  .  '&body='  .  'name:%20'  .  $mailSafeSongTitle  .  '\nlink:%20';
 	$missingLyricsLink .=  $mailSafeSongURL  .  "\n";
 	$missingLyricsLink .=  'Musician:%20'  .  $mailSafeMusicBanditLink  .  '\n';
 	$missingLyricsLink .=  'Lyricist:%20'  .  $mailSafeMusicBanditLink  .  '\n';
