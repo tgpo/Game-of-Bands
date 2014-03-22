@@ -12,35 +12,35 @@ function writeNewMessageCount(){
     $messagecount->execute(array('currentuser' => $currentuser));
 
     echo $messagecount->fetchColumn();
-  
 }
 
 ?>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>The Game of Bands Song Depository | A reddit game of making music</title>
-  <link rel="stylesheet" type="text/css" href="/css/styles.css" />
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="/src/js/site.js"></script>
-  <script src="/lib/js/jquery-validation-1.11.1/dist/jquery.validate.min.js"></script>
-  <script src="//connect.soundcloud.com/sdk.js"></script>
-  <script>
-    SC.initialize({
-      client_id: "5839c7c20cacba125c0540cbf85614ab",
-      redirect_uri: "http://gameofbands.co/index.php",
-    });
-  </script>
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <meta charset="UTF-8">
+    <title>The Game of Bands Song Depository | A reddit game of making music</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/lib/js/jquery-validation-1.11.1/dist/jquery.validate.min.js"></script>
+    <script src="/lib/js/jquery-tablesorter/jquery.tablesorter.min.js"></script>
+    <script src="/src/js/site.js"></script>
 
-    ga('create', 'UA-45997039-1', 'gameofbands.co');
-    ga('send', 'pageview');
+    <script src="//connect.soundcloud.com/sdk.js"></script>
+    <script>
+        SC.initialize({
+          client_id: "5839c7c20cacba125c0540cbf85614ab",
+          redirect_uri: "http://gameofbands.co/index.php",
+        });
+    </script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  </script>
+        ga('create', 'UA-45997039-1', 'gameofbands.co');
+        ga('send', 'pageview');
+    </script>
 </head>
 <body>
     <header>

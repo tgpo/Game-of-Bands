@@ -261,4 +261,16 @@ footer {
     font-size: 12px;
 }
 
+table.sortTable thead tr .header {
+    background: url(/images/bg.gif) center right no-repeat #023;
+    cursor: pointer;
+    padding-right: 20px;
+}
+
+table.sortTable thead tr .headerSortUp {
+    background-image: url(/images/asc.gif);
+}
+table.sortTable thead tr .headerSortDown {
+    background-image: url(/images/desc.gif);
+}
 .clear {clear: both;}

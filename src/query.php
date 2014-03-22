@@ -29,7 +29,7 @@ function query_round_details($db,$number) {
 ************************************************************************ */
 // Display a collection of songs.
 function display_songs($result) {
-  echo "<table id='songtable'>";
+  echo "<table id='songtable' class='sortTable'>";
   echo "<thead><tr><th>Round</th><th>Song Title</th><th>Votes</th><th>Music</th><th>Music Vote</th><th>Lyrics</th><th>Lyrics Vote</th><th>Vocals</th><th>Vocals Vote</th></tr></thead><tbody>";
   foreach ($result as $row) {
     tr_song($row);

@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    
+    $(".sortTable").tablesorter(); 
 
     $('#bestOfVoting .button').click(function(event){
         event.stopPropagation();

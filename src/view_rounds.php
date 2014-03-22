@@ -19,7 +19,7 @@ if(!defined('INDEX')) {
   $db     = database_connect();
   $rounds = $db->query('SELECT * FROM rounds ORDER by number DESC');
 
-	echo "<table id='roundtable'>";
+	echo "<table id='roundtable' class='sortTable'>";
 	echo "<thead><tr><th>Round</th><th>Theme</th></tr></thead><tbody>";
 	foreach ($rounds as $row) {
 		echo "<tr>";
