@@ -104,19 +104,20 @@ function writeNewMessageCount(){
           <?php
             // Decide which data to display
             switch ($_GET['view']) {
-              case 'addsong'          : include_once 'src/addsong.php';        break;
-              case 'editsong'         : include_once 'src/editsong.php';       break;
-              case 'editround'        : include_once 'src/editround.php';      break;
-              case 'roundlist'        : include_once 'src/roundlist.php';      break;
-              case 'songlist'         : include_once 'src/songlist.php';       break;
-              case 'postmessage'      : include_once 'src/postmessage.php';    break;
-              case 'teamlist'         : include_once 'src/teamlist.php';       break;
-              case 'addteam'          : include_once 'src/addteam.php';        break;
-              case 'editteam'         : include_once 'src/editteam.php';       break;
-              case 'inbox'            : include_once 'src/inbox.php';          break;
-              case 'editflair'        : include_once 'src/editflair.php';      break;
-              case 'bestof2013'       : include_once 'src/bestOf2013.php';     break;
-              default                 : include_once 'src/dashboard.php';      break;
+              case 'addsong'          : include_once 'src/addsong.php';             break;
+              case 'editsong'         : include_once 'src/editsong.php';            break;
+              case 'editround'        : include_once 'src/editround.php';           break;
+              case 'roundlist'        : include_once 'src/roundlist.php';           break;
+              case 'songlist'         : include_once 'src/songlist.php';            break;
+              case 'postmessage'      : include_once 'src/postmessage.php';         break;
+              case 'teamlist'         : include_once 'src/teamlist.php';            break;
+              case 'addteam'          : include_once 'src/addteam.php';             break;
+              case 'editteam'         : include_once 'src/editteam.php';            break;
+              case 'inbox'            : include_once 'src/inbox.php';               break;
+              case 'editflair'        : include_once 'src/editflair.php';           break;
+              case 'bestof2013'       : include_once 'src/bestOf2013.php';          break;
+              case 'adminSettings'    : include_once 'src/view_AdminSettings.php';  break;
+              default                 : include_once 'src/dashboard.php';           break;
 
             }
           ?>

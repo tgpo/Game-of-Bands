@@ -76,6 +76,72 @@ class reddit{
     }
     
     /**
+    * Site Admin
+    *
+    * Create or configure a subreddit
+    * @link http://www.reddit.com/dev/api#POST_api_site_admin
+    * @param array $settings The settings to be set for the subreddit
+    * @param string $subreddit The subreddit where the story should be added
+    */
+    public function siteAdmin($subreddit = null, $allow_top = null, $api_type = null, $comment_score_hide_mins = null, $css_on_cname = null, $description = null, $exclude_banned_modqueue = null, $header_title = null, $lang = null, $link_type = null, $name = null, $over_18 = null, $public_description = null, $public_traffic = null, $show_cname_sidebar = null, $show_media = null, $spam_comments = null, $spam_links = null, $spam_selfposts = null, $submit_link_label = null, $submit_text = null, $submit_text_label = null, $title = null, $type = null, $wiki_edit_age = null, $wiki_edit_karma = null, $wikimode = null){
+        $urlSubmit = "{$this->apiHost}/site_admin";
+        
+        //data checks and pre-setup
+        if ($subreddit == null){ return null; }
+      
+      
+        $postData = sprintf("uh=%s&sr=%s&allow_top=%s&api_type=%s&comment_score_hide_mins=%s&css_on_cname=%s&description=%s&exclude_banned_modqueue=%s&header-title=%s&lang=%s&link_type=%s&name=%s&over_18=%s&public_description=%s&public_traffic=%s&show_cname_sidebar=%s&show_media=%s&spam_comments=%s&spam_links=%s&spam_selfposts=%s&submit_link_label=%s&submit_text=%s&submit_text_label=%s&title=%s&type=%s&wiki_edit_age=%s&wiki_edit_karma=%s&wikimode=%s",
+                            $this->modHash,
+                            $subreddit,
+                            $allow_top,
+                            $api_type,
+                            $comment_score_hide_mins,
+                            $css_on_cname,
+                            $description,
+                            $exclude_banned_modqueue,
+                            $header_title,
+                            $lang,
+                            $link_type,
+                            $name,
+                            $over_18,
+                            $public_description,
+                            $public_traffic,
+                            $show_cname_sidebar,
+                            $show_media,
+                            $spam_comments,
+                            $spam_links,
+                            $spam_selfposts,
+                            $submit_link_label,
+                            $submit_text,
+                            $submit_text_label,
+                            $title,
+                            $type,
+                            $wiki_edit_age,
+                            $wiki_edit_karma,
+                            $wikimode
+                           );
+        
+        $response = $this->runCurl($urlSubmit, $postData);
+		return $response;
+    }
+    
+    /**
+    * Get Subreddit Settings
+    *
+    * Get the current settings of a subreddit.
+    * @link http://www.reddit.com/dev/api#GET_r_{subreddit}_about_edit.json
+    * @param string $sr The subreddit to get settings from
+    */
+    public function getAboutSettings($sr){
+		if ($sr) {
+			$settings = "http://www.reddit.com/r/{$sr}/about/edit.json";
+		}
+        $response = $this->runCurl($settings);
+		
+		return $response->data;
+    }
+    
+    /**
     * Get user
     *
     * Get data for the current user
