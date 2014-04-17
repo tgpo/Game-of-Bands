@@ -48,8 +48,60 @@ function write_karma(){
 
 }
 
+function get_flair($bandit){
+    $db = database_connect();
+    $query = $db->prepare('SELECT TeamWins, MusicWins, VocalWins, LyricsWins FROM bandits WHERE name=:bandit');
+    $query->execute(array('bandit' => $bandit));
+    $bandit  = $query->fetch();
+  
+    return get_flair_image('Team', $bandit['TeamWins']) . get_flair_image('Music', $bandit['MusicWins'])  . get_flair_image('Vocal', $bandit['VocalWins'])  . get_flair_image('Lyrics', $bandit['LyricsWins']);
+}
+
+function get_flair_image($type,$count){
+  $bronzeTeam = 'http://c.thumbs.redditmedia.com/pxwT1Arg6202jhiJ.png';
+  $bronzeMusic = 'http://d.thumbs.redditmedia.com/0O_wB02wZakV8XGu.png';
+  $bronzeVocal = 'http://b.thumbs.redditmedia.com/b8QrLlLq0k-ijZe7.png';
+  $bronzeLyrics = 'http://d.thumbs.redditmedia.com/AKDIfCqdJBOS08Qo.png';
+
+  $silverTeam = 'http://d.thumbs.redditmedia.com/K0yjBDQiMfU8JXyK.png';
+  $silverMusic = 'http://e.thumbs.redditmedia.com/1a7Ev3Q72HFLnSQp.png';
+  $silverVocal = 'http://b.thumbs.redditmedia.com/dIhv4mWmkOulSC0U.png';
+  $silverLyrics = 'http://f.thumbs.redditmedia.com/Mu4gnG0pAxLy7IYe.png';
+
+  $count2 = 'http://c.thumbs.redditmedia.com/EQzLcCoWVJuY3p5V.png';
+  $count3 = 'http://f.thumbs.redditmedia.com/tZVybu45bw_Qg_65.png';
+  $count4 = 'http://b.thumbs.redditmedia.com/_9R5CDRomoOSTOa1.png';
+    
+  $thisFlair = '';
+  
+  if(!is_null($count)){
+    switch($count){
+      case $count > 5:
+        $flair = 'silver' . $type;
+        $thisFlair .= create_flair_image_tag($$flair);
+        break;
+      case $count < 5:
+        $flair = 'bronze' . $type;
+        $thisFlair .= create_flair_image_tag($$flair);
+        break;
+    }
+    
+    if($count >1 && $count < 5){
+      $mycount = 'count' . $count;
+      $thisFlair .= create_flair_image_tag($$mycount);
+    }
+  }
+
+  return $thisFlair;
+}
+
+function create_flair_image_tag($imgURL){
+    return '<img src="' . $imgURL . '" />';
+  
+}
+
 function get_bandit_links(){
-    $links = get_username() . '<span class="karma">(' . get_karma() . ')</span>';
+    $links = get_username() . '<span class="karma"> ' . get_flair(get_username()) . '</span>';
     $links .= ' | ' . '<a href="/bandit/';
     $links .=  get_username() . '">' . 'My Profile' . '</a>';
     $links .= ' | ' . '<a href="/irc">IRC</a>';
@@ -77,7 +129,7 @@ function write_bandit_profile($bandit){
 
           $scu = $row['soundcloud_url']=="" ? $noentry  :  $row['soundcloud_url'];
           $url = $row['website']=="" ? $noentry : $row['website'];	  
-	  $gear = $row['tools']=="" ? $noentry  : $row['tools'];
+          $gear = $row['tools']=="" ? $noentry  : $row['tools'];
 
           $link_bandit_soundcloud = $scu==$noentry ? 
           '<td>' . $scname . '</td><td>' . $scu . '</td>'     :   '<td>' . $scname . '</td><td><a href="' . $scu . '" target="_blank">' . $scu . '</a></td>'; 
