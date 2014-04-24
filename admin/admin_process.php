@@ -178,11 +178,17 @@ Congratulations!
 Flair is forth coming!";
     $response = $reddit->createStory('Congratulations to the winners of Round ' . $round . "!", '', $mainsubreddit, $postTemplate);
 
+    /* Find our new posts and save their IDs for future use */
+    sleep(2);
+    $getredditlisting = $reddit->getListing($mainsubreddit,5);
+    $getredditlisting = $getredditlisting->data->children;
+
+    $congratsID = titleSearch($getredditlisting,'Congratulations to the winners of Round ' . $round . "!");
+  
+    $sql = "UPDATE rounds SET congratsID = '$congratsID' WHERE number = '$round'";
     
-    
-    mysql_close();
-    redirect('dashboard');
-    
+    call_db($sql,'dashboard');
+
 }
 
   // Query individual winners
@@ -450,7 +456,7 @@ It's like leave a penny take a penny but for teammates. If you need a teammate t
     
     $ourtheme[0] = mysql_real_escape_string($ourtheme[0]);
     
-    $sql = "UPDATE rounds SET theme = '$ourtheme[0]', consolidationID = '$consolidationID' WHERE number = '$round'";
+    $sql = "UPDATE rounds SET theme = '$ourtheme[0]', announceID = '$announceID', consolidationID = '$consolidationID' WHERE number = '$round'";
     
     call_db($sql,'dashboard');
 }

@@ -24,9 +24,12 @@ function editRound(){
     $musiciansSignupID = $_POST["musiciansSignupID"];
     $lyricistsSignupID = $_POST["lyricistsSignupID"];
     $vocalistSignupID = $_POST["vocalistSignupID"];
+    $announceID = $_POST["announceID"];
     $consolidationID = $_POST["consolidationID"];
     $themeID = $_POST["themeID"];
     $songvotingthreadID = $_POST["songvotingthreadID"];
+    $congratsID = $_POST["congratsID"];
+  
 
     if( isset($_POST['delete_round']) )
     {
@@ -35,8 +38,8 @@ function editRound(){
 
     } else {
 
-        $query = $db->prepare('UPDATE rounds SET theme = :theme, signupID = :signupID, musiciansSignupID = :musiciansSignupID, lyricistsSignupID = :lyricistsSignupID, vocalistSignupID = :vocalistSignupID, consolidationID = :consolidationID, themeID = :themeID, songvotingthreadID = :songvotingthreadID WHERE number = :id');
-        $query->execute(array('theme' => $theme, 'signupID' => $signupID, 'musiciansSignupID' => $musiciansSignupID, 'lyricistsSignupID' => $lyricistsSignupID, 'vocalistSignupID' => $vocalistSignupID, 'consolidationID' => $consolidationID, 'themeID' => $themeID, 'songvotingthreadID' => $songvotingthreadID, 'id' => $id));
+        $query = $db->prepare('UPDATE rounds SET theme = :theme, signupID = :signupID, musiciansSignupID = :musiciansSignupID, lyricistsSignupID = :lyricistsSignupID, vocalistSignupID = :vocalistSignupID, announceID = :announceID, consolidationID = :consolidationID, themeID = :themeID, songvotingthreadID = :songvotingthreadID, congratsID = :congratsID WHERE number = :id');
+        $query->execute(array('theme' => $theme, 'signupID' => $signupID, 'musiciansSignupID' => $musiciansSignupID, 'lyricistsSignupID' => $lyricistsSignupID, 'vocalistSignupID' => $vocalistSignupID, 'announceID' => $announceID, 'consolidationID' => $consolidationID, 'themeID' => $themeID, 'songvotingthreadID' => $songvotingthreadID, 'congratsID' => $congratsID, 'id' => $id));
 
     }
     

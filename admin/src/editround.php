@@ -48,8 +48,15 @@ $round = $query->fetch();
     <label>Theme Voting Post ID</label>
     <input type="text" name="themeID" value="<?php echo $round['themeID']; ?>" />
     <br />
+    <br />
+    <label>Announce Start Post ID</label>
+    <input type="text" name="announceID" value="<?php echo $round['announceID']; ?>" />
+    <br />
     <label>Song Voting Post ID</label>
     <input type="text" name="songvotingthreadID" value="<?php echo $round['songvotingthreadID']; ?>" />
+    <br />
+    <label>Congrats Post ID</label>
+    <input type="text" name="congratsID" value="<?php echo $round['congratsID']; ?>" />
     <br />
 
     <hr />

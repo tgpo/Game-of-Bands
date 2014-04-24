@@ -298,10 +298,10 @@ class reddit{
     * @link https://github.com/reddit/reddit/wiki/API%3A-info.json
     * @param string $url The URL to get information for
     */
-    public function getPageInfo($url){
+    public function getPageInfo($ID,$type){
         $response = null;
-        if ($url){
-            $urlInfo = "{$this->apiHost}/info.json?url=" . urlencode($url);
+        if ($ID){
+            $urlInfo = "{$this->apiHost}/info.json?" . $type . "=" . urlencode($ID);
             $response = $this->runCurl($urlInfo);
         }
         return $response;

@@ -33,25 +33,29 @@ function writeNewMessageCount(){
   <script src="lib/stacktable/stacktable.js"></script>
 
   <script>
-  $(document).ready(function() {
-    $("#menu").sidr({
-      name:     "leftNav",
-      source:   "#leftnav",
-      displace: false,
-      onOpen: function(){
-        $('.sidr-inner').prepend('<a style="display: block;padding: 15px;" id="closeMenu">Close</a>');
-      },
-      onClose: function(){
-        $('.sidr-inner #closeMenu').remove();
-      }
-    });
-    $("body").on("click", "#closeMenu", function(event){
-      $.sidr('close', 'leftNav');
-    });
-	
-    $('table').stacktable({class:'mobileTable'});
+    $(document).ready(function() {
+      $("#menu").sidr({
+        name:     "leftNav",
+        source:   "#leftnav",
+        displace: false,
+        onOpen: function(){
+          $('.sidr-inner').prepend('<a style="display: block;padding: 15px;" id="closeMenu">Close</a>');
+        },
+        onClose: function(){
+          $('.sidr-inner #closeMenu').remove();
+        }
+      });
+      $("body").on("click", "#closeMenu", function(event){
+        $.sidr('close', 'leftNav');
+      });
 
-  });
+      $('table').stacktable({class:'mobileTable'});
+
+      $('.confirm').click(function() {
+        var c = confirm("You are about change the website database!\n\n You sure you want to do that?");
+        return c; 
+      });
+    });
   </script>
 </head>
 <body>
@@ -76,6 +80,7 @@ function writeNewMessageCount(){
                 <li><a href="index.php?view=songlist">Songs</a></li>
                 <li><a href="index.php?view=roundlist">Rounds</a></li>
                 <li><a href="index.php?view=teamlist">Teams</a></li>
+                <li><a class="confirm" href="index.php?view=resetflair">Reset Flair Counts</a></li>
             </ul>
           </li>
           <li>
@@ -92,6 +97,7 @@ function writeNewMessageCount(){
           <li>
             <ul>
                 <li><a href="index.php?view=inbox">/u/GameofBands Inbox</a></li>
+                
                 <li><a href="index.php?view=editflair">edit Flair</a></li>
             </ul>
           </li>
@@ -115,6 +121,7 @@ function writeNewMessageCount(){
               case 'editteam'         : include_once 'src/editteam.php';            break;
               case 'inbox'            : include_once 'src/inbox.php';               break;
               case 'editflair'        : include_once 'src/editflair.php';           break;
+              case 'resetflair'       : include_once 'src/resetflair.php';          break;
               case 'bestof2013'       : include_once 'src/bestOf2013.php';          break;
               case 'adminSettings'    : include_once 'src/view_AdminSettings.php';  break;
               default                 : include_once 'src/dashboard.php';           break;
