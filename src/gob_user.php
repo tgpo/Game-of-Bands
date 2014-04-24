@@ -50,11 +50,11 @@ function write_karma(){
 
 function get_flair($bandit){
     $db = database_connect();
-    $query = $db->prepare('SELECT TeamWins, MusicWins, VocalWins, LyricsWins FROM bandits WHERE name=:bandit');
+    $query = $db->prepare('SELECT TeamWins, MusicWins, VocalsWins, LyricsWins FROM bandits WHERE name=:bandit');
     $query->execute(array('bandit' => $bandit));
     $bandit  = $query->fetch();
   
-    return get_flair_image('Team', $bandit['TeamWins']) . get_flair_image('Music', $bandit['MusicWins'])  . get_flair_image('Vocal', $bandit['VocalWins'])  . get_flair_image('Lyrics', $bandit['LyricsWins']);
+    return get_flair_image('Team', $bandit['TeamWins']) . get_flair_image('Music', $bandit['MusicWins'])  . get_flair_image('Vocal', $bandit['VocalsWins'])  . get_flair_image('Lyrics', $bandit['LyricsWins']);
 }
 
 function get_flair_image($type,$count){

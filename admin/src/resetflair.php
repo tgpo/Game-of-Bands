@@ -17,29 +17,38 @@ $query = $db->query('SELECT * FROM rounds WHERE theme IS NOT NULL AND theme <> "
 $round = $query->fetch();
 $currentround = $round['number'];
 
+//Reset Counts
+$query = $db->query('UPDATE bandits SET TeamWins = NULL, Musicwins = NULL, Lyricswins = NULL, Vocalswins = NULL WHERE 1');
+
 //Dev Overide
 $currentround = $currentround-1;
 
 for ($i = 1; $i <= $currentround; $i++) {
 
-  echo "<h2>Round " . $i . "</h2>";
-  
   $winningSongs = query_songs($i, $db);
   foreach ($winningSongs as $song) {
     if (!empty($song['votes'])) {
-      echo "Winning Song: " . $song['name'] . "<br>";
-      echo "Team Winners: " . $song['music'] . ', ' . $song['lyrics'] . ', ' . $song['vocals'] . "<br>";
       $banditTypes = array('music','lyrics','vocals');
       foreach ($banditTypes as $type) {
+        //Make sure bandit exists in bandit table
+        $query = $db->query("SELECT * FROM bandits WHERE name = '$song[$type]'");
+        $bandit = $query->fetch();
+        
+        
+
+         if(!$bandit['name']){
+          $query = $db->query("INSERT INTO bandits (name, is_mod, banned) VALUES ('$song[$type]', 0, 0)");
+        }
+        
         $query = $db->prepare('SELECT TeamWins FROM bandits WHERE name=:bandit');
         $query->execute(array('bandit' => $song[$type]));
         $bandit  = $query->fetch();
-        
-        $TeamWins = $bandit['TeamWins']+1;
-        
-        //$query = $db->prepare('UPDATE bandits SET TeamWins = :TeamWins WHERE name=:bandit');
-        //$query->execute(array('TeamWins' => $TeamWins, 'bandit' => $song[$type]));
 
+        $TeamWins = $bandit['TeamWins']+1;
+
+        $query = $db->prepare('UPDATE bandits SET TeamWins = :TeamWins WHERE name=:bandit');
+        $query->execute(array('TeamWins' => $TeamWins, 'bandit' => $song[$type]));
+        
       }
     }
   }
@@ -49,22 +58,28 @@ for ($i = 1; $i <= $currentround; $i++) {
       $winners = query_winners($type, $i, $db);
       foreach ($winners as $winner) {
         if (!empty($winner['votes'])) {
-          echo $type . " Winner: " . $winner[$type] . "<br />";
-          $currentfield = ucfirst($type) . 'Wins';
+          //Make sure bandit exists in bandit table
+          $query = $db->query("SELECT * FROM bandits WHERE name = '$winner[$type]'");
+          $bandit = $query->fetch();
           
+          if(!$bandit['name']){
+            $query = $db->query("INSERT INTO bandits (name, is_mod, banned) VALUES ('$winner[$type]', 0, 0)");
+          }
+          
+          $currentfield = ucfirst($type) . 'Wins';
+
           $query = $db->prepare('SELECT ' . $currentfield . ' FROM bandits WHERE name=:bandit');
           $query->execute(array('bandit' => $winner[$type]));
           $bandit  = $query->fetch();
 
           $wins = $bandit[$currentfield]+1;
 
-          //$query = $db->prepare('UPDATE bandits SET ' . $currentfield . ' = :Wins WHERE name=:bandit');
-          //$query->execute(array('Wins' => $wins, 'bandit' => $winner[$type]));
+          $query = $db->prepare('UPDATE bandits SET ' . $currentfield . ' = :Wins WHERE name=:bandit');
+          $query->execute(array('Wins' => $wins, 'bandit' => $winner[$type]));
         }
       }
   }
   
-  echo "<br /><br />";
   
 }
 
@@ -112,12 +127,5 @@ function query_winners($type, $round, $db) {
     return $result;
 }
 ?>
-<?php
 
-$strStylesheet = $reddit->getStylesheet('gameofbands');
-?>
 
-<h2>Edit CSS</h2>
-<pre>
-<?php echo $strStylesheet; ?>
-</pre>
