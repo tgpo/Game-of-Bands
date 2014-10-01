@@ -77,16 +77,28 @@ if (isset ( $_GET ['type'] )) {
 				file_put_contents(dirname(__FILE__).'/../../src/fragments/xmas_concept.inc',$text);
 				ok();
 			}
-		case 'changed' :
+		case 'update_row' :
 			{
-				fail(print_r($_POST,true));
-				/****: TESTING
-				$params = array(
-					'city' => filter_input(INPUT_POST,'city',FILTER_SANITIZE_STRING),
-					'template_id' => filter_input(INPUT_POST,'template_id',FILTER_VALIDATE_INT),
-				);
-				$id = insert_query('UPDATE cities SET template_id=:template_id WHERE id=:city',$params);
-				*/
+				//TODO: Extensiblize(?) this somewhat.. I mean, a database abstraction layer would prevent having to re-hard-code every change all over the joint..
+				$type = filter_input(INPUT_POST,'type',FILTER_SANITIZE_STRING);
+				$id = filter_input(INPUT_POST,'id',FILTER_VALIDATE_INT);
+				$sql = '';
+				$params = array('id' => $id);
+				if($type == 'template'){
+					$params['title'] = filter_input(INPUT_POST,'title',FILTER_SANITIZE_STRING);
+					$params['text'] = filter_input(INPUT_POST,'text',FILTER_SANITIZE_STRING);
+					$sql = "UPDATE templates SET title=:title, text=:text WHERE id=:id LIMIT 1";
+				}elseif($type == 'city'){
+					$params['name'] = filter_input(INPUT_POST,'name',FILTER_SANITIZE_STRING);
+					$params['template_id'] = filter_input(INPUT_POST,'template_id',FILTER_VALIDATE_INT);
+					$params['subreddit'] = filter_input(INPUT_POST,'subreddit',FILTER_SANITIZE_STRING);
+					$params['mm'] = filter_input(INPUT_POST,'messaged_mods',FILTER_SANITIZE_STRING);
+					$params['post'] = filter_input(INPUT_POST,'post',FILTER_SANITIZE_STRING);
+					$sql = "UPDATE cities SET name=:name, template_id=:template_id, subreddit=:subreddit, messaged_mods=:mm, post=:post WHERE id=:id LIMIT 1";
+				}else{
+					fail('Unknown action attempted');
+				}
+				$id = insert_query($sql,$params);
 			}
 	}
 }

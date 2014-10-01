@@ -101,6 +101,21 @@ $(document).ready(function(){
 		}
 		//TODO: Send row data to server.. 
 		console.log(row);
+		$.ajax({
+			type: "POST",
+			url: "xmas/json.php?type=update_row",
+			data: info,
+			success: function(r){
+				var id = r.element_id;
+				console.log("Update success.. //TODO: Notify mod"); //TODO: Notify mod
+			},
+			error: function(xhr){
+				console.log("Update failure.  //TODO: Notify mod");
+				console.log(xhr); //TODO: Notify mod
+			},
+		});
+		
+		//TODO: Accept input row and update the database in json.php
 	});
 	$('input.new').click(function(){ 
 		// Find our new row, get the data, change inputs to text.
