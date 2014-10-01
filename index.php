@@ -39,16 +39,6 @@ function writeNewMessageCount(){
 //TODO: Post session details here, so javascript can reinstate them.
 //GOB.previous = { song: $song_id, ... };
 //}
-/*
-    // Old soundcloud widget 
-
-    <script src="//connect.soundcloud.com/sdk.js"></script>
-    <script>/*
-        SC.initialize({
-          client_id: "5839c7c20cacba125c0540cbf85614ab",
-          redirect_uri: "http://gameofbands.co/index.php",
-        });
-    </script>*/
 ?>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -103,7 +93,6 @@ function writeNewMessageCount(){
 						include_once ('src/view_all.php');
 					}
 				}
-				
 				// Save users current page
 				$_SESSION ['last'] = $_SERVER['REQUEST_URI'];
     ?>
