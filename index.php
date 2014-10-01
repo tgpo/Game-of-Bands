@@ -19,16 +19,17 @@ function writeNewMessageCount(){
     echo $messagecount->fetchColumn();
 }
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="The Game of Bands Song Depository | A reddit game of making music">
+<meta name="viewport" content="width=device-width" />
 <title>The Game of Bands Song Depository | A reddit game of making music</title>
 <link rel="stylesheet" type="text/css" href="/css/styles.css" />
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/validator/3.12.0/validator.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/validator/3.12.0/validator.min.js"></script>
 <script src="/lib/js/jquery-tablesorter/jquery.tablesorter.min.js"></script>
 <script>var GOB = GOB || {};</script>
 <script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
