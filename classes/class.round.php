@@ -27,6 +27,7 @@ class Round {
 	
 	/**
 	 * Checks if this round is currently votable.
+	 * Used by SoundCloud songfetching JSON interface
 	 * @return boolean
 	 */
 	public function is_active(){

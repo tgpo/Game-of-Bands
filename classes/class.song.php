@@ -44,7 +44,7 @@ class Song {
 	}
 
 	
-	/* Admin voting functions */
+	/* Voting functions */
 	public function add_votes($type, $count) {
 		insert_query ( 
 				"UPDATE songs SET {$type}vote = {$type}vote + $count WHERE id=:id", 
