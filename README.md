@@ -1,5 +1,7 @@
 This is the source code for the [Game of Bands Song Depository][gob].
 
+Visit [gameofbands.co](http://gameofbands.co) for current songs, or the [subreddit](http://reddit.com/r/gameofbands) for signups etc.
+
   [gob]: http://gameofbands.co/
 
 ## File structure
