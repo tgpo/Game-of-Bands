@@ -1,7 +1,7 @@
 (function($){
 	$(document).ready(function(){
 	
-	//$(".sortTable").tablesorter(); 
+	$(".sortTable").tablesorter(); 
 
 	/* Original voting setup for bestOf2013 */
 	$('#bestOfVoting .button').click(function(event){
