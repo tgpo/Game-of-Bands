@@ -39,6 +39,7 @@ class Round {
 	 * @return String
 	 */
 	public static function get_theme($id){
-		return pdo_query( "SELECT theme FROM rounds WHERE number=:id", array('id'=>$id))['theme'];
+		$t = pdo_query( "SELECT theme FROM rounds WHERE number=:id", array('id'=>$id));
+		return $t['theme'];
 	}
 }

@@ -70,7 +70,8 @@ class Song {
 	 * @return String
 	 */
 	public static function name($id) {
-		return get_one ( "SELECT name FROM songs WHERE id=$id" )['name'];
+		$a = get_one ( "SELECT name FROM songs WHERE id=$id" );
+		return $a['name'];
 	}
 	
 	/**
@@ -80,7 +81,8 @@ class Song {
 	 * @return int
 	 */
 	public static function id($name) {
-		return get_one ( "SELECT id FROM songs WHERE name=$name" )['id'];
+		$a = get_one ( "SELECT id FROM songs WHERE name=$name" );
+		return $a['id'];
 	}
 	
 	/**
@@ -93,6 +95,7 @@ class Song {
 	 * @return string The name of the bandit.
 	 */
 	public static function bandit($songID, $type = 'music') {
-		return get_one ( "SELECT $type FROM songs WHERE id=$songID" )[$type];
+		$a = get_one ( "SELECT $type FROM songs WHERE id=$songID" );
+		return $a[$type];
 	}
 }

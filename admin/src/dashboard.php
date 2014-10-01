@@ -15,8 +15,8 @@ $round = $query->fetch();
 $currentround = $round['number'];
 
 ?>
-  <script src="lib/jquery.datetimepicker.js"></script>
-      <link rel="stylesheet" href="lib/jquery.datetimepicker.css">
+ <script src="/lib/jquery.datetimepicker.js"></script>
+<link rel="stylesheet" href="/lib/jquery.datetimepicker.css">
 <script>
 $(document).ready(function(){
   $('#adminform').submit(function() {

@@ -1,12 +1,13 @@
 <?php
 define('INDEX', true);
-require_once( 'src/query.php' );
-require_once( 'src/gob_user.php' );
-include_once( 'src/cacheme.php');
+$here = dirname(__FILE__);
+require_once( $here . '/src/query.php' );
+require_once( $here . '/src/gob_user.php' );
+include_once( $here . '/src/cacheme.php');
 
 // We should probably get a "favicon.ico".. currently the request will be "handled" erroneously and incorrectly by the index.
 // TODO: Come up with a GOB icon.
-if($_GET['view'] == 'favicon.ico') die();
+if(isset($_GET['view']) && $_GET['view'] == 'favicon.ico') die();
 
 header('Content-type: text/html; charset=utf-8');
 
@@ -18,8 +19,7 @@ function writeNewMessageCount(){
 
     echo $messagecount->fetchColumn();
 }
-?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -27,13 +27,13 @@ function writeNewMessageCount(){
 <meta name="description" content="The Game of Bands Song Depository | A reddit game of making music">
 <meta name="viewport" content="width=device-width" />
 <title>The Game of Bands Song Depository | A reddit game of making music</title>
-<link rel="stylesheet" type="text/css" href="/css/styles.css" />
+<link rel="stylesheet" type="text/css" href="/css/styles.css?var=update" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/validator/3.12.0/validator.min.js"></script>
 <script src="/lib/js/jquery-tablesorter/jquery.tablesorter.min.js"></script>
 <script>var GOB = GOB || {};</script>
 <script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
-<script src="/src/js/site.js"></script>
+<script src="/src/js/site.js?cf"></script>
 <?php
 //if(isset($previous_session)){
 //TODO: Post session details here, so javascript can reinstate them.

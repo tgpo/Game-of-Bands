@@ -201,13 +201,14 @@ function voting_is_active($round = false) {
 }
 function get_latest_round_id() {
 	// Rounds are only truly active when they have a Signup Thread on Reddit.
-	return get_one ( 
+	$a = get_one ( 
 			'
 			SELECT number 
 			FROM rounds 
 			WHERE signupID IS NOT NULL 
 			AND signupID <> "NULL" 
-			ORDER BY number DESC' )['number'];
+			ORDER BY number DESC' );
+	return $a['number'];
 }
 
 /**

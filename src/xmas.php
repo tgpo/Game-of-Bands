@@ -68,7 +68,8 @@ function show_team($id) {
 	
 	// get song url, team info, city link, reddit link to city subreddit, etc..
 	global $out;
-	$team_name = get_one('SELECT name from xmas_teams WHERE id=:id',array('id'=>$id))['name'];
+	$team_name = get_one('SELECT name from xmas_teams WHERE id=:id',array('id'=>$id));
+	$team_name = $team_name['name'];
 	$out = '<h2>Team id: ' . $team_name . '</h2><ul class="team-list">'; 
 	$out .= array_to_table($team_details); //TODO:!!!
 	$out .='</ul>';
@@ -107,7 +108,8 @@ function show_city($id) {
 		fail_city(); return; 
 	}else{
 		$a = array('id' => $id);
-		$name = get_one('SELECT name FROM cities WHERE id=:id',$a)['name'];
+		$name = get_one('SELECT name FROM cities WHERE id=:id',$a);
+		$name = $name['name'];
 		if(!$name){ 
 			fail_city(); return; 
 		}
@@ -197,7 +199,8 @@ function show_create_team(){
 	}
 	
 	// If the city isn't in the system yet, we should create it.
-	$city_id = get_one('SELECT id FROM cities WHERE name=:name',array('name'=>$city_name))['id'];
+	$city_id = get_one('SELECT id FROM cities WHERE name=:name',array('name'=>$city_name));
+	$city_id = $city_id['id'];
 	if(!$city_id){
 		$city_id = insert_query('INSERT INTO cities SET name=:name,lat=:lat,lng=:lng',array('name'=>$city_name,'lat'=>$lat,'lng'=>$lng));
 	}

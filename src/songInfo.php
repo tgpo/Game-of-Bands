@@ -3,14 +3,14 @@
  *  When a user clicks on a link with class "song", it will send the songs ID number here, 
  *  we must return the details of the song & the theme of the round in JSON format.
  */
-
-require_once ('query.php');
+$here = dirname(__FILE__);
+require_once ($here .'/query.php');
 
 define('CACHE_TYPE','json');
-include('cacheme.php');
+include($here .'/cacheme.php');
 
-require_once ('../classes/class.round.php');
-require_once ('../classes/class.song.php');
+require_once ($here .'/../classes/class.round.php');
+require_once ($here .'/../classes/class.song.php');
 
 $song = filter_input ( INPUT_GET, 'song', FILTER_VALIDATE_INT );
 if (! $song) {

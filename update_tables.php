@@ -2,7 +2,18 @@
 require_once ('src/query.php');
 mod_check ();
 
-$queries = array (
+$queries = array("CREATE TABLE IF NOT EXISTS `templates` (
+  `id` int(16) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `text` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;",
+"INSERT INTO `templates` (`id`, `title`, `text`) VALUES
+(1, 'Test Template', 'Some Text'),
+(2, 'Stuff', 'Welcome to the textfield');"
+);
+
+$completed_queries = array (
 		'ALTER TABLE `bandits` ADD `xmas_team_id` INT NOT NULL AFTER  `LyricsWins`',
 		'ALTER TABLE `bandits` ADD INDEX `name_index` (`id`,`name` (64))',
 		'ALTER TABLE `rounds` ADD start DATETIME NOT NULL',

@@ -13,8 +13,7 @@ function writeNewMessageCount(){ //why isn't this in query?
     echo $messagecount->fetchColumn();
   
 }
-?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">

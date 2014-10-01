@@ -7,9 +7,9 @@ require_once (dirname(__FILE__).'/../../src/functions.php');
 <?php
 $cities = sql_to_array ( "SELECT id,name,template_id,subreddit,messaged_mods,post, (SELECT COUNT(*) FROM xmas_teams WHERE city_id = cities.id) as team_count FROM cities ORDER BY name ASC" );
 // embed array as JSON.. because.. the databinding needed it.
-echo 'var cities_data = ' . json_encode($cities, JSON_PRETTY_PRINT) . ';';
+echo 'var cities_data = ' . json_encode($cities) . ';';
 $templates = sql_to_array ( 'SELECT id,title,text FROM templates' );
-echo 'var templates_data = ' . json_encode($templates, JSON_PRETTY_PRINT) . ';';
+echo 'var templates_data = ' . json_encode($templates) . ';';
 ?>
 </script>
 <script type="text/javascript" src="/admin/xmas/cities.js"></script>

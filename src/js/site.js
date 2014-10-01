@@ -125,6 +125,15 @@
 		$('#bandBlock .' + a).html($('<a>').attr('href','/bandit/' + b).text(b).attr('title','View ' + c + ' page'));
 	}
 	
+	var currentdate = new Date(); 
+	var datetime = currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + " @ "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();
+        datetime=JSON.stringify(datetime);
+	
 	var get_song_details = function(song_id){
 		if(!isInt(parseInt(song_id))){
 			console.log("Something b0rked, we can't read this song-id as a number.. try a different song?");
@@ -132,7 +141,7 @@
 			// Due to aggressive static caching, this shouldn't take long.
 			$.ajax({
 			    type: 'GET',
-			    url: "/src/songInfo.php",
+			    url: "/src/songInfo.php?cf",
 			    data: { song : song_id },
 			    dataType: 'json',
 			    contentType: 'application/json',
@@ -148,8 +157,7 @@
 					
 					create_voting_buttons(data,song_id,$(this).attr('id'));
 				},
-				error: function(response){
-					var r = $.parseJSON(response.responseText);
+				error: function(r){
 					destroy_player(); // With no data, we can't rely on song-url either.. 
 					alert(r.msg);
 		         }
@@ -196,15 +204,13 @@
 			url: '/src/bestOfProcess.php',
 			data: {vote: JSON.stringify(vote)}, 
 			type: 'POST',
-			success: function(response) {
-				s = eval('(' + response + ')'); //response is a javascript object, TODO: for some reason it errors on parseJSON
+			success: function(s) {
 				say(s.msg.replace(/best/i, 'Best '));
 				if(typeof s.element_id !== 'undefined'){
 					$('#'+s.element_id).addClass('voted');
 				}
 			},
-			error: function(response){
-				var r = $.parseJSON(response.responseText);
+			error: function(r){
 				say("Doh!: " + r.msg);
 				if(typeof r.element_id !== 'undefined'){
 					$('#'+r.element_id).addClass('error');
