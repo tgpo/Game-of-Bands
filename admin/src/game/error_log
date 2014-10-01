@@ -1,7 +1,0 @@
-[19-Dec-2013 21:20:39 America/New_York] PHP Fatal error:  Using $this when not in object context in /home/gameofba/public_html/admin/src/game/editRoundProcess.php on line 31
-[19-Dec-2013 21:21:41 America/New_York] PHP Fatal error:  Using $this when not in object context in /home/gameofba/public_html/admin/src/game/editRoundProcess.php on line 31
-[19-Dec-2013 21:21:58 America/New_York] PHP Fatal error:  Call to a member function setAttribute() on a non-object in /home/gameofba/public_html/admin/src/game/editRoundProcess.php on line 31
-[20-Dec-2013 06:51:28 America/New_York] PHP Fatal error:  Call to undefined function addTeam() in /home/gameofba/public_html/admin/src/game/addTeamProcess.php on line 10
-[22-Dec-2013 08:10:48 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/game/editRoundProcess.php on line 34
-[22-Dec-2013 08:54:51 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/game/editRoundProcess.php on line 34
-[23-Apr-2014 22:58:42 America/New_York] PHP Parse error:  syntax error, unexpected T_CONSTANT_ENCAPSED_STRING, expecting ')' in /home/gameofba/public_html/admin/src/game/editRoundProcess.php on line 41
