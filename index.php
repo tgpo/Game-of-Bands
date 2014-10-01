@@ -4,6 +4,10 @@ require_once( 'src/query.php' );
 require_once( 'src/gob_user.php' );
 include_once( 'src/cacheme.php');
 
+// We should probably get a "favicon.ico".. currently the request will be "handled" erroneously and incorrectly by the index.
+// TODO: Come up with a GOB icon.
+if($_GET['view'] == 'favicon.ico') die();
+
 header('Content-type: text/html; charset=utf-8');
 
 function writeNewMessageCount(){
