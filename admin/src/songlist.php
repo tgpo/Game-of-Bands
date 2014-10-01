@@ -13,50 +13,58 @@ $songs = $db->query('SELECT * FROM songs ORDER BY round DESC');
 ?>
 
 <h2>Song List</h2>
-<a href="index.php?view=addsong">Add Song</a>
+<strong><a href="index.php?view=addsong">Add Song</a></strong>
 
 <table>
     <thead>
         <tr>
-            <th>Round</th>
-            <th>SongName</th>
-            <th>SongURL</th>
-            <th>Lyrics</th>
-            <th>Music</th>
-            <th>Vocals</th>
-            <th>votesSong</th>
-            <th>votesLyrics</th>
-            <th>votesMusic</th>
-            <th>votesVocals</th>
-            <th>Winner</th>
-            <th>Edit</th>
+            <th>#</th>
+            <th style="width: 300px;">Name</th>
+            <th>URL</th>
+            <th>Lyricalist</th>
+            <th>Musician</th>
+            <th>Vocalist</th>
+            <th title="Track Votes" data-medium="Track" data-small="T"></th>
+            <th title="Lyric Votes" data-medium="Lyric" data-small="L"></th>
+            <th title="Music Votes" data-medium="Music" data-small="M"></th>
+            <th title="Vocal Votes" data-medium="Vocal" data-small="V"></th>
+            <th title="Song won the round" data-medium="Won" data-small="&#10004;"></th>
         </tr>
     </thead>
     <tbody>
         <?php
+        $i = 1;
         foreach ($songs as $song) {
-            echo "<tr";
-                if($round != $song['round']) echo ' class="newround"';
-            echo ">";
+        	$classes = ($i++%2==0)? '' : 'odd';
+        	//$classes .= ((isset($round) && isset($song['round'])) && ($round != $song['round'])) ? ' newround' : '';  // Has no effect
+            
+        	echo '<tr' . (($classes) ? " class=\"$classes\"" :'') . '>';
                 echo "<td>" . $song['round'] . "</td>";
-                echo '<td title="' . $song['lyricsheet'] . '">' . $song['name'] . '</td>';
+                echo '<td><a title="Edit Song" href="index.php?view=editsong&id='.$song['id'].'">' . $song['name'] . '</td></a>';
                 echo '<td><a href="' . $song['url'] . '" target="_blank">Listen</a></td>';
-                echo "<td>" . $song['lyrics'] . "</td>";
-                echo "<td>" . $song['music'] . "</td>";
-                echo "<td>" . $song['vocals'] . "</td>";
+                echo "<td>" . p($song['lyrics']) . "</td>";
+                echo "<td>" . p($song['music']) . "</td>";
+                echo "<td>" . p($song['vocals']) . "</td>";
                 echo "<td>" . $song['votes'] . "</td>";
                 echo "<td>" . $song['lyricsvote'] . "</td>";
                 echo "<td>" . $song['musicvote'] . "</td>";
                 echo "<td>" . $song['vocalsvote'] . "</td>";
-                echo "<td>";
-                    if($song['winner']) echo 'Yes!';
-                echo "</td>";
-                echo '<td><a href="index.php?view=editsong&id='.$song['id'].'">Edit</a></td>';
+                echo "<td>" . (($song['winner']) ? '&#10004;' : '&nbsp;') . "</td>";
             echo "</tr>";
             
-            $round = $song['round'];
-
+            //$round = $song['round'];
         }
         ?>
     </tbody>
 </table>
+
+<?php 
+function p($name){
+	if(bandit_name_exists($name)){
+		return a_bandit($name);
+	}else{
+		return "<span class=\"bad\" title=\"This bandit's name isn't in the database\">$name</span>";
+	}
+}
+
+?>

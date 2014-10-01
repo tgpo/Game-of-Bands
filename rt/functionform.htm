@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<script language="JavaScript" src="htmlDatePicker.js" type="text/javascript"></script>
+		<link href="htmlDatePicker.css" rel="stylesheet" />
+	</head>
+	<body>
+		<form method="post" action="sendBooking.php">
+			First name: <input type="text" name="firstName" /> 
+			Last name: <input type="text" name="lastName" />
+			<br />
+			Contact number: <input type="text" name="contactNumber" maxlength="10" />
+			<br />
+			Number of people: <input type="number" name="pax" min="1" max="20">
+			<br />
+			<input type="text" name="date" id="date" readonly onClick="GetDate(this);" />
+			<br />
+			Time: 
+			<select name="hour" size="1">
+				<option>12</option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+				<option>8</option>
+			</select>
+			<select name="min" size="1">
+				<option>00</option>
+				<option>15</option>
+				<option>30</option>
+				<option>45</option>
+			</select>
+			pm.
+
+<br />
+<input type="submit" value="Send" />
+<input type="reset" value="Reset" />
+</form>
+</body>
+</html>

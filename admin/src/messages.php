@@ -17,7 +17,7 @@ function displayMessages($currentuser){
     foreach ($messages as $message) {
       echo '<li data-id="' .$message['id']  . '"';
 
-      if($message['new']) echo ' class="new"';
+      if(isset($message['new']) && $message['new']) echo ' class="new"';
   
       echo ">" . $message['body'] . "<br /><small>From: </small>" . $message['user_from'] . " <small>Sent: </small>" . $message['date_sent'] . "<br /><a href='#' class='reply'>Reply</a> <a href='#' class='delete'>Delete</a></li>";
     }
@@ -30,6 +30,7 @@ function displayMessages($currentuser){
 
 function displayBanditDropdown(){
   $db = database_connect();
+  $moderators = $standards = ''; 
   $bandits = $db->query('SELECT * FROM bandits order by name asc');
   foreach ($bandits as $bandit) {
     $bandit['is_mod'] ? $moderators .= '<option value="' . $bandit['name'] . '">' . $bandit['name'] . '</option>' : $standards .= '<option value="' . $bandit['name'] . '">' . $bandit['name'] . '</option>';
@@ -48,8 +49,7 @@ function displayBanditDropdown(){
   
 }
 
-?>
-
+?><!--  /admin/src/messages.php -->
 <script>
 $(document).ready(function(){
     $("#showMessages").click(function(){
@@ -91,7 +91,7 @@ $(document).ready(function(){
 
                 $('#messageSent').remove();
 
-                if(user_to == "<? echo $_SESSION['GOB']['name'] ?>" || user_to == "allmods" || user_to == "everyone") {
+                if(user_to == "<?php write_username(); ?>" || user_to == "allmods" || user_to == "everyone") {
                     var messageHTML =  '<li style="display:none;" data-id="' + output  + '" class="new justAdded">' + body + "<br /><small>From: </small> <? echo $_SESSION['GOB']['name'] ?> <small>Sent: </small> <?php echo date('Y-m-d') ?>  <br /><a href='#' class='delete'>Delete</a></li>";
   
                     $("#messagelist").prepend(messageHTML);
@@ -195,7 +195,7 @@ $(document).ready(function(){
 <div id="messages">
     <h2>Messages</h2>
     <ul id="messagelist">
-        <?php displayMessages($_SESSION['GOB']['name']); ?>
+        <?php displayMessages(get_username()); ?>
     </ul>
     <div id="messageReply" class="hide">
         <h5>Reply</h5>
@@ -212,4 +212,4 @@ $(document).ready(function(){
     <button id="cancelReply" class="left hide">Cancel</button>
     <button id="postReply" class="hide">Post Reply</button>
     <button id="postMessage">Post Message</button>
-</div>
+</div><!--  END /admin/src/messages.php -->

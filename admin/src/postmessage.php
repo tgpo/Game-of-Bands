@@ -4,7 +4,7 @@ if( !defined('INDEX') ) {
     die;
 
 }
-
+mod_check();
 ?>
 
 <h2>Post as /u/GameofBands</h2>

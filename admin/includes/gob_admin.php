@@ -1,21 +1,10 @@
 <?php
-session_start();
+//session_start();
+require_once( dirname(__FILE__) . '/../../src/gob_user.php' );
 
-function mod_check(){
-	if (!$_SESSION['GOB']['loggedin'])
-	{
-		header('Location: ../index.php');
-		die;
-	} else {	
-		if (!$_SESSION['GOB']['ismod'])
-		{
-			header('Location: ../index.php');
-			die;
-		}
-	}
-}
 
+/*
 function is_mod(){
-	return ($_SESSION['GOB']['ismod'] ? true : false);
-}
+	return (isset($_SESSION['GOB']['ismod']) && $_SESSION['GOB']['ismod']) ? true : false;
+}*/
 ?>

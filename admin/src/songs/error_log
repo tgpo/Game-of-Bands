@@ -1,0 +1,7 @@
+[18-Dec-2013 20:56:07 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/songs/addSong.php on line 46
+[18-Dec-2013 20:56:45 America/New_York] PHP Warning:  PDOStatement::execute() [<a href='pdostatement.execute'>pdostatement.execute</a>]: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined in /home/gameofba/public_html/admin/src/songs/addSong.php on line 46
+[18-Dec-2013 21:00:16 America/New_York] PHP Warning:  PDOStatement::execute() [<a href='pdostatement.execute'>pdostatement.execute</a>]: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined in /home/gameofba/public_html/admin/src/songs/addSong.php on line 46
+[18-Dec-2013 21:00:16 America/New_York] PHP Catchable fatal error:  Object of class PDOStatement could not be converted to string in /home/gameofba/public_html/admin/src/songs/addSong.php on line 47
+[18-Dec-2013 21:03:34 America/New_York] PHP Catchable fatal error:  Object of class PDOStatement could not be converted to string in /home/gameofba/public_html/admin/src/songs/addSong.php on line 48
+[19-Dec-2013 06:09:50 America/New_York] PHP Parse error:  syntax error, unexpected ')' in /home/gameofba/public_html/admin/src/songs/editSongProcess.php on line 21
+[19-Dec-2013 06:10:29 America/New_York] PHP Fatal error:  Call to undefined function addSong() in /home/gameofba/public_html/admin/src/songs/editSongProcess.php on line 10

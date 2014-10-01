@@ -5,6 +5,9 @@ require_once( '../src/secrets.php' );
 require_once( '../src/query.php' );
 require_once( 'src/classes/gob.php' );
 
+/**
+ * Connection to the Reddit API
+ */
 $reddit = new reddit($reddit_user, $reddit_password);
 $gob = new gob($reddit_user, $reddit_password, 'gameofbands');
 
@@ -62,7 +65,13 @@ if(isset($_POST['getsignups'])){
 
 // Determine highest voted song and post winner
 if(isset($_POST['postwinners'])){
-    $round = $_POST['Round4'];
+    $round = $_POST['Round4'];  
+    
+    // Calculate votes for the round and save them.
+    require_once '../classes/class.songvotes.php';
+    new SongVotes($round);
+    
+    /** Skip old method, **************************************************************************************************
     
     //Get our saved data about this round
     $result = mysql_query("SELECT * FROM rounds WHERE number='$round'") or die(mysql_error());
@@ -71,6 +80,7 @@ if(isset($_POST['postwinners'])){
     
     $commentpool = $reddit->getpostcomments($mainsubreddit,$songvotingthread,999);
     $commentpool = $commentpool[1]->data->children;
+    
     
     
     $result = mysql_query("SELECT * FROM songs WHERE round='$round'") or die(mysql_error());
@@ -88,7 +98,7 @@ if(isset($_POST['postwinners'])){
             if (strpos($parent->data->body, $songTemplate) !== false) {
                 $votes = $parent->data->ups;
                 //Find our post array in the comment pool
-                $childpool = $commentpool[$i];
+                $childpool = $commentpool[$i];//wut? isn't $parent this?
                 
                 //Run through comments to find out voting comments
                 foreach ($childpool->data->replies->data->children as $subchildren) {
@@ -111,7 +121,7 @@ if(isset($_POST['postwinners'])){
         
         call_db_stay($sql);
     }
-    
+     ** End old method ************************************************************************************************************/
 
   // BEST SONGS
   // Calculate table with maximum votes from each round.
@@ -122,7 +132,6 @@ if(isset($_POST['postwinners'])){
 Congratulations to all teams who submitted a song, you're all winners! Except here are the real winners:
 
 **Winning Tracks** \n\n";
-
 $result = mysql_query("
     SELECT  *
     FROM    songs 

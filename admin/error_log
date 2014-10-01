@@ -1,0 +1,277 @@
+[18-Dec-2013 06:23:03 America/New_York] PHP Warning:  include_once(src/addsong.php) [<a href='function.include-once'>function.include-once</a>]: failed to open stream: No such file or directory in /home/gameofba/public_html/admin/index.php on line 98
+[18-Dec-2013 06:23:03 America/New_York] PHP Warning:  include_once() [<a href='function.include'>function.include</a>]: Failed opening 'src/addsong.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/gameofba/public_html/admin/index.php on line 98
+[21-Dec-2013 08:58:11 America/New_York] PHP Parse error:  syntax error, unexpected '>' in /home/gameofba/public_html/admin/src/messages.php on line 95
+[21-Dec-2013 08:58:18 America/New_York] PHP Parse error:  syntax error, unexpected '>' in /home/gameofba/public_html/admin/src/messages.php on line 95
+[22-Dec-2013 07:09:05 America/New_York] PHP Parse error:  syntax error, unexpected T_VARIABLE, expecting T_FUNCTION in /home/gameofba/public_html/admin/src/classes/gob.php on line 18
+[22-Dec-2013 07:10:20 America/New_York] PHP Parse error:  syntax error, unexpected T_VARIABLE, expecting T_FUNCTION in /home/gameofba/public_html/admin/src/classes/gob.php on line 18
+[22-Dec-2013 07:11:33 America/New_York] PHP Parse error:  syntax error, unexpected T_NEW in /home/gameofba/public_html/admin/src/classes/gob.php on line 14
+[22-Dec-2013 07:12:45 America/New_York] PHP Fatal error:  Call to a member function createStory() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 32
+[22-Dec-2013 07:19:13 America/New_York] PHP Fatal error:  Call to a member function createStory() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 33
+[22-Dec-2013 07:19:48 America/New_York] PHP Fatal error:  Call to a member function createStory() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 33
+[22-Dec-2013 07:22:16 America/New_York] PHP Fatal error:  Call to a member function addComment() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 49
+[22-Dec-2013 07:33:13 America/New_York] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 60
+[22-Dec-2013 07:35:15 America/New_York] PHP Warning:  require_once(../../src/query.php) [<a href='function.require-once'>function.require-once</a>]: failed to open stream: No such file or directory in /home/gameofba/public_html/admin/src/classes/gob.php on line 10
+[22-Dec-2013 07:35:15 America/New_York] PHP Fatal error:  require_once() [<a href='function.require'>function.require</a>]: Failed opening required '../../src/query.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/gameofba/public_html/admin/src/classes/gob.php on line 10
+[22-Dec-2013 07:35:38 America/New_York] PHP Warning:  require_once() [<a href='function.require-once'>function.require-once</a>]: open_basedir restriction in effect. File(../../../src/query.php) is not within the allowed path(s): (/home/gameofba:/usr/lib/php:/usr/local/lib/php:/tmp) in /home/gameofba/public_html/admin/src/classes/gob.php on line 10
+[22-Dec-2013 07:35:38 America/New_York] PHP Warning:  require_once(../../../src/query.php) [<a href='function.require-once'>function.require-once</a>]: failed to open stream: Operation not permitted in /home/gameofba/public_html/admin/src/classes/gob.php on line 10
+[22-Dec-2013 07:35:38 America/New_York] PHP Fatal error:  require_once() [<a href='function.require'>function.require</a>]: Failed opening required '../../../src/query.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/gameofba/public_html/admin/src/classes/gob.php on line 10
+[22-Dec-2013 07:36:06 America/New_York] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 62
+[22-Dec-2013 07:37:44 America/New_York] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 62
+[22-Dec-2013 07:39:32 America/New_York] PHP Fatal error:  Cannot access empty property in /home/gameofba/public_html/admin/src/classes/gob.php on line 62
+[22-Dec-2013 07:40:14 America/New_York] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 62
+[22-Dec-2013 07:41:56 America/New_York] PHP Fatal error:  Call to undefined function database_connect() in /home/gameofba/public_html/admin/admin_process.php on line 7
+[22-Dec-2013 07:43:30 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 63
+[22-Dec-2013 07:44:27 America/New_York] PHP Catchable fatal error:  Object of class PDO could not be converted to string in /home/gameofba/public_html/lib/reddit.php on line 27
+[22-Dec-2013 07:50:39 America/New_York] PHP Catchable fatal error:  Object of class PDO could not be converted to string in /home/gameofba/public_html/lib/reddit.php on line 27
+[22-Dec-2013 07:50:58 America/New_York] PHP Catchable fatal error:  Object of class PDO could not be converted to string in /home/gameofba/public_html/lib/reddit.php on line 27
+[22-Dec-2013 07:53:16 America/New_York] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 60
+[22-Dec-2013 07:54:39 America/New_York] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 61
+[22-Dec-2013 07:56:20 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 63
+[22-Dec-2013 07:57:32 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 63
+[22-Dec-2013 08:00:45 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 64
+[22-Dec-2013 08:06:12 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 64
+[22-Dec-2013 17:10:37 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 96
+[22-Dec-2013 17:12:14 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 96
+[22-Dec-2013 17:14:00 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 95
+[22-Dec-2013 17:17:58 America/New_York] PHP Fatal error:  Cannot use object of type PDOStatement as array in /home/gameofba/public_html/admin/src/classes/gob.php on line 78
+[22-Dec-2013 17:18:34 America/New_York] PHP Fatal error:  Cannot use object of type PDOStatement as array in /home/gameofba/public_html/admin/src/classes/gob.php on line 78
+[22-Dec-2013 17:19:56 America/New_York] PHP Fatal error:  Cannot use object of type PDOStatement as array in /home/gameofba/public_html/admin/src/classes/gob.php on line 78
+[22-Dec-2013 17:22:44 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 95
+[22-Dec-2013 17:37:39 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 95
+[22-Dec-2013 17:43:56 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 95
+[22-Dec-2013 17:44:53 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 95
+[22-Dec-2013 17:45:44 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 95
+[22-Dec-2013 17:48:06 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 96
+[22-Dec-2013 17:50:33 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/classes/gob.php on line 114
+[31-Dec-2013 07:37:38 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/inbox.php on line 19
+[31-Dec-2013 07:59:43 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/inbox.php on line 19
+[31-Dec-2013 13:41:13 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/inbox.php on line 19
+[01-Jan-2014 06:59:25 America/New_York] PHP Fatal error:  Call to a member function query() on a non-object in /home/gameofba/public_html/admin/src/editcss.php on line 17
+[01-Jan-2014 07:00:25 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/editcss.php on line 19
+[01-Jan-2014 07:00:47 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/editcss.php on line 19
+[01-Jan-2014 07:01:29 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/editcss.php on line 19
+[01-Jan-2014 07:01:50 America/New_York] PHP Warning:  mysql_query() [<a href='function.mysql-query'>function.mysql-query</a>]: Access denied for user 'gameofba'@'localhost' (using password: NO) in /home/gameofba/public_html/admin/src/editcss.php on line 46
+[01-Jan-2014 07:01:50 America/New_York] PHP Warning:  mysql_query() [<a href='function.mysql-query'>function.mysql-query</a>]: A link to the server could not be established in /home/gameofba/public_html/admin/src/editcss.php on line 46
+[01-Jan-2014 07:03:08 America/New_York] PHP Fatal error:  Call to a member function query() on a non-object in /home/gameofba/public_html/admin/src/editcss.php on line 46
+[01-Jan-2014 07:04:07 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/editcss.php on line 46
+[01-Jan-2014 07:05:14 America/New_York] PHP Fatal error:  Call to undefined method PDO::execute() in /home/gameofba/public_html/admin/src/editcss.php on line 46
+[01-Jan-2014 07:09:01 America/New_York] PHP Parse error:  syntax error, unexpected T_ARRAY in /home/gameofba/public_html/admin/src/editcss.php on line 22
+[01-Jan-2014 07:45:40 America/New_York] PHP Catchable fatal error:  Object of class stdClass could not be converted to string in /home/gameofba/public_html/admin/src/editcss.php on line 57
+[01-Jan-2014 07:47:53 America/New_York] PHP Parse error:  syntax error, unexpected ')' in /home/gameofba/public_html/admin/src/editcss.php on line 58
+[01-Jan-2014 07:48:11 America/New_York] PHP Fatal error:  Cannot use object of type stdClass as array in /home/gameofba/public_html/admin/src/editcss.php on line 60
+[01-Jan-2014 07:49:03 America/New_York] PHP Fatal error:  Cannot use object of type stdClass as array in /home/gameofba/public_html/admin/src/editcss.php on line 60
+[06-Feb-2014 06:46:28 America/New_York] PHP Parse error:  syntax error, unexpected T_STRING in /home/gameofba/public_html/admin/src/bestOf2013.php on line 15
+[06-Feb-2014 06:46:52 America/New_York] PHP Fatal error:  Call to undefined method PDOStatement::query() in /home/gameofba/public_html/admin/src/bestOf2013.php on line 16
+[06-Feb-2014 06:47:43 America/New_York] PHP Fatal error:  Cannot use object of type PDOStatement as array in /home/gameofba/public_html/admin/src/bestOf2013.php on line 17
+[06-Feb-2014 06:48:02 America/New_York] PHP Catchable fatal error:  Object of class PDOStatement could not be converted to string in /home/gameofba/public_html/admin/src/bestOf2013.php on line 17
+[06-Feb-2014 06:57:11 America/New_York] PHP Catchable fatal error:  Object of class PDOStatement could not be converted to string in /home/gameofba/public_html/admin/src/bestOf2013.php on line 20
+[06-Feb-2014 06:58:01 America/New_York] PHP Catchable fatal error:  Object of class PDOStatement could not be converted to string in /home/gameofba/public_html/admin/src/bestOf2013.php on line 20
+[06-Feb-2014 07:00:14 America/New_York] PHP Catchable fatal error:  Object of class PDOStatement could not be converted to string in /home/gameofba/public_html/admin/src/bestOf2013.php on line 20
+[08-Feb-2014 07:17:17 America/New_York] PHP Fatal error:  Call to a member function fetchColumn() on a non-object in /home/gameofba/public_html/admin/src/bestOf2013.php on line 47
+[08-Feb-2014 07:17:19 America/New_York] PHP Fatal error:  Call to a member function fetchColumn() on a non-object in /home/gameofba/public_html/admin/src/bestOf2013.php on line 47
+[08-Feb-2014 07:19:55 America/New_York] PHP Fatal error:  Call to a member function fetchColumn() on a non-object in /home/gameofba/public_html/admin/src/bestOf2013.php on line 49
+[08-Feb-2014 07:20:29 America/New_York] PHP Parse error:  syntax error, unexpected T_CONSTANT_ENCAPSED_STRING, expecting ',' or ';' in /home/gameofba/public_html/admin/src/bestOf2013.php on line 47
+[08-Feb-2014 07:21:41 America/New_York] PHP Fatal error:  Call to a member function fetchColumn() on a non-object in /home/gameofba/public_html/admin/src/bestOf2013.php on line 49
+[08-Feb-2014 07:22:04 America/New_York] PHP Fatal error:  Call to a member function fetchColumn() on a non-object in /home/gameofba/public_html/admin/src/bestOf2013.php on line 63
+[08-Feb-2014 07:22:20 America/New_York] PHP Fatal error:  Call to a member function fetchColumn() on a non-object in /home/gameofba/public_html/admin/src/bestOf2013.php on line 61
+[20-Feb-2014 06:23:24 America/New_York] PHP Fatal error:  Call to a member function fetchColumn() on a non-object in /home/gameofba/public_html/admin/src/bestOf2013.php on line 18
+[20-Feb-2014 06:24:12 America/New_York] PHP Fatal error:  Call to a member function fetchColumn() on a non-object in /home/gameofba/public_html/admin/src/bestOf2013.php on line 18
+[20-Feb-2014 06:25:47 America/New_York] PHP Parse error:  syntax error, unexpected '{' in /home/gameofba/public_html/admin/src/bestOf2013.php on line 18
+[20-Feb-2014 06:26:02 America/New_York] PHP Fatal error:  Call to a member function fetchColumn() on a non-object in /home/gameofba/public_html/admin/src/bestOf2013.php on line 19
+[20-Feb-2014 06:26:38 America/New_York] PHP Fatal error:  Call to undefined function isnull() in /home/gameofba/public_html/admin/src/bestOf2013.php on line 18
+[20-Feb-2014 06:26:58 America/New_York] PHP Fatal error:  Call to a member function fetchColumn() on a non-object in /home/gameofba/public_html/admin/src/bestOf2013.php on line 19
+[20-Feb-2014 06:28:43 America/New_York] PHP Fatal error:  Call to a member function fetchColumn() on a non-object in /home/gameofba/public_html/admin/src/bestOf2013.php on line 20
+[20-Feb-2014 06:30:47 America/New_York] PHP Fatal error:  Call to a member function fetchColumn() on a non-object in /home/gameofba/public_html/admin/src/bestOf2013.php on line 28
+[20-Feb-2014 06:32:08 America/New_York] PHP Fatal error:  Call to a member function fetchColumn() on a non-object in /home/gameofba/public_html/admin/src/bestOf2013.php on line 46
+[20-Feb-2014 06:46:53 America/New_York] PHP Fatal error:  Cannot use object of type PDOStatement as array in /home/gameofba/public_html/admin/src/bestOf2013.php on line 22
+[20-Feb-2014 06:48:25 America/New_York] PHP Fatal error:  Cannot use object of type PDOStatement as array in /home/gameofba/public_html/admin/src/bestOf2013.php on line 23
+[20-Feb-2014 06:49:06 America/New_York] PHP Fatal error:  Cannot use object of type PDOStatement as array in /home/gameofba/public_html/admin/src/bestOf2013.php on line 23
+[20-Feb-2014 06:49:22 America/New_York] PHP Fatal error:  Call to undefined method PDO::execute() in /home/gameofba/public_html/admin/src/bestOf2013.php on line 21
+[20-Feb-2014 06:52:54 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/bestOf2013.php on line 34
+[20-Feb-2014 06:53:20 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/bestOf2013.php on line 34
+[20-Feb-2014 06:53:33 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/bestOf2013.php on line 34
+[21-Feb-2014 06:39:28 America/New_York] PHP Warning:  explode() expects parameter 2 to be string, array given in /home/gameofba/public_html/admin/src/bestOf2013.php on line 70
+[21-Feb-2014 06:39:28 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/bestOf2013.php on line 77
+[27-Mar-2014 06:42:28 America/New_York] PHP Fatal error:  Cannot redeclare reddit::createStory() in /home/gameofba/public_html/lib/reddit.php on line 86
+[28-Mar-2014 06:38:03 America/New_York] PHP Fatal error:  Call to undefined function query_winners() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 27
+[28-Mar-2014 06:59:17 America/New_York] PHP Parse error:  syntax error, unexpected ',', expecting ')' in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 54
+[28-Mar-2014 07:06:43 America/New_York] PHP Parse error:  syntax error, unexpected '[' in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 70
+[31-Mar-2014 22:13:09 America/New_York] PHP Parse error:  syntax error, unexpected ')' in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 58
+[31-Mar-2014 22:13:47 America/New_York] PHP Catchable fatal error:  Object of class PDOStatement could not be converted to string in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 79
+[31-Mar-2014 22:14:22 America/New_York] PHP Fatal error:  Call to undefined method PDO::fetch() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 59
+[31-Mar-2014 22:14:58 America/New_York] PHP Catchable fatal error:  Object of class PDOStatement could not be converted to string in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 60
+[31-Mar-2014 22:15:22 America/New_York] PHP Fatal error:  Call to undefined method PDO::fetch() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 59
+[31-Mar-2014 22:15:38 America/New_York] PHP Fatal error:  Call to undefined method PDO::fetch() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 59
+[31-Mar-2014 22:15:56 America/New_York] PHP Catchable fatal error:  Object of class PDOStatement could not be converted to string in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 79
+[31-Mar-2014 22:21:31 America/New_York] PHP Warning:  str_replace() expects at least 3 parameters, 2 given in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 78
+[05-Apr-2014 07:03:00 America/New_York] PHP Parse error:  syntax error, unexpected '-', expecting ')' in /home/gameofba/public_html/lib/reddit.php on line 86
+[05-Apr-2014 07:06:29 America/New_York] PHP Parse error:  syntax error, unexpected T_ECHO in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 70
+[06-Apr-2014 06:46:27 America/New_York] PHP Catchable fatal error:  Object of class stdClass could not be converted to string in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 119
+[06-Apr-2014 07:14:24 America/New_York] PHP Fatal error:  Call to undefined function encodeURIComponent() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 117
+[08-Apr-2014 06:48:01 America/New_York] PHP Fatal error:  Call to undefined function vardump() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 68
+[09-Apr-2014 17:20:47 America/New_York] PHP Fatal error:  Cannot use object of type stdClass as array in /home/gameofba/public_html/admin/admin_process.php on line 205
+[09-Apr-2014 17:22:00 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/admin_process.php on line 473
+[16-Apr-2014 22:48:07 America/New_York] PHP Parse error:  syntax error, unexpected $end in /home/gameofba/public_html/admin/src/editflair.php on line 64
+[16-Apr-2014 22:53:12 America/New_York] PHP Fatal error:  Cannot redeclare query_winners() (previously declared in /home/gameofba/public_html/admin/src/editflair.php:44) in /home/gameofba/public_html/admin/src/editflair.php on line 85
+[16-Apr-2014 22:54:06 America/New_York] PHP Catchable fatal error:  Object of class PDOStatement could not be converted to string in /home/gameofba/public_html/admin/src/editflair.php on line 27
+[16-Apr-2014 23:10:37 America/New_York] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/gameofba/public_html/admin/src/editflair.php on line 40
+[16-Apr-2014 23:11:05 America/New_York] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/gameofba/public_html/admin/src/editflair.php on line 40
+[16-Apr-2014 23:12:48 America/New_York] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/gameofba/public_html/admin/src/editflair.php on line 40
+[16-Apr-2014 23:21:47 America/New_York] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/gameofba/public_html/admin/src/editflair.php on line 60
+[16-Apr-2014 23:23:25 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/editflair.php on line 64
+[16-Apr-2014 23:23:56 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/editflair.php on line 64
+[16-Apr-2014 23:24:39 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/editflair.php on line 65
+[16-Apr-2014 23:25:05 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/editflair.php on line 66
+[16-Apr-2014 23:26:58 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/editflair.php on line 55
+[23-Apr-2014 06:44:28 America/New_York] PHP Parse error:  syntax error, unexpected ';' in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 23
+[23-Apr-2014 06:45:25 America/New_York] PHP Parse error:  syntax error, unexpected '.' in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 87
+[23-Apr-2014 06:47:51 America/New_York] PHP Parse error:  syntax error, unexpected T_STRING, expecting ',' or ';' in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 91
+[23-Apr-2014 06:48:16 America/New_York] PHP Fatal error:  Call to undefined function getPageInfo() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 91
+[23-Apr-2014 06:48:55 America/New_York] PHP Warning:  Missing argument 2 for reddit::getPageInfo(), called in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 91 and defined in /home/gameofba/public_html/lib/reddit.php on line 301
+[23-Apr-2014 06:48:55 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 98
+[23-Apr-2014 06:48:55 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 113
+[23-Apr-2014 06:50:42 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 98
+[23-Apr-2014 06:50:42 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 113
+[23-Apr-2014 06:54:22 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 99
+[23-Apr-2014 06:54:22 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 114
+[23-Apr-2014 06:58:42 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 99
+[23-Apr-2014 06:58:42 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 114
+[23-Apr-2014 06:59:19 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 99
+[23-Apr-2014 06:59:19 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 114
+[23-Apr-2014 07:00:17 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 99
+[23-Apr-2014 07:00:17 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 114
+[23-Apr-2014 07:00:48 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 99
+[23-Apr-2014 07:00:48 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 114
+[23-Apr-2014 07:01:09 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 99
+[23-Apr-2014 07:01:09 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 114
+[23-Apr-2014 07:02:49 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 99
+[23-Apr-2014 07:02:49 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 114
+[23-Apr-2014 07:05:18 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 99
+[23-Apr-2014 07:05:18 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 114
+[23-Apr-2014 07:06:01 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 99
+[23-Apr-2014 07:06:01 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 114
+[23-Apr-2014 07:07:22 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 97
+[23-Apr-2014 07:07:22 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 112
+[23-Apr-2014 20:28:19 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 97
+[23-Apr-2014 20:28:19 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 112
+[23-Apr-2014 20:28:43 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 97
+[23-Apr-2014 20:28:43 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 112
+[23-Apr-2014 20:30:58 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 97
+[23-Apr-2014 20:30:58 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 112
+[23-Apr-2014 20:53:58 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 97
+[23-Apr-2014 20:53:58 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 112
+[23-Apr-2014 21:01:36 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 92
+[23-Apr-2014 21:01:36 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 107
+[23-Apr-2014 21:03:18 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 97
+[23-Apr-2014 21:03:18 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 112
+[23-Apr-2014 21:03:58 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 97
+[23-Apr-2014 21:03:58 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 112
+[23-Apr-2014 21:04:30 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 97
+[23-Apr-2014 21:04:30 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 112
+[23-Apr-2014 21:05:45 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 98
+[23-Apr-2014 21:05:45 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 113
+[23-Apr-2014 21:06:13 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 98
+[23-Apr-2014 21:06:13 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 113
+[23-Apr-2014 21:08:41 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 97
+[23-Apr-2014 21:08:41 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 112
+[23-Apr-2014 21:09:18 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 98
+[23-Apr-2014 21:09:18 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 113
+[23-Apr-2014 21:13:13 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 64
+[23-Apr-2014 21:13:53 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 64
+[23-Apr-2014 21:15:23 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 63
+[23-Apr-2014 21:16:09 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 63
+[23-Apr-2014 21:16:38 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 97
+[23-Apr-2014 21:16:38 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 112
+[23-Apr-2014 21:41:13 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 95
+[23-Apr-2014 21:41:13 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 110
+[23-Apr-2014 21:41:31 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 95
+[23-Apr-2014 21:41:31 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 110
+[23-Apr-2014 21:42:26 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 95
+[23-Apr-2014 21:42:26 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 110
+[23-Apr-2014 21:48:46 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 99
+[23-Apr-2014 21:48:46 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 114
+[23-Apr-2014 21:51:14 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 99
+[23-Apr-2014 21:51:14 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 114
+[23-Apr-2014 21:51:20 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 99
+[23-Apr-2014 21:51:20 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 114
+[23-Apr-2014 21:52:39 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 100
+[23-Apr-2014 21:52:39 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 115
+[23-Apr-2014 21:53:27 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 99
+[23-Apr-2014 21:53:27 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 114
+[23-Apr-2014 21:57:08 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 101
+[23-Apr-2014 21:57:08 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 116
+[23-Apr-2014 21:57:34 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 102
+[23-Apr-2014 21:57:34 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 117
+[23-Apr-2014 21:58:10 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 102
+[23-Apr-2014 21:58:10 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 117
+[23-Apr-2014 21:58:43 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 102
+[23-Apr-2014 21:58:43 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 117
+[23-Apr-2014 22:00:45 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 51
+[23-Apr-2014 22:01:28 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 102
+[23-Apr-2014 22:01:28 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 117
+[23-Apr-2014 22:02:26 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 51
+[23-Apr-2014 22:02:52 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 91
+[23-Apr-2014 22:02:52 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 106
+[23-Apr-2014 22:03:09 America/New_York] PHP Fatal error:  Call to undefined method PDO::fetch() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 50
+[23-Apr-2014 22:03:36 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 91
+[23-Apr-2014 22:03:36 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 97
+[23-Apr-2014 22:03:36 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 106
+[23-Apr-2014 22:06:17 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 61
+[23-Apr-2014 22:07:07 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 62
+[23-Apr-2014 22:08:07 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 62
+[23-Apr-2014 22:08:30 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 62
+[23-Apr-2014 22:09:54 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 61
+[23-Apr-2014 22:24:39 America/New_York] PHP Fatal error:  Call to a member function execute() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 140
+[23-Apr-2014 22:25:24 America/New_York] PHP Fatal error:  Call to a member function query() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 140
+[23-Apr-2014 22:26:15 America/New_York] PHP Fatal error:  Call to a member function query() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 140
+[23-Apr-2014 22:26:46 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 65
+[23-Apr-2014 22:26:46 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 80
+[23-Apr-2014 22:27:38 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 65
+[23-Apr-2014 22:27:38 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 80
+[23-Apr-2014 22:27:52 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 65
+[23-Apr-2014 22:27:52 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 80
+[23-Apr-2014 22:28:40 America/New_York] PHP Fatal error:  Call to undefined method PDO::fetch() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 140
+[23-Apr-2014 22:31:15 America/New_York] PHP Fatal error:  Call to a member function fetchAll() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 141
+[23-Apr-2014 22:31:53 America/New_York] PHP Fatal error:  Call to a member function fetchAll() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 141
+[23-Apr-2014 22:32:17 America/New_York] PHP Fatal error:  Call to a member function fetchAll() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 142
+[23-Apr-2014 22:34:53 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 65
+[23-Apr-2014 22:34:53 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 80
+[23-Apr-2014 22:35:25 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 65
+[23-Apr-2014 22:35:25 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 80
+[23-Apr-2014 22:36:47 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 80
+[23-Apr-2014 22:48:03 America/New_York] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 108
+[24-Apr-2014 06:21:20 America/New_York] PHP Parse error:  syntax error, unexpected T_VARIABLE, expecting ',' or ';' in /home/gameofba/public_html/admin/src/editflair.php on line 22
+[24-Apr-2014 06:23:46 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/editflair.php on line 17
+[24-Apr-2014 06:27:19 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/editflair.php on line 18
+[24-Apr-2014 06:33:26 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/editflair.php on line 18
+[24-Apr-2014 06:34:37 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/editflair.php on line 17
+[24-Apr-2014 06:36:57 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/editflair.php on line 17
+[24-Apr-2014 06:37:36 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/editflair.php on line 19
+[24-Apr-2014 06:38:14 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/editflair.php on line 19
+[24-Apr-2014 06:39:58 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/editflair.php on line 20
+[24-Apr-2014 06:40:39 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/editflair.php on line 17
+[24-Apr-2014 06:42:06 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/editflair.php on line 17
+[24-Apr-2014 06:42:28 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/editflair.php on line 17
+[24-Apr-2014 06:44:14 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/editflair.php on line 17
+[24-Apr-2014 06:45:11 America/New_York] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/gameofba/public_html/admin/src/editflair.php on line 17
+[24-Apr-2014 06:46:41 America/New_York] PHP Fatal error:  Call to a member function fetchAll() on a non-object in /home/gameofba/public_html/admin/src/editflair.php on line 17
+[24-Apr-2014 06:50:34 America/New_York] PHP Fatal error:  Call to a member function query() on a non-object in /home/gameofba/public_html/admin/src/editflair.php on line 15
+[24-Apr-2014 06:53:44 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/editflair.php on line 16
+[24-Apr-2014 06:54:06 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/editflair.php on line 16
+[24-Apr-2014 06:56:31 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/editflair.php on line 37
+[24-Apr-2014 06:56:36 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/songlist.php on line 37
+[24-Apr-2014 06:56:44 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/songlist.php on line 37
+[24-Apr-2014 06:56:47 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/roundlist.php on line 28
+[24-Apr-2014 21:13:04 America/New_York] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42000] [1203] User gameofba_gobmod already has more than 'max_user_connections' active connections' in /home/gameofba/public_html/src/query.php:11
+Stack trace:
+#0 /home/gameofba/public_html/src/query.php(11): PDO->__construct('mysql:host=loca...', 'gameofba_gobmod', 'preferences2')
+#1 /home/gameofba/public_html/admin/src/editflair.php(28): database_connect()
+#2 /home/gameofba/public_html/admin/src/editflair.php(23): get_flair('te243')
+#3 /home/gameofba/public_html/admin/index.php(123): include_once('/home/gameofba/...')
+#4 {main}
+  thrown in /home/gameofba/public_html/src/query.php on line 11
+[26-Apr-2014 12:33:49 America/New_York] PHP Fatal error:  Call to a member function query() on a non-object in /home/gameofba/public_html/admin/src/view_AdminSettings.php on line 20
+[27-Apr-2014 06:06:33 America/New_York] PHP Parse error:  syntax error, unexpected ',', expecting ')' in /home/gameofba/public_html/admin/src/editflair.php on line 59
+[27-Apr-2014 06:16:14 America/New_York] PHP Warning:  PDOStatement::execute() [<a href='pdostatement.execute'>pdostatement.execute</a>]: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined in /home/gameofba/public_html/admin/src/editflair.php on line 33
+[27-Apr-2014 06:16:45 America/New_York] PHP Warning:  PDOStatement::execute() [<a href='pdostatement.execute'>pdostatement.execute</a>]: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined in /home/gameofba/public_html/admin/src/editflair.php on line 33
+[28-Apr-2014 06:48:20 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/gameofba/public_html/admin/src/editflair.php on line 18

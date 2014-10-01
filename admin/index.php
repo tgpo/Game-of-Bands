@@ -1,14 +1,12 @@
 <?php
-require_once( 'includes/gob_admin.php' );
-mod_check();
-
 require_once( '../src/query.php' );
+mod_check();
 
 define( 'INDEX', true );
 
-function writeNewMessageCount(){
+function writeNewMessageCount(){ //why isn't this in query?
     $db = database_connect();
-    $currentuser = $_SESSION['GOB']['name'];
+    $currentuser = get_username();
     $messagecount = $db->prepare('SELECT COUNT(*) FROM messages WHERE user_to=:currentuser AND new = 1 order by date_sent desc');
     $messagecount->execute(array('currentuser' => $currentuser));
 
@@ -16,7 +14,6 @@ function writeNewMessageCount(){
   
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,13 +21,13 @@ function writeNewMessageCount(){
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title></title>
   <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, minimumscale=1.0, maximum-scale=1.0" />
+  <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 
   <link rel="stylesheet" href="css/styles.css">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="lib/sidr/jquery.sidr.min.js"></script>
-  <link rel="stylesheet" href="lib/sidr/stylesheets/jquery.sidr.dark.css">
-  <script src="lib/stacktable/stacktable.js"></script>
+  <script src="/lib/sidr/jquery.sidr.min.js"></script>
+  <link rel="stylesheet" href="/lib/sidr/stylesheets/jquery.sidr.dark.css">
+  <script src="/lib/stacktable/stacktable.js"></script>
 
   <script>
     $(document).ready(function() {
@@ -99,8 +96,14 @@ function writeNewMessageCount(){
                 <li><a href="index.php?view=inbox">/u/GameofBands Inbox</a></li>
                 
                 <li><a href="index.php?view=editflair">edit Flair</a></li>
+                <li><a href="index.php?view=editcities" title="Modify cities, post messages to mods etc">Xmas Cities</a></li>
+                
             </ul>
           </li>
+          <li><h3>Tools</h3></li>
+          <ul>
+          <li><a href="index.php?view=clearcache" title="Empty the static page cache for bandits, makes your changes visible">Clear Cache</a></li>
+          </ul>
         </ul>
         <div class="clearfix"></div>
       </nav>
@@ -109,7 +112,7 @@ function writeNewMessageCount(){
         <div id="page-content">
           <?php
             // Decide which data to display
-            switch ($_GET['view']) {
+            switch (isset($_GET['view'])?$_GET['view']:'') {
               case 'addsong'          : include_once 'src/addsong.php';             break;
               case 'editsong'         : include_once 'src/editsong.php';            break;
               case 'editround'        : include_once 'src/editround.php';           break;
@@ -124,6 +127,12 @@ function writeNewMessageCount(){
               case 'resetflair'       : include_once 'src/resetflair.php';          break;
               case 'bestof2013'       : include_once 'src/bestOf2013.php';          break;
               case 'adminSettings'    : include_once 'src/view_AdminSettings.php';  break;
+              case 'editcities'				: include_once 'xmas/cities.php';							break;
+              case 'editxmasteams'		: include_once 'xmas/teams.php';							break;
+              case 'clearcache'				: {
+              	array_map("unlink",glob('../../src/cache/*.html')); echo '<h3>Static page-cache cleared</h3>';
+              	/* No break, show dashboard */
+              }	
               default                 : include_once 'src/dashboard.php';           break;
 
             }

@@ -1,10 +1,22 @@
+# Disallow directory Listing
+Options -Indexes
+
+#Disallow viewing .htaccess file
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>
+
 RewriteEngine on
+Options +FollowSymLinks
 
 #remove www from domain
 RewriteCond %{HTTP_HOST} !^gameofbands\.co
 RewriteCond %{HTTP_HOST} !^localhost
 RewriteRule (.*) http://gameofbands.co/$1 [R=301,L]
 
+# Is this really necessary? 
+# Surely: "DirectoryIndex index.php" is enough?
 DirectoryIndex index.php index.htm index.html index.shtml index.xhtml index.wml index.perl index.pl index.plx index.ppl index.cgi index.jsp index.js index.jp index.php4 index.php3 index.phtml default.htm default.html home.htm
 
 RewriteCond %{HTTP_HOST} ^gameofbands\.co\/index\.php$ [OR]
@@ -14,26 +26,32 @@ RewriteRule ^/?$ "http\:\/\/gameofbands\.co" [R=301,L]
 #Redirect old URLs to new locations
 Redirect 301 /viewHallofFame.php http://gameofbands.co/hall_of_fame
 
-
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
 # SEO Friendly URLs
 RewriteRule ^/?bandit/([^.]+)/?$ index.php?view=bandit&bandit=$1 [L,QSA]
 RewriteRule ^/?song/([^.]+)/?$ index.php?view=song&song=$1 [L,QSA]
 RewriteRule ^/?round/([^.]+)/?$ index.php?view=round&round=$1 [L,QSA]
 RewriteRule ^hall_of_fame$ index.php?view=fame [L,QSA]
-RewriteRule ^login_request$ index.php?view=login_request [L,QSA]
-RewriteRule ^user_dashboard$ index.php?view=user_dashboard [L,QSA]
-RewriteRule ^user_submitsong$ index.php?view=user_submitsong [L,QSA]
 RewriteRule ^all_rounds$ index.php?view=rounds [L,QSA]
-RewriteRule ^edit_profile$ index.php?view=edit_profile [L,QSA]
 RewriteRule ^edit_profile_process$ edit_profile_process.php [L,QSA]
-RewriteRule ^irc$ index.php?view=irc [L,QSA]
-RewriteRule ^bestof2013$ index.php?view=bestof2013 [L,QSA]
 
-# Disallow directory Listing
-Options -Indexes
+# Christmas glob, due to the sheer number of sub-pages.
+RewriteRule ^xmas/(.*)$ index.php?view=xmas&type=$1 [L,QSA] 
 
-#Disallow viewing .htaccess file
-<Files .htaccess>
-order allow,deny
-deny from all
-</Files>
+# Default
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?view=$1 [L,QSA]
+
+
+# Obsolete rewrite rules. We now let the index.php file route the request.
+#RewriteRule ^login_request$ index.php?view=login_request [L,QSA]
+#RewriteRule ^user_dashboard$ index.php?view=user_dashboard [L,QSA]
+#RewriteRule ^user_submitsong$ index.php?view=user_submitsong [L,QSA]
+#RewriteRule ^edit_profile$ index.php?view=edit_profile [L,QSA]
+#RewriteRule ^irc$ index.php?view=irc [L,QSA]
+#RewriteRule ^bestof2013$ index.php?view=bestof2013 [L,QSA]
+

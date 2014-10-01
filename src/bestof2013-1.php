@@ -200,15 +200,9 @@ $(document).ready(function(){
 <?php
 
 }
-
+//template moved to /index.php
 ?>
-<div id="votingWidget">
-    <div id="titleBlock"></div>
-    <div id="roundBlock"></div>
-    <div id="soundcloudBlock"></div>
-    <div id="bandBlock"><ul><li class="lyrics"></li><li class="music"></li><li class="vocals"></li></ul><div class="clear"></div></div>
-    <div id="lyricsBlock"></div>
-</div>
+
 
 <h2>Game of Bands - Best of 2013</h2>
 <p>Vote for Best of the Best of 2013</p>

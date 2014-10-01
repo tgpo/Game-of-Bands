@@ -15,6 +15,11 @@ local.properties
 .classpath
 .settings/
 .loadpath
+.buildpath
+.project
+error_log
+.ftpquota
+.svn
 
 # External tool builders
 .externalToolBuilders/
