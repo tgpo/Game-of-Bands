@@ -114,8 +114,6 @@ $(document).ready(function(){
 				console.log(xhr); //TODO: Notify mod
 			},
 		});
-		
-		//TODO: Accept input row and update the database in json.php
 	});
 	$('input.new').click(function(){ 
 		// Find our new row, get the data, change inputs to text.
@@ -182,8 +180,7 @@ $(document).ready(function(){
 			url: "xmas/json.php?type=concept",
 			data: {text: JSON.stringify($('#concept').val())},
 			success: function(response){
-				console.log("Saved!");
-				console.log("I suggest you clear the cache.. "); //location.href = '/admin/index.php?view=clearcache';
+				$('#save_concept').before('Concept Saved! <a href="/admin/index.php?view=clearcache" title="Anonymous users will not see your changes until this is cleared, or 24 hours have passed.">Clear Cache</a>');
 			},
 			error: function(xhr){
 				console.log(xhr);
