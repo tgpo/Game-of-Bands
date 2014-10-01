@@ -40,46 +40,4 @@ if (! $song) {
 	
 	print $response . PHP_EOL;
 }
-exit();
-
-/* old code..
-$db = database_connect ();
-$query = $db->prepare ( 'SELECT * FROM songs WHERE id=:song and approved=1' );
-$query->execute ( array (
-		'song' => $song 
-) );
-$song = $query->fetch ();
-
-$query = $db->prepare ( 'SELECT theme FROM rounds WHERE number=:round' );
-$query->execute ( array (
-		'round' => $song ['round'] 
-) );
-$round = $query->fetch ();
-function fixAscii($string) {
-	$map = Array (
-			'’' => "'" 
-	);
-	
-	$search = Array ();
-	$replace = Array ();
-	
-	foreach ( $map as $s => $r ) {
-		$search [] = $s;
-		$replace [] = $r;
-	}
-	
-	return str_replace ( $search, $replace, $string );
-}
-
-//header ( $_SERVER ['SERVER_PROTOCOL'] . ' ', true, 200 ); // Browsers like the 200 success code.
-$response = json_encode ( array (
-		"name" => $song ['name'],
-		"url" => $song ['url'],
-		"round" => $song ['round'],
-		"lyricsheet" => fixAscii ( nl2br ( $song ['lyricsheet'] ) ),
-		"theme" => $round ['theme'],
-		"banditLyrics" => $song ['lyrics'],
-		"banditMusic" => $song ['music'],
-		"banditVocals" => $song ['vocals'] 
-) );
-*/
+exit(); // Just in case this isn't called directly.. 
