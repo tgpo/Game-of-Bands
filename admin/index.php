@@ -22,7 +22,7 @@ function writeNewMessageCount(){ //why isn't this in query?
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="/admin/css/styles.css?cf">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="/lib/sidr/jquery.sidr.min.js"></script>
   <link rel="stylesheet" href="/lib/sidr/stylesheets/jquery.sidr.dark.css">
