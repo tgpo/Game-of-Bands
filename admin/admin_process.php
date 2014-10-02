@@ -67,11 +67,12 @@ if(isset($_POST['getsignups'])){
 if(isset($_POST['postwinners'])){
     $round = $_POST['Round4'];  
     
+    /** DISABLE NEW METHOD.. geez, we can't use this until we switch voting methods!
     // Calculate votes for the round and save them.
     require_once '../classes/class.songvotes.php';
     new SongVotes($round);
     
-    /** Skip old method, **************************************************************************************************
+    /** Skip old method, **************************************************************************************************/
     
     //Get our saved data about this round
     $result = mysql_query("SELECT * FROM rounds WHERE number='$round'") or die(mysql_error());
@@ -121,7 +122,7 @@ if(isset($_POST['postwinners'])){
         
         call_db_stay($sql);
     }
-     ** End old method ************************************************************************************************************/
+     /** End old method ************************************************************************************************************/
 
   // BEST SONGS
   // Calculate table with maximum votes from each round.
