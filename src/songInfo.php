@@ -23,16 +23,16 @@ if (! $song) {
 	}
 	$info['theme'] = Round::get_theme($s->get_round());
 	
-	// Enables voting if active for round.
+	/*/ Enables voting if active for round.
 	if(voting_is_active($s->get_round())){
 		$info['votable'] = 1;
 		// Show different icon if user has already voted for things.
 		if(is_loggedin()){
 			$info['voted'] = get_song_votes(get_username(),$song);
 		}
-	}else{
-		$info['votable'] = 0;
-	}
+	}else{*/
+		$info['votable'] = 0;// change to using jQuery data on applicable rounds.. 
+	//}
 	
 	$response = json_encode($info);
 	
