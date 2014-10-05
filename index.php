@@ -110,7 +110,7 @@ function writeNewMessageCount(){
 	</footer>
 
 	<div id="votingWidget">
-		<a href="#" id="close-sc">[Exit]</a>
+		<a href="#" id="close-sc" title="Close this widget">[Exit]</a>
 		<div id="titleBlock"></div>
 		<div id="roundBlock"></div>
 		<div id="soundcloudBlock"></div>
