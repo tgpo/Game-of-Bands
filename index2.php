@@ -1,4 +1,5 @@
-<?php
+<?php die("Obsolete?");
+
 define('INDEX', true);
 require_once( 'src/gob_user.php' );
 require_once( 'src/query.php' );

@@ -66,7 +66,7 @@ function is_mod() {
 }
 /**
  * Get bandits username
- * A convienience function, default is get_username, for ease of remembering..
+ * A convienience function, default is get_username, created as its easier to remember.
  */ 
 function get_bandit_name(){
 	return get_username();
