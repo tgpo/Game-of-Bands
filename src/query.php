@@ -1,9 +1,9 @@
 <?php
 
-define ( 'DEBUG', false ); //IMPORTANT: SET TO FALSE ON SERVER
+define ( 'DEBUG', (gethostname() == 'gameofbands.co') ? false : true ); //IMPORTANT: SET TO FALSE ON SERVER
 define ( 'DEBUG_USER', 'RetroTheft' );
 define ( 'DEBUG_VOTING', false ); // set to true to always enable voting, and see all votes in error log.
-define ( 'DEBUG_SQL', false ); // Set to true to see all queries in the apache log.
+define ( 'DEBUG_SQL', true ); // Set to true to see all queries in the apache log.
 
 require_once ('secrets.php');
 require_once ('gob_user.php');
@@ -29,7 +29,7 @@ function database_connect() {
 	}catch (PDOException $e){
 		error_log($e->getMessage());
 		mail('clonemeagain@gmail.com','GOB DB Error',$e->getMessage());
-		die("We are having a slight problem with our database. Please bear with us.");
+		die("We are having a slight problem with our database, the admins have been notified, but if you want to add additional info about what happened: " . get_issue_link('Q:DBC_Unable_to_connect'));
 	}
 	return $db;
 }
@@ -157,7 +157,11 @@ function get_one($sql, $params = array()) {
 }
 
 // MySQL Helper Functions
-function get_bandit_id($bandit_name) {
+function get_bandit_id($bandit_name = false) {
+	if(!$bandit_name){
+		return bandit_id();
+	}
+	
 	$b = get_one ( 'SELECT id FROM bandits WHERE name=:bandit', array (
 			'bandit' => $bandit_name 
 	) );
