@@ -29,10 +29,11 @@
 	/* setup voting system */
 	GOB.voting_template = $('<span class="upvotebutton">&nbsp;</span>');//&#8683; // ugly arrow
 	GOB.vote_types = {
-               'lyrics' : 'bestLyricist',
+               'lyrics': 'bestLyricist',
                'music' : 'bestMusician',
-               'vocals' : 'bestVocalist',
+               'vocals': 'bestVocalist',
                'track' : 'bestSong'
+               'xmas'  : 'bestXmasSong',
 			};
 	
 	GOB.logged_in = /reddit_session=/.test(document.cookie); 
@@ -75,7 +76,7 @@
 	.bind(SC.Widget.Events.DOWNLOAD,function() {console.log("Bandit downloading.. ");});
 	
 	// Enable moving widget around page, actual widget, so contents may change, but widget position remains
-	$('#votingWidget').drags();
+	//$('#votingWidget').drags(); // Hmm.. scroll is disabled when this is active, mousewheel works, but.. not elegant.
 	
 	// TODO: Enable .resize() binding so widget moves if you scale the page.. it does move.. but not properly.
 	

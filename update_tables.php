@@ -3,6 +3,7 @@ require_once ('src/query.php');
 mod_check ();
 
 $queries = array(
+		"ALTER TABLE `votes` CHANGE `type` `type` ENUM( 'bestSong', 'bestLyricist', 'bestMusician', 'bestVocalist', 'bestProducer', 'bestSave', 'underAppreciatedSong', 'underAppreciatedBandit', 'bestXmasSong' ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL ;",
 		"ALTER TABLE `xmas_teams` ADD `creator` INT( 11 ) NOT NULL AFTER `created` ;",
 		"ALTER TABLE `xmas_teams` ADD CONSTRAINT `FK_city_id` FOREIGN KEY ( `city_id` ) REFERENCES `gameofba_library`.`cities` (
 `id`

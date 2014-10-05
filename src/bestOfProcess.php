@@ -32,7 +32,8 @@ function voteSong() {
 			'bestSave',
 			'underAppreciatedSong',
 			'underAppreciatedBandit',
-			'bestApplicationRound' 
+			'bestApplicationRound',
+			'bestXmasSong',
 	);
 	
 	if (! in_array ( $catagory, $validColumns )) {
@@ -99,7 +100,8 @@ function vote() {
 			'bestSave',
 			'underAppreciatedSong',
 			'underAppreciatedBandit',
-			'bestApplicationRound' 
+			'bestApplicationRound',
+			'bestXmasSong',
 	);
 	// Only accept specific types, database will do this anyway (ENUM), but its worth checking again.. I suppose.
 	if (! in_array ( $type, $validTypes )) {
