@@ -36,7 +36,7 @@ class Song {
 				"name" => $this->data ['name'],
 				"url" => $this->data ['url'],
 				"round" => $this->data ['round'],
-				"lyricsheet" => nl2br ( $this->data ['lyricsheet'] ),
+				"lyricsheet" => preg_replace("/(<br\s*\/?>\s*)+/", "<br/>", nl2br ( $this->data ['lyricsheet'] )), //Ensure nl2br doesn't go overboard if user actually entered <br>'s and return.
 				"banditLyrics" => $this->data ['lyrics'],
 				"banditMusic" => $this->data ['music'],
 				"banditVocals" => $this->data ['vocals'] 
