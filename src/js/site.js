@@ -99,7 +99,7 @@
 		if(typeof SC === 'undefined'){ 
 			console.log("Soundcloud not loaded, unable to load player.");
 		}else{
-			selected_url = $(this).attr('data-url');
+			selected_url = $(this).data('url');
 			if(selected_url.length < 10){//"soundcloud" = 10 characters, if its not even that.. well..
 				console.log("Url is too short or is otherwise invalid. Not creating a SoundCloud player.");
 			}else{

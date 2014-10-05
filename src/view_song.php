@@ -32,10 +32,33 @@
 
 <div id="putTheWidgetHere"></div>
   <script type="text/JavaScript">
-		SC.oEmbed("<?php echo $song['url'];?>", {color: "000000"},
-		  document.getElementById("putTheWidgetHere"));
+  // SC code loaded via homepage, so, we should be able to simple find the first link and click it.
+$(document).ready(function(){
+	// Load the song-url
+	var url = $('#sc-link').attr('href');
+	// remove previous player
+	$('#votingWidget').remove();
+	// Create the iframe for the new widget.
+	$('<iframe>', {
+	   src: 'https://w.soundcloud.com/player/?url=' + url, 
+	   id:  'sc-song-widget',
+	   frameborder: 0,
+	   scrolling: 'no',
+	   height: '166',
+	   width: "100%",
+	}).appendTo(document.getElementById("putTheWidgetHere")); 
+	// Make the new widget.
+	var widget = SC.Widget('sc-song-widget');
+	widget.bind(SC.Widget.Events.READY,function() {widget.play(); });
+	widget.load(url, { // Tell the widget what URL we want to play
+		auto_play: true,
+		sharing: true,
+		liking: true,
+		show_artwork: true, 
+	});
+});
 	</script>
-	<p class="extlink"><a href="<?php echo $song['url'];?>" class="listen">Listen To Song</a></p>
+	<p class="extlink"><a id="sc-link" href="<?php echo $song['url'];?>" class="listen">View on SoundCloud</a></p>
 
 <?php
 // Display table with this song.
