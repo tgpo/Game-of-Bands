@@ -39,7 +39,7 @@ function submitSong($reddit){
     $user = $_SESSION['GOB']['name'];
     $round = filter_input(INPUT_POST, 'round', FILTER_SANITIZE_NUMBER_INT);
     $teamnumber = filter_input(INPUT_POST, 'teamnumber', FILTER_SANITIZE_NUMBER_INT);
-    $name = filter_input(INPUT_POST, 'songname', FILTER_SANITIZE_URL);
+    $name = filter_input(INPUT_POST, 'songname', FILTER_SANITIZE_SPECIAL_CHARS);
     $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_URL);
     $lyrics = filter_input(INPUT_POST, 'lyrics', FILTER_SANITIZE_SPECIAL_CHARS);
     $music = filter_input(INPUT_POST, 'music', FILTER_SANITIZE_SPECIAL_CHARS);
