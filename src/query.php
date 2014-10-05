@@ -34,7 +34,6 @@ function database_connect() {
 	return $db;
 }
 
-
 // Query the  rounds  table for a particular round number
 function query_round_details($db,$number) {
 	$query = $db->prepare('SELECT * FROM rounds WHERE number=:number');
@@ -159,7 +158,7 @@ function get_one($sql, $params = array()) {
 // MySQL Helper Functions
 function get_bandit_id($bandit_name = false) {
 	if(!$bandit_name){
-		return bandit_id();
+		return bandit_id(); // Assumes called with no input, run against current user.
 	}
 	
 	$b = get_one ( 'SELECT id FROM bandits WHERE name=:bandit', array (
@@ -179,10 +178,26 @@ function bandit_made_song($bandit_name, $song_id) {
 	}
 	return false;
 }
+
+/**
+ * Determine if a song participant is a bandit (ie, have they ever logged into the system)
+ * @param unknown $name
+ * @return boolean
+ */
 function bandit_name_exists($name) {
-	if (get_bandit_id ( $name ))
-		return true;
-	return false;
+	$n = get_one('SELECT name FROM bandits WHERE name=:name',array('name'=>$name));
+	return $n['name'] == $name;
+}
+
+/**
+ * Calculate how many songs this bandit has participated in.
+ * Also useful for testing names to see if they are in the songs list (0 songs = lazy-false, >0 = lazy-true)
+ * @param string $name
+ * @return int number of songs participated in.
+ */
+function bandit_song_count($name){
+	$l = pdo_query('SELECT COUNT(*) as p FROM songs WHERE lyrics=:a OR music=:b OR vocals =:c',array('a'=>$name,'b'=>$name,'c'=>$name));
+	return $l['p'];
 }
 
 /**

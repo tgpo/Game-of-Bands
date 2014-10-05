@@ -60,7 +60,7 @@ $songs = $db->query('SELECT * FROM songs ORDER BY round DESC');
 
 <?php 
 function p($name){
-	if(bandit_name_exists($name)){
+	if(bandit_song_count($name) > 0){
 		return a_bandit($name);
 	}else{
 		return "<span class=\"bad\" title=\"This bandit's name isn't in the database\">$name</span>";
