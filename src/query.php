@@ -146,6 +146,7 @@ function insert_query($sql, $params = false) {
  * Appends "LIMIT 1" to any query sent its way, returns the first result only.
  * RETURNS ARRAY, keyed to column, so yes, you can do:
  * print get_one("SELECT COUNT(*) as a FROM thing")['a'];
+ * ERROR: This only works on PHP5.4+.. not on the version on gameofbands.co current server!
  * 
  * @param string $sql        	
  * @param array $params        	
@@ -443,4 +444,14 @@ function get_remote_url($url, $parameters = false) {
 	curl_close ( $ch );
 	
 	return $result;
+}
+
+/**
+ * Creates a GitHub issue link
+ * @param string $text The reference to the error, defaults to "Unknown error"
+ * @return string html link
+ */
+function get_issue_link($text = ''){
+	$text = ($text) ? $text : ' Unknown error';
+	return '<a href="https://github.com/clonemeagain/Game-of-Bands/issues/new" title="Submit an issue to the developers to help us fix this sooner">Please submit an issue for this fault, REF: ' . $text . '</a>';
 }

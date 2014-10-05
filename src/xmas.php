@@ -45,7 +45,7 @@ if(function_exists($func)){
  * eventually, should show song player.
 * *********************************
 */
-function fail_team(){ echo "Invalid team identifier. I don't know what to say mate. "; }
+function fail_team(){ echo "Invalid team identifier. I don't know what to say mate. " . get_issue_link("XM:FT:Invalid_Team"); }
 function show_team($id) {
 	$id = filter_var($id,FILTER_VALIDATE_INT);
 	if(!$id) { 
@@ -55,14 +55,19 @@ function show_team($id) {
 	if(count($team_details) == 0){
 		fail_team(); return;
 	}
+	$city_id = $team_details['city_id'];
 	
 	// Check if bandit is in team, if so, display control panel
-	//$team_members = sql_to_array('SELECT xtm.team_id,xtm.bandit_id FROM xmas_team_members as xtm WHERE team_id=' . $id);
 	if(is_loggedin()){
+		$team_members = sql_to_array('SELECT name FROM bandits WHERE xmas_team_id=' . $id);
+		if(!$team_members){
+			// We don't have any members yet.. who created this team?
+			echo get_issue_link("XM:ST:Team members error.");
+			exit(); 
+		}
 		$bandit = get_bandit_name();
 		if(is_mod() || in_array($bandit,$team_members)){
-			//TODO: get some form of control panel happening.
-			// get_template('xmas_control_panel');
+			include_once('../fragments/xmas_control_panel.inc');
 		}
 	}
 	
@@ -99,7 +104,7 @@ function show_join($id){
  * Creates list of all teams associated with this city.
  *********************************
  */
-function fail_city(){ echo "Invalid city identifier. "; }
+function fail_city(){ echo "Invalid city identifier. " .  get_issue_link("XM:FC:Invalid_City"); }
 function show_city($id) {
 	global $out;
 	$id = filter_var($id,FILTER_VALIDATE_INT);
@@ -186,7 +191,7 @@ function show_jsonteams(){
  * is in charge of generating them.
  *********************************
  */
-function fail_create_team(){ echo "Invalid inputs, please <a href=\"/xmas/find_team\">go back & try again</a>"; }
+function fail_create_team(){ echo "Invalid inputs, please <a href=\"/xmas/find_team\">go back & try again</a> or "  . get_issue_link("XM:FT:Create_Team_Error"); }
 function show_create_team(){
 	loggedin_check();
 	$team_name = filter_input(INPUT_GET,'team_name',FILTER_SANITIZE_STRING);

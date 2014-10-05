@@ -2,7 +2,16 @@
 require_once ('src/query.php');
 mod_check ();
 
-$queries = array("CREATE TABLE IF NOT EXISTS `templates` (
+$queries = array(
+		"ALTER TABLE `xmas_teams` ADD `creator` INT( 11 ) NOT NULL AFTER `created` ;",
+		"ALTER TABLE `xmas_teams` ADD CONSTRAINT `FK_city_id` FOREIGN KEY ( `city_id` ) REFERENCES `gameofba_library`.`cities` (
+`id`
+) ON DELETE CASCADE ON UPDATE CASCADE;", // WILL FAIL WITH EXISTING DATA.. one or more teams/cities have invalid references, one reason to include this at all.
+		"ALTER TABLE `cities` DROP team_id", // Cities can be linked to multiple teams, so was unnecessary.
+		
+		);
+$completed_queries = array (		
+		"CREATE TABLE IF NOT EXISTS `templates` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `text` text NOT NULL,
@@ -10,10 +19,7 @@ $queries = array("CREATE TABLE IF NOT EXISTS `templates` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;",
 "INSERT INTO `templates` (`id`, `title`, `text`) VALUES
 (1, 'Test Template', 'Some Text'),
-(2, 'Stuff', 'Welcome to the textfield');"
-);
-
-$completed_queries = array (
+(2, 'Stuff', 'Welcome to the textfield');",
 		'ALTER TABLE `bandits` ADD `xmas_team_id` INT NOT NULL AFTER  `LyricsWins`',
 		'ALTER TABLE `bandits` ADD INDEX `name_index` (`id`,`name` (64))',
 		'ALTER TABLE `rounds` ADD start DATETIME NOT NULL',
