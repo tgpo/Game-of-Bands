@@ -32,7 +32,7 @@
                'lyrics': 'bestLyricist',
                'music' : 'bestMusician',
                'vocals': 'bestVocalist',
-               'track' : 'bestSong'
+               'track' : 'bestSong',
                'xmas'  : 'bestXmasSong',
 			};
 	
