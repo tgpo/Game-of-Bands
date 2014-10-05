@@ -32,7 +32,7 @@
 
 <div id="putTheWidgetHere"></div>
   <script type="text/JavaScript">
-  // SC code loaded via homepage, so, we should be able to simple find the first link and click it.
+  // SC code loaded via homepage
 $(document).ready(function(){
 	// Load the song-url
 	var url = $('#sc-link').attr('href');
