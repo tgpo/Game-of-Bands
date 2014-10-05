@@ -267,12 +267,15 @@ function is_checked($true = true) {
 /**
  * Callback function, use like array_map('fix_quotes',$array_which_needs_fixed);
  * 
- * @param unknown $text        	
+ * @param unknown $text, Either string or array of strings, returns same type. 	
  * @return mixed
  */
 function fix_quotes($text) {
-	return str_replace ( '`', "'", $text );
+	$bad_chars = array('â','€','™','`');
+	return str_replace ( $bad_chars, "'", $text );
 }
+
+
 function get_song_votes($bandit, $song_id) {
 	$bandit_id = get_bandit_id ( $bandit );
 	$votes = pdo_query ( "SELECT type from votes WHERE banditID=:bandit AND songID=:song", 
@@ -290,17 +293,20 @@ function get_song_votes($bandit, $song_id) {
 /**
  * Sends a JSON error message as defined by $string
  * 
- * @param string $string        	
+ * @param string $string        
+ * @param mixed $element_id some data you want to send back, originally designed for specifying the element ID of an html element, to identify it via jQuery.
  * @param number $code        	
  */
 function fail($string = '', $element_id = false, $code = 500) {
 	error_log ( "FAIL: $string" );
 	header("Content-type: application/json");
 	header ( $_SERVER ['SERVER_PROTOCOL'] . " $code Internal Server Error", true, $code );
-	$response = json_encode ( array (
-			'msg' => $string,
-			'element_id' => (($element_id) ? $element_id : '') 
-	) );
+	$data = array();
+	$data['msg'] = $string;
+	if($element_id){
+		$data['element_id'] = $element_id;
+	}
+	$response = json_encode ( $data) ; 
 	print $response . PHP_EOL;
 	exit ();
 }
