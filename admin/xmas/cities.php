@@ -5,10 +5,10 @@ require_once (dirname(__FILE__).'/../../src/functions.php');
 ?>
 <script type="text/javascript">
 <?php
-$cities = sql_to_array ( "SELECT id,name,template_id,subreddit,messaged_mods,post, (SELECT COUNT(*) FROM xmas_teams WHERE city_id = cities.id) as team_count FROM cities ORDER BY name ASC" );
+$cities = sql_to_array ( "SELECT id,name,post_template_id,message_template_id,subreddit,messaged_mods,post, (SELECT COUNT(*) FROM xmas_teams WHERE city_id = cities.id) as team_count FROM cities ORDER BY name ASC" );
 // embed array as JSON.. because.. the databinding needed it.
 echo 'var cities_data = ' . json_encode($cities) . ';';
-$templates = sql_to_array ( 'SELECT id,title,text FROM templates' );
+$templates = sql_to_array ( 'SELECT id,title,text FROM templates ORDER BY title ASC' );
 echo 'var templates_data = ' . json_encode($templates) . ';';
 ?>
 </script>
@@ -23,7 +23,8 @@ echo 'var templates_data = ' . json_encode($templates) . ';';
 	<thead>
 	<tr>
 		<th>Name</th>
-		<th title="Template ID (See below)">T</th>
+		<th title="Post Template ID (See below)">P_T</th>
+		<th title="Message Template ID">M_T</th>
 		<th>Reddit</th>
 		<th>Messaged</th>
 		<th>Posted</th>

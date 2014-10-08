@@ -16,10 +16,16 @@ if(!$team_details) die(get_issue_link('XM:FT:XCP:Team_Details_Fail'));// Xmas:Fu
 <h3>Control Panel</h3>
 <?php
 // Test for team creator
-$creator = get_one('SELECT creator FROM xmas_teams WHERE team_id = ' . $city_id);
-if(bandit_id() == $creator['creator']){
+if(bandit_id() == $team_details['creator']){
 	// Get location of team
 	$city = get_one('SELECT * FROM cities WHERE id = ' . $city_id);
+	// Get charity information, if set
+	$charity = false;
+	if(strlen($team_details['nominate_charity'])){
+		$charity = get_one('SELECT * FROM charities WHERE id=:id',array('id',$team_details['nominate_charity']));
+	}else{
+		$charities = sql_to_array('SELECT id,name FROM charities');
+	}
 	?>
 	<div id="teamacp">
 	{{ TEAM CREATOR FUNCTIONS }}
@@ -29,16 +35,47 @@ if(bandit_id() == $creator['creator']){
 	// TODO: show list of pending bandits, with checkbox approval and button to submit to server
 	// TODO: royalty split interface, table of approved bandits with input fields indicating current royalty split, allowing change (postback/json)
 	// TODO: rename team input box
-	// TODO: display charity inputs (display text if already nominated) (autocomplete on charity list?), or select list of currently nominated charities for simple "click" nomination.
 	?>
+	<div>
+		<label for="team_name">Team Name:</label><input type="text" value="<?php echo $team_details['name'];?>" id="team_name" />
+	</div>
+	<div id="charity_nomination">
+		<?php 
+		// If we haven't specified a charity, we should have an array built from all previous charities, allowing the team
+		// creator to simply select one.. simpler far than digging through the details to nominate a new one.
+		// Thus making it more likely that they will actually do it.
+		if(isset($charities)){
+			echo '<label for="existing_charity">Select existing charity:</label>
+ 				<select id="existing_charity">';
+			foreach($charities as $c){
+				echo '<option value="' . $c['id'].'">' . $c['name'] . '</option>';
+			}
+			echo '</select>';
+		}?>
 		<label for="nominate_name">Charity Name:</label>
-		<input type="text" id="nominate_name" title="The name of the registered charity you wish to nominate" />
-		<label for="nominate_locality">Charity Location:</label>
-		<input type="text" id="nominate_locality" title="Charities are not all global"><?php echo $city['name']; ?></input>
-		<label for="nominate_email">Charity email address:</label>
-		<input type="text" id="nominate_email" title="We will need to contact this charity, please use the best address for that."></input>
+		<input type="text" id="nominate_name" title="The name of the registered charity you wish to nominate" <?php 
+			if(strlen($charity['name'])){
+				// We've got one! -- Disable it so it can't be modified, we'd ignore any change anyway.
+				echo 'disabled="disabled" val="' . $charity['name'] . '" ';	
+			}
+		?>/>
+		<label for="nominate_locality">Charity Location (Ideally should operate in the same City as the team itself):</label>
+		<input type="text" id="nominate_locality" title="Charities are not all global" <?php 
+			if(strlen($charity['locality'])){echo 'disabled="disabled" val="' . $charity['locality'] . '" ';}
+		?>/>
+		<label for="nominate_email">Charity email/web address (We will need to contact them to arrange payment):</label>
+		<input type="text" id="nominate_email" title="We will need to contact this charity, please use the best address for that." <?php 
+			if(strlen($charity['email'])){echo 'disabled="disabled" val="' . $charity['email'] . '" ';}
+		?>/>
+		<label for="nominate_id">Charity Identifier (Registered charities have specific identifiers):</label>
+		<input type="text" id="nominate_id" title="Charities are only 'legal' if registered in the government of their area of operation, governments typically issue a unique identifier indicating their status as a registered charity, and allowing donators to look up the status." <?php 
+			if(strlen($charity['charity_id'])){echo 'disabled="disabled" val="' . $charity['charity_id'] . '" ';}
+		?>/> 
 		
-		<?php // Country/region of charity could be inferred from locality of team's city? 
+		<?php 
+		echo "<span id=\"status\">Charity status is: {$charity['status']}</span>";
+		?>
+	</div>
 }
 ?>
 <div id="teamcp">

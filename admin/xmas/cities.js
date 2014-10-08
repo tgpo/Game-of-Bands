@@ -2,7 +2,8 @@ $(document).ready(function(){
 	var make_edit_row = function(type,obj){
 		if(type == 'city'){
 				obj.append('<tr class="new_city" ><td><input type="text" class="new_city_name" style="width: 300px;"></input></td>'
-						+'<td><input type="text" class="new_template_id" style="width:30px;"></input></td>'
+						+'<td><input type="text" class="ptid" style="width:30px;"></input></td>'
+						+'<td><input type="text" class="mtid" style="width:30px;"></input></td>'
 						+'<td><input type="text" class="new_subreddit" style="width:60px;" ></input></td>'
 						+'<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>');
 		}else{
@@ -25,8 +26,9 @@ $(document).ready(function(){
 			obj.append('<tr data-id="' 
 					+ data.id + '" class="name" data-type="city"><td><a href="/xmas/city/' 
 					+ data.id +'">'
-					+ data.name +'</a></td><td><input type="text" class="template_id" style="width:30px;" value="'
-					+ data.template_id + '"></input></td><td>'
+					+ data.name +'</a></td><td><input type="text" class="ptid" style="width:30px;" value="'
+					+ data.post_template_id + '"></input></td><td><input type="text" class="mtid" style="width:30px;" value="'
+					+ data.message_template_id + '"></input></td><td>'
 					+ reddit + '</td><td>'
 					+ message + '</td><td>'
 					+ post + '</td><td><input type="button" class="save_row" value="Save" />&nbsp;<input type="button" class="delete_row" value="X" /></td><td>'
@@ -94,7 +96,8 @@ $(document).ready(function(){
 				console.log("Did we already have one of these?");
 			}
 			row.name = city.name;
-			row.template_id = r.find('.template_id').val();
+			row.post_template_id = r.find('.ptid').val();
+			row.message_template_id = r.find('.mtid').val();
 			row.subreddit = (city.subreddit.length) ? city.subreddit : r.find('.subreddit').val();
 			row.messaged_mods = (city.messaged_mods.length) ? city.messaged_mods : r.find('.messaged').val();
 			row.post = (city.post.length) ? city.post : r.find('.post').val();
@@ -124,7 +127,8 @@ $(document).ready(function(){
 		info.type = type;
 		if(type == "city"){
 			info.name = this_row.find('.new_city_name').val();
-			info.template_id = this_row.find('.new_template_id').val();
+			info.post_template_id = this_row.find('.ptid').val();
+			info.message_template_id = this_row.find('.mtid').val();
 			info.subreddit = this_row.find('.new_subreddit').val();
 			info.lat = this_row.data('lat');
 			info.lng = this_row.data('lng');
