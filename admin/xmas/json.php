@@ -68,28 +68,15 @@ if (isset ( $_GET ['type'] )) {
 			}
 		case 'modmessage' :// Build a reddit private mod message from the template specified, convert macros into text and save
 			{
-<<<<<<< HEAD
-=======
-				// Build a reddit private mod message from the template specified, convert macros into text and save
->>>>>>> branch 'new-directions' of https://github.com/clonemeagain/Game-of-Bands.git
 				message_mods();
 				break;
 			}
-<<<<<<< HEAD
-		case 'sendmodmessage': // Grab a previously created modmessage and actually send it.
-=======
-		case 'sendmodmessage':
->>>>>>> branch 'new-directions' of https://github.com/clonemeagain/Game-of-Bands.git
+		case 'sendmodmessage':		// Grab a previously created modmessage and actually send it.
 			{
-<<<<<<< HEAD
-=======
-				// Grab a previously created modmessage and actually send it.
->>>>>>> branch 'new-directions' of https://github.com/clonemeagain/Game-of-Bands.git
 				$mid = filter_input(INPUT_POST,'message_id',FILTER_VALIDATE_INT);
 				send_mod_message($mid);
 				break;
 			}
-<<<<<<< HEAD
 		case 'createthread' : // Build a reddit post from the specified template.
 			{
 				build_thread();
@@ -112,34 +99,7 @@ if (isset ( $_GET ['type'] )) {
 					fail("Unable to write to $fragment!");
 				}
 			}
-		case 'concept': // fragment is the extensible version, allowing mod to modify any template, this changes the concept text, and was the initial inspiration.
-=======
-		case 'createthread' :
-			{
-				// Build a reddit post from the specified template.
-				build_thread();
-				break;
-			}
-		case 'postthread':
-			{
-				// Actually post the thread to reddit
-				$pid = filter_input(INPUT_POST,'message_id',FILTER_VALIDATE_INT);
-				post_thread($pid);
-				break;
-			}
-		case 'fragment':
-			{
-				$text = json_decode($_POST['text']);
-				$fragment = filter_input(INPUT_POST,'fragment',FILTER_SANITIZE_STRING);
-				$file = dirname(__FILE__).'/../../src/fragments/' . $fragment . '.inc';
-				if(file_put_contents($file,$text)){
-					ok();
-				}else{
-					fail("Unable to write to $fragment!");
-				}
-			}
 		case 'concept': // fragment is the extensible version, allowing mod to modify any template.
->>>>>>> branch 'new-directions' of https://github.com/clonemeagain/Game-of-Bands.git
 			{
 				$text = json_decode($_POST['text']);
 				// Save the text into the filesystem, no need for databse for everything!
@@ -181,7 +141,6 @@ if (isset ( $_GET ['type'] )) {
 		default: fail('Invalid parameter.');
 	}
 }
-<<<<<<< HEAD
 /**
  * Build a thread for reddit post purposes.
  */
@@ -225,55 +184,8 @@ function build_thread(){
 		fail();
 	}	
 }
-/**
- * Actually submit the new thread.
- * @param unknown $id
- */
 function post_thread($id){
 	global $reddit_user,$reddit_password;
-=======
-function build_thread(){
-	$id = filter_input ( INPUT_POST, 'id', FILTER_SANITIZE_INT );
-	
-	// Retrieve details about the city
-	$city = sql_to_array( 'SELECT id,name,reddit,template_id FROM cities WHERE id=' . $id);
-	set_city_macro($city['name'], $city['reddit']);
-	
-	// Retrieve the template
-	$template = sql_to_array ( 'SELECT title,text FROM templates WHERE id=' . $city['template_id']);
-	
-	// Retrieve the charity
-	$charity = sql_to_array('SELECT name FROM charities WHERE id=' . $city['charity_id']);
-	set_charity_macro($charity['name']);
-	
-	$to = $city ['subreddit'];
-	if(DEBUG){
-		$to = 'waitingforgobot';
-	}
-	if(!(strlen($to) || strlen($template['title']) || strlen($template['text']))){
-		fail("Invalid recipient, title or text.. ");
-	}
-	
-	// Run the macro parser over the templates text.
-	$text = process_macros($template['text']);
-	
-	// Save the message text (now macro free!) into the database.
-	$message_id = insert_query("INSERT INTO sent_messages SET recipient=:recipient, subject=:subject, text=:text, type='city_post' recipient_id=:city_id, mod_id=:mod_id",
-			array(	'recipient'=> $to,
-					'subject' => $template['title'],
-					'text' => $text,
-					'recipient_id' => $city['id'],
-					'mod_id' => bandit_id()
-			))	;
-	if(is_int($message_id)){
-		//Success!
-		ok('Thread templates parsed and ready to post.',array('title'=>$template['title'],'text'=>$text, 'message_id' => $message_id));
-	}else{
-		fail();
-	}	
-}
-function post_thread($id){
->>>>>>> branch 'new-directions' of https://github.com/clonemeagain/Game-of-Bands.git
 	if(!$id)
 		fail('How?');
 	// Fetch message we've previously created.
@@ -339,32 +251,7 @@ function message_mods() {
 	}else{
 		fail();
 	}
-<<<<<<< HEAD
-=======
 }
-
-function send_mod_message($message_id){
-	if(!$message_id)
-		fail('How?');
-	// Fetch message we've previously created.
-	$msg = get_one('SELECT recipient,subject,text FROM sent_messages WHERE id=' . $message_id);
-	if(!is_array($msg) || strlen($msg['text'])==0){
-		fail('Invalid message');
-	}
-	require_once ('../../lib/reddit.php');
-	$reddit = new reddit ( $reddit_user, $reddit_password );
-	$r = $reddit->sendMessage ( $msg['recipient'], $msg['subject'], $msg['text'] )  ;
-	error_log("-----------------------------------------------------------------> > > > > > > > > > > > REDDIT RESPONSE TO MOD_MESSAGE"); // Make it hideously obvious in the log.
-	error_log(print_r($r,true));
-	// Get the id of the message from the response
-	$mid = $r[0]->data->name; // ASSUMPTION.. untested.. https://github.com/reddit/reddit/wiki/JSON
-	// save it
-	insert_query('INSERT INTO sent_messages, set ref=:ref WHERE id=:id',array('id'=> $message_id, 'ref'=>$mid));
-	// send it back so we can update the table live
-	ok('Message sent to mods: ' . $recipient, $mid);// I think.. Will need to test.
->>>>>>> branch 'new-directions' of https://github.com/clonemeagain/Game-of-Bands.git
-}
-
 /**
  * Actually send the message identified by
  * @param int $message_id
@@ -401,15 +288,6 @@ if (is_numeric ( $id )) {
 	fail ( 'Doh.' );
 }
 
-<<<<<<< HEAD
-/******************************************* Macro parser stuff */
-=======
-
-
-
-
-
->>>>>>> branch 'new-directions' of https://github.com/clonemeagain/Game-of-Bands.git
 function process_macros($text){
 	global $macros;
 	// Look for {{template# and grab the id number before the }}, 
