@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 06, 2014 at 10:12 PM
+-- Generation Time: Oct 08, 2014 at 11:11 PM
 -- Server version: 5.5.38-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.4
 
@@ -87,12 +87,6 @@ CREATE TABLE IF NOT EXISTS `charities` (
   KEY `name` (`name`),
   KEY `FK_mod_idx` (`mod_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Store information about the Charities who are nominated, and ' AUTO_INCREMENT=1 ;
-
---
--- RELATIONS FOR TABLE `charities`:
---   `mod_id`
---       `bandits` -> `id`
---
 
 -- --------------------------------------------------------
 
@@ -185,14 +179,6 @@ CREATE TABLE IF NOT EXISTS `nominations` (
   KEY `I_cid` (`charity_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Maintain a record of each nomination for a charity, normalised' AUTO_INCREMENT=1 ;
 
---
--- RELATIONS FOR TABLE `nominations`:
---   `charity_id`
---       `charities` -> `id`
---   `bandit_id`
---       `bandits` -> `id`
---
-
 -- --------------------------------------------------------
 
 --
@@ -226,19 +212,15 @@ CREATE TABLE IF NOT EXISTS `sent_messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'unique identifier for this message',
   `type` enum('charity','city_post','city_message','bandit_pm','bandit_email') NOT NULL COMMENT 'What type of recipient is this? (informs table selection for id',
   `recipient` varchar(255) NOT NULL COMMENT 'who did we contact?\nIf we contacted a subreddit, we''ll save the thread_id here\nIf we contacted a reddit-user, we''ll save the message_id here\nif we contacted someone via email, well save their address here.\n',
+  `subject` varchar(255) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'specify exact timestamp of communication',
   `recipient_id` int(11) NOT NULL COMMENT 'from recipients table, ie: team_id, or city_id, or charity_id etc.\nCan''t use FK constraints',
   `mod_id` int(11) NOT NULL COMMENT 'ID of the person initiating contact',
   `text` text NOT NULL COMMENT 'body of message, NOTE: that which was sent, not macros, after lexical parsing/etc.',
+  `ref` varchar(11) NOT NULL COMMENT 'reddit messages have a distinct reference identifier.',
   PRIMARY KEY (`id`),
   KEY `I_MOD` (`mod_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Maintain an archive of all messages sent, to whom, when, what we said etc.' AUTO_INCREMENT=1 ;
-
---
--- RELATIONS FOR TABLE `sent_messages`:
---   `mod_id`
---       `bandits` -> `id`
---
 
 -- --------------------------------------------------------
 
@@ -314,15 +296,7 @@ CREATE TABLE IF NOT EXISTS `votes` (
   PRIMARY KEY (`id`),
   KEY `FK_one_vote_per_round` (`roundID`),
   KEY `banditID` (`banditID`,`roundID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=183 ;
-
---
--- RELATIONS FOR TABLE `votes`:
---   `roundID`
---       `rounds` -> `number`
---   `banditID`
---       `bandits` -> `id`
---
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -349,14 +323,6 @@ CREATE TABLE IF NOT EXISTS `xmas_teams` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Special team table for storing Xmas teams..' AUTO_INCREMENT=27 ;
 
 --
--- RELATIONS FOR TABLE `xmas_teams`:
---   `creator`
---       `bandits` -> `id`
---   `nominated_charity`
---       `charities` -> `id`
---
-
---
 -- Constraints for dumped tables
 --
 
@@ -370,8 +336,8 @@ ALTER TABLE `charities`
 -- Constraints for table `nominations`
 --
 ALTER TABLE `nominations`
-  ADD CONSTRAINT `FK_cid` FOREIGN KEY (`charity_id`) REFERENCES `charities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_bid` FOREIGN KEY (`bandit_id`) REFERENCES `bandits` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_bid` FOREIGN KEY (`bandit_id`) REFERENCES `bandits` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_cid` FOREIGN KEY (`charity_id`) REFERENCES `charities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `sent_messages`
