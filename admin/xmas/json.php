@@ -27,7 +27,7 @@ if (isset ( $_GET ['type'] )) {
 		error_log ( print_r ( $_POST, true ) );
 	
 	switch ($_GET ['type']) {
-		case 'city' :
+		case 'city' : // Create new city
 			{
 				$params = array (
 						'name' 					=> filter_input ( INPUT_POST, 'name', FILTER_SANITIZE_STRING ),
@@ -41,7 +41,7 @@ if (isset ( $_GET ['type'] )) {
 				$id = insert_query ( $sql, $params );
 				break;
 			}
-		case 'template' :
+		case 'template' :  // Create new template
 			{
 				$params = array (
 						'title' 		=> filter_input ( INPUT_POST, 'title', FILTER_SANITIZE_STRING ),
@@ -50,7 +50,7 @@ if (isset ( $_GET ['type'] )) {
 				$id = insert_query ( "INSERT INTO templates (id, title,text) VALUES(NULL,:title,:text)", $params );
 				break;
 			}
-		case 'delete' :
+		case 'delete' : // delete something.. be careful!
 			{
 				$table = filter_input ( INPUT_POST, 'type', FILTER_SANITIZE_STRING );
 				switch($table){
@@ -66,33 +66,29 @@ if (isset ( $_GET ['type'] )) {
 				pdo_query ( "DELETE FROM $table WHERE id=:id LIMIT 1", array ('id' => $id ), false );
 				break;
 			}
-		case 'modmessage' :
+		case 'modmessage' :// Build a reddit private mod message from the template specified, convert macros into text and save
 			{
-				// Build a reddit private mod message from the template specified, convert macros into text and save
 				message_mods();
 				break;
 			}
-		case 'sendmodmessage':
+		case 'sendmodmessage': // Grab a previously created modmessage and actually send it.
 			{
-				// Grab a previously created modmessage and actually send it.
 				$mid = filter_input(INPUT_POST,'message_id',FILTER_VALIDATE_INT);
 				send_mod_message($mid);
 				break;
 			}
-		case 'createthread' :
+		case 'createthread' : // Build a reddit post from the specified template.
 			{
-				// Build a reddit post from the specified template.
 				build_thread();
 				break;
 			}
-		case 'postthread':
+		case 'postthread':	// Actually post the thread to reddit
 			{
-				// Actually post the thread to reddit
 				$pid = filter_input(INPUT_POST,'message_id',FILTER_VALIDATE_INT);
 				post_thread($pid);
 				break;
 			}
-		case 'fragment':
+		case 'fragment': // Update the text of a fragment. OVERWRITES IT COMPLETELY.. so. yeah.
 			{
 				$text = json_decode($_POST['text']);
 				$fragment = filter_input(INPUT_POST,'fragment',FILTER_SANITIZE_STRING);
@@ -103,14 +99,14 @@ if (isset ( $_GET ['type'] )) {
 					fail("Unable to write to $fragment!");
 				}
 			}
-		case 'concept': // fragment is the extensible version, allowing mod to modify any template.
+		case 'concept': // fragment is the extensible version, allowing mod to modify any template, this changes the concept text, and was the initial inspiration.
 			{
 				$text = json_decode($_POST['text']);
 				// Save the text into the filesystem, no need for databse for everything!
 				file_put_contents(dirname(__FILE__).'/../../src/fragments/xmas_concept.inc',$text);
 				ok();
 			}
-		case 'update_row' :
+		case 'update_row' : // Update a template or cities fields
 			{
 				//TODO: Extensiblize(?) this somewhat.. I mean, a database abstraction layer would prevent having to re-hard-code every change all over the joint..
 				$type = filter_input(INPUT_POST,'type',FILTER_SANITIZE_STRING);
@@ -133,9 +129,21 @@ if (isset ( $_GET ['type'] )) {
 					fail('Unknown action attempted');
 				}
 				$id = insert_query($sql,$params);
+				break;
 			}
+		case 'get_macros': // retrieve the list of known macros
+			{
+				set_charity_macro('CHARITY_NAME');
+				set_city_macro('CITY_NAME','SUBREDDIT');
+				set_team_macro('TEAM_NAME', 'TEAM_ID');
+				ok(' ',array($macros));
+			}
+		default: fail('Invalid parameter.');
 	}
 }
+/**
+ * Build a thread for reddit post purposes.
+ */
 function build_thread(){
 	$id = filter_input ( INPUT_POST, 'id', FILTER_SANITIZE_INT );
 	
@@ -176,7 +184,12 @@ function build_thread(){
 		fail();
 	}	
 }
+/**
+ * Actually submit the new thread.
+ * @param unknown $id
+ */
 function post_thread($id){
+	global $reddit_user,$reddit_password;
 	if(!$id)
 		fail('How?');
 	// Fetch message we've previously created.
@@ -201,7 +214,7 @@ function post_thread($id){
 
 
 /**
- * Send a message to the moderators of a subreddit.
+ * Build a message to the moderators of a subreddit.
  * According to reddit, its just name of subreddit prepended with a #. So, #gameofbands will message GOB mods.
  * 
  * @param reddit $reddit        	
@@ -244,7 +257,12 @@ function message_mods() {
 	}
 }
 
+/**
+ * Actually send the message identified by
+ * @param int $message_id
+ */
 function send_mod_message($message_id){
+	global $reddit_user,$reddit_password;
 	if(!$message_id)
 		fail('How?');
 	// Fetch message we've previously created.
@@ -265,17 +283,17 @@ function send_mod_message($message_id){
 	ok('Message sent to mods: ' . $recipient, $mid);// I think.. Will need to test.
 }
 
+
+// Default handler 
+// $id is set to false, so something above had better change that.
+
 if (is_numeric ( $id )) {
 	ok ( 'Done', $id );
 } else {
 	fail ( 'Doh.' );
 }
 
-
-
-
-
-
+/******************************************* Macro parser stuff */
 function process_macros($text){
 	global $macros;
 	// Look for {{template# and grab the id number before the }}, 
