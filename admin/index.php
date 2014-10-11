@@ -131,7 +131,6 @@ function writeNewMessageCount(){ //why isn't this in query?
               case 'clearcache'		  : {
 				  $files = glob(dirname(__FILE__).'/../src/cache/*.html');
 				  $num_files = count($files);
-				  error_log(print_r($files,true));
               	array_map("unlink",$files); echo '<h3>Static page-cache cleared of ' . $num_files .' cached files.</h3>';
               	/* No break, show dashboard */
               }	
