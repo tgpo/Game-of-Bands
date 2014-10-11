@@ -23,17 +23,21 @@ echo "<pre>";
   $bandits = $db->query('SELECT TeamWins, MusicWins, VocalsWins, LyricsWins, name FROM bandits ORDER BY name ASC');
   foreach ($bandits as $bandit) {
     if($bandit['TeamWins'] + $bandit['MusicWins'] + $bandit['VocalsWins'] + $bandit['LyricsWins']){
-      $css = 'a[href*="/' . $bandit['name'] . '"]:after {position: relative; left: 3px; top: 4px; content:' . admin_get_flair_image('Team', $bandit['TeamWins']) . admin_get_flair_image('Music', $bandit['MusicWins'])  . admin_get_flair_image('Vocals', $bandit['VocalsWins'])  . admin_get_flair_image('Lyrics', $bandit['LyricsWins']) . ';}
-';
+      $css = 'a[href*="/' . $bandit['name'] . '"]:after {position: relative; left: 3px; top: 4px; content:' 
+      		. admin_get_flair_image('Team', $bandit['TeamWins']) 
+      		. admin_get_flair_image('Music', $bandit['MusicWins'])  
+      		. admin_get_flair_image('Vocals', $bandit['VocalsWins'])  
+      		. admin_get_flair_image('Lyrics', $bandit['LyricsWins']) . ';}
+      ';
       $name = $bandit['name'];
-      $query = $db->query("SELECT * FROM flair WHERE name = '$name'");
+      $query = $db->query("SELECT id,name FROM flair WHERE name = '$name' LIMIT 1");
       $flairLookup = $query->fetch();
 
       if(!$flairLookup['name']){
         $flairQuery = $db->prepare('INSERT INTO flair (name, css) VALUES (:name, :css)');
         $flairQuery->execute(array('name' => $name, 'css' => $css));
       } else {
-        $flairQuery = $db->prepare('UPDATE flair SET css = :css WHERE id = :id');
+        $flairQuery = $db->prepare('UPDATE flair SET css = :css WHERE id = :id LIMIT 1');
         $flairQuery->execute(array('css' => $css, 'id' => $flairLookup['id']));
       }
       

@@ -1,9 +1,9 @@
 <?php
 
-define ( 'DEBUG', (gethostname() == 'gameofbands.co') ? false : true ); //IMPORTANT: SET TO FALSE ON SERVER
+define ( 'DEBUG', false); //IMPORTANT: SET TO FALSE ON SERVER
 define ( 'DEBUG_USER', 'RetroTheft' );
 define ( 'DEBUG_VOTING', false ); // set to true to always enable voting, and see all votes in error log.
-define ( 'DEBUG_SQL', true ); // Set to true to see all queries in the apache log.
+define ( 'DEBUG_SQL', false ); // Set to true to see all queries in the apache log.
 
 require_once ('secrets.php');
 require_once ('gob_user.php');
