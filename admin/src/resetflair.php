@@ -31,7 +31,6 @@ for ($i = 1; $i <= $currentround; $i++) {
 
   $winningSongs = query_songs($i, $db);
   foreach ($winningSongs as $song) {	
-  	$out[]= 'Found: ' . count($winningSongs) . ' winning songs.<br />';
     if (!empty($song['votes'])) {
       $banditTypes = array('music','lyrics','vocals');
       foreach ($banditTypes as $type) {
@@ -59,6 +58,7 @@ for ($i = 1; $i <= $currentround; $i++) {
       }
     }
   }
+  $out[]= 'Found: ' . count($winningSongs) . ' winning songs.<br />';
 
   $banditTypes = array('music','lyrics','vocals');
   foreach ($banditTypes as $type) {
