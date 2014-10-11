@@ -24,9 +24,9 @@ function writeNewMessageCount(){
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="description" content="The Game of Bands Song Depository | A reddit game of making music">
+<meta name="description" content="<?php fragment('site_title');?>">
 <meta name="viewport" content="width=device-width" />
-<title>The Game of Bands Song Depository | A reddit game of making music</title>
+<title><?php fragment('site_title');?></title>
 <link rel="stylesheet" type="text/css" href="/css/styles.css?var=update" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/validator/3.12.0/validator.min.js"></script>
@@ -39,20 +39,13 @@ function writeNewMessageCount(){
 //TODO: Post session details here, so javascript can reinstate them.
 //GOB.previous = { song: $song_id, ... };
 //}
+fragment('google');
 ?>
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-45997039-1', 'gameofbands.co');
-        ga('send', 'pageview');
-    </script>
 </head>
 <body>
 	<header>
-		<h1 id="header1">Game of Bands - A reddit game of making music</h1>
+		<h1 id="header1"><?php fragment('header');?></h1>
 		<a href="/" id="returnhome"></a>
 		<nav id="accountLinks">
             <?php
@@ -72,7 +65,7 @@ function writeNewMessageCount(){
             }
             ?>
         </nav>
-		<div id='welcomebar'><span id="welcome">Eleven days to take a song from conception to completion to competition!</span></div>
+		<div id='welcomebar'><span id="welcome"><?php fragment('welcome');?></span></div>
 	</header>
 	<section id="content">
     <?php
@@ -99,14 +92,8 @@ function writeNewMessageCount(){
     </section>
 
 	<footer>
-		<p class="redditlink">
-			gameofbands.co is a counterpart to the awesome Game of Bands
-			community at <a href='http://gameofbands.reddit.com' target='_blank'>gameofbands.reddit.com</a>.
-		</p>
-		<p class="credits">Site programming by RetroTheft, Orphoneus,
-			IAmTriumph, and tgpo. Design by RetroTheft. All music and lyrics
-			presented herein are copyright of their original creators.<br />
-		<a href="https://github.com/clonemeagain/Game-of-Bands/issues/new" title="Problems?">Report issues</a></p>
+		<p class="redditlink"><?php fragment('reddit');?></p>
+		<p class="credits"><?php fragment('credits');?></p>
 	</footer>
 
 	<div id="votingWidget">

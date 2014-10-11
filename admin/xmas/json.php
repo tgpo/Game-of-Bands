@@ -92,14 +92,20 @@ if (isset ( $_GET ['type'] )) {
 			}
 		case 'fragment': // Update the text of a fragment. OVERWRITES IT COMPLETELY.. so. yeah.
 			{
-				$text = json_decode($_POST['text']);
+				$text = $_POST['text'];
 				$fragment = filter_input(INPUT_POST,'fragment',FILTER_SANITIZE_STRING);
-				$file = dirname(__FILE__).'/../../src/fragments/' . $fragment . '.inc';
-				if(file_put_contents($file,$text)){
-					ok();
-				}else{
+				$file = $_SERVER['DOCUMENT_ROOT'].'/src/fragments/' . $fragment;
+				error_log("UPDATING: $file");
+				error_log($text);
+				if(!file_exists($file)){
+					fail("File doesn't exist!");
+				}elseif(!is_writable($file)){
+					fail("Can't write to the file.");
+				}
+				if(!file_put_contents($file,$text)){
 					fail("Unable to write to $fragment!");
 				}
+				ok();
 			}
 		case 'concept': // fragment is the extensible version, allowing mod to modify any template.
 			{

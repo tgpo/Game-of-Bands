@@ -67,7 +67,7 @@ function show_team($id) {
 		}
 		$bandit = get_bandit_name();
 		if(is_mod() || in_array($bandit,$team_members)){
-			include_once('../fragments/xmas_control_panel.inc');
+			include_once('xmas_control_panel.php');
 		}
 	}
 	

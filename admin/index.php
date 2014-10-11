@@ -78,6 +78,7 @@ function writeNewMessageCount(){ //why isn't this in query?
                 <li><a href="/admin/roundlist">Rounds</a></li>
                 <li><a href="/admin/teamlist">Teams</a></li>
                 <li><a class="confirm" href="/admin/resetflair">Reset Flair Counts</a></li>
+                <li><a href="/admin/editflair">Show Flair</a></li>
             </ul>
           </li>
           <li>
@@ -86,22 +87,18 @@ function writeNewMessageCount(){ //why isn't this in query?
           <li>
             <ul>
                 <li><a href="/admin/postmessage">Make New Post</a></li>
-            </ul>
-          </li>
-          <li>
-            <h3>Under Development</h3>
-          </li>
-          <li>
-            <ul>
                 <li><a href="/admin/inbox">/u/GameofBands Inbox</a></li>
-                
-                <li><a href="/admin/editflair">Show Flair</a></li>
-                <li><a href="/admin/cities" title="Modify cities, post messages to mods etc">Xmas Cities</a></li>
-                
             </ul>
           </li>
+          <li><h3>X-Mas</h3></li>
+          <ul>
+           	<li><a href="/admin/cities" title="Modify cities, post messages to mods etc">Xmas Cities</a></li>
+           	<li><a href="/admin/teams" title="">Xmas Teams</a></li>
+           	<li><a href="/admin/charities" title="">Xmas Charities</a></li>
+          </ul>
           <li><h3>Tools</h3></li>
           <ul>
+          <li><a href="/admin/fragments" title="Modify textual components of website">Fragments</a></li>
           <li><a href="/admin/clearcache" title="Empty the static page cache for bandits, makes your changes visible">Clear Cache</a></li>
           </ul>
         </ul>
@@ -130,7 +127,7 @@ function writeNewMessageCount(){ //why isn't this in query?
           		include_once ('src/dashboard.php');
           	}
           }
-          /*
+          /* With htaccess and the above, we don't need the below
             switch (isset($_GET['view'])?$_GET['view']:'') {
               case 'addsong'          : include_once 'src/addsong.php';             break;
               case 'editsong'         : include_once 'src/editsong.php';            break;

@@ -19,3 +19,7 @@ function get_template($file,$return=false){
 
 	$out .= $a;
 }
+
+function fragment($name){
+	echo get_template($name,true);
+}

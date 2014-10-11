@@ -7,6 +7,7 @@ define ( 'DEBUG_SQL', true ); // Set to true to see all queries in the apache lo
 
 require_once ('secrets.php');
 require_once ('gob_user.php');
+require_once ('functions.php');
 $db = false;
 /* ************************************************************************
  Database access
@@ -168,6 +169,17 @@ function get_bandit_id($bandit_name = false) {
 		return $b ['id'];
 	}
 	return false;
+}
+/**
+ * Utility MySQL query function.. converts a table's row-id to a 'name' field.. 
+ * // Assumes the table has a field named exactly 'name'
+ * @param id $id
+ * @param string $type defaults to 'bandits'
+ */
+function convert_id_to_name($id,$type='bandits'){
+	if(!$id) return false;
+	$c = get_one('SELECT name FROM ' . $type .' WHERE id=:id',array('id'=>$id));
+	return (strlen($c['name'])) ? $c['name'] : false;	
 }
 function bandit_made_song($bandit_name, $song_id) {
 	$team = get_one ( "SELECT music,lyrics,vocals FROM songs WHERE id=:song", array (
