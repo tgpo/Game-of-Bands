@@ -126,10 +126,13 @@ function writeNewMessageCount(){ //why isn't this in query?
               case 'resetflair'       : include_once 'src/resetflair.php';          break;
               case 'bestof2013'       : include_once 'src/bestOf2013.php';          break;
               case 'adminSettings'    : include_once 'src/view_AdminSettings.php';  break;
-              case 'editcities'				: include_once 'xmas/cities.php';							break;
-              case 'editxmasteams'		: include_once 'xmas/teams.php';							break;
-              case 'clearcache'				: {
-              	array_map("unlink",glob('../../src/cache/*.html')); echo '<h3>Static page-cache cleared</h3>';
+              case 'editcities'		  : include_once 'xmas/cities.php';				break;
+              case 'editxmasteams'	  : include_once 'xmas/teams.php';				break;
+              case 'clearcache'		  : {
+				  $files = glob(dirname(__FILE__).'/../src/cache/*.html');
+				  $num_files = count($files);
+				  error_log(print_r($files,true));
+              	array_map("unlink",$files); echo '<h3>Static page-cache cleared of ' . $num_files .' cached files.</h3>';
               	/* No break, show dashboard */
               }	
               default                 : include_once 'src/dashboard.php';           break;
