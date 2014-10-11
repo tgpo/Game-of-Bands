@@ -19,7 +19,10 @@ function get_template($file,$return=false){
 
 	$out .= $a;
 }
-
+/**
+ * Prints the contents of a template file immediately.
+ * @param unknown $name Name of template (minus extension ".inc")
+ */
 function fragment($name){
 	echo get_template($name,true);
 }
@@ -34,6 +37,12 @@ $macros = array(
 		'rgob' => '[subreddit](http://reddit.com/r/gameofbands "Visit our subreddit")'
 );
 
+/**
+ * Convert input text containing GOB Macros in format {unique} into their extended versions.
+ * Also dereferences template id macros with the contents of other templates. use {template123} to reference template with id 123.
+ * @param unknown $text
+ * @return mixed
+ */
 function process_macros($text){
 	global $macros;
 	// Look for {{template# and grab the id number before the }},
@@ -51,11 +60,14 @@ function process_macros($text){
 }
 function dereference_macro($m){
 	global $macros; // We can't assume mixins works on the server.. I'm betting inline functions don't work either.
+	if(!$m[1])
+		return 'MACRO_ERROR';
 	return $macros[$m[1]];
 }
 function dereference_template($m){
 	$id = $m[1];
-	error_log("PM Matched: " . $matched . ", got id=" . $id);
+	if(!$id)
+		return 'TEMPLATE_ERROR';
 	$t = get_one('SELECT text FROM templates WHERE id=' . $id);
 	// replace the template macro with the retrieved text
 	return $t['text'];

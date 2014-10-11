@@ -41,4 +41,3 @@ foreach ( $charities as $c ) {
 		. '<td>[<a href="#" class="delete_row">X</td>]</tr>';
 }
 ?></table>
-<script type="text/javascript" src="/admin/xmas/xmas.js"></script>

@@ -5,10 +5,9 @@ require_once (dirname(__FILE__).'/../../src/functions.php');
 ?>
 <div id="citiespage">
 <h1>Manage X-Mas Cities</h1>
-<div>
+<div style="font-size:1.4em;">
 &nbsp;<a href="/xmas/find_team">Add new team</a>
 &nbsp;&nbsp;<a href="/admin/fragments#xmas_concept.inc">Edit Concept definition</a>
-&nbsp;&nbsp;<a href="/xmas">View Xmas Homepage</a>
 </div>
 	<table id="cities">
 	<thead>

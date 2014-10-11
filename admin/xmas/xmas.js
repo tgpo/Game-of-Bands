@@ -19,7 +19,7 @@ $(document).ready(function(){
 		    return text;
 		  }
 		};
-	var send = function(type,data,callback){
+	var send = function(type,data,callback,errorFunction){
 		console.log('AJAX: ' + type);
 		$.ajax({
 			type: "POST",
@@ -33,8 +33,8 @@ $(document).ready(function(){
 			},
 			error: function(r){
 				console.log("AJAX -> Failure.");
-				if(typeof callback !== 'undefined'){
-					callback(r,true); 
+				if(typeof errorFunction !== 'undefined'){
+					errorFunction(r,true); 
 				}
 			},
 		});
@@ -167,9 +167,7 @@ $(document).ready(function(){
 		console.log("Found " + cities_data.length + " cities");
 		// Convert those arrays into table rows.
 		var city_table = $('<tbody>');
-		$.each(cities_data,function(key,c){
-			c.type='city';
-			//console.log(c);
+		$.each(cities_data,function(k,c){
 			make_city_data_row(city_table,c);
 		});
 		// Add an edit row
@@ -186,32 +184,24 @@ $(document).ready(function(){
 			});
 			return r;
 		}
-		function update_city(id,obj){
-			var city = get_city(id);
-			$.extend(city,obj); //TODO: test.. this seems too easy.
-		}
 	    
-	//Autocomplete for the city creation 
+		// Google autocomplete for the city creation input
 	    $(".new_city_name").geocomplete()
 	      .bind("geocode:result", function(event, result){
 	          lat = result.geometry.location.k;
-	          lng = result.geometry.location.B; //Why these variables Googs??
+	          lng = result.geometry.location.B; //Why these particular variables Googs??
 	          var nam = result.formatted_address;
-	          console.log("Result: " + nam);
 	          $('#cities tr.new_city').data('lat',lat).data('lng',lng);
-	          console.log("LAT: " + lat + ", LNG: " + lng);
-	      })
-	      .bind("geocode:error", function(event, status){
-	    	  console.log("ERROR: " + status);
 	      });
 	    
-	    // Create send message/post button functions
+	    // Create send message/post button functions.. I'm positive this can be made more extensible.. copypasta?
+	    var specified = 'Please specify a template first.';
 	    // modmessage/sendmodmessage
 	    $('table').on('click','input.messaged',function(){
 	    	var id = $(this).closest('tr').data('id'); 
 	    	var message_id = $(this).closest('tr').find('.mtid').val();
 	    	if(message_id == 0){
-	    		alert("Please specify a template first.");
+	    		alert(specified);
 	    		return false;
 	    	}
 	    	location.href='/admin/xmessages?type=city_message&id=' + id + '&template=' + message_id; 
@@ -222,10 +212,10 @@ $(document).ready(function(){
 	    	var id = $(this).closest('tr').data('id'); 
 	    	var message_id = $(this).closest('tr').find('.ptid').val();
 	    	if(message_id == 0){
-	    		alert("Please specify a template first.");
+	    		alert(specified);
 	    		return false;
 	    	}
-	    	location.href='/admin/xmessages?type=city_message&id=' + id + '&template=' + message_id;
+	    	location.href='/admin/xmessages?type=city_post&id=' + id + '&template=' + message_id;
 	    })
 	}
 	
@@ -256,8 +246,25 @@ $(document).ready(function(){
 	/************************************************ CHARITIES **************/
 
 	/************************************************ Messages ***************/
-	$('input#send_message').click(function(){
-		// Send message to parser, display parsed output with actual send button.
-		alert("TODO: Send message button pushed.");
+	$('input.send_message').click(function(){
+		var div = $(this).closest('div');
+		
+		var to = div.find('.recipient').val();
+		var title = div.find('.title').val();
+		var body = div.find('.body').val();
+		
+		var id = $(this).data('id');
+		var msg_type = $(this).data('type');
+		
+		if(!title || !body) {
+			if(!confirm("Send empty message?")){
+				return false;
+			}
+		}
+		var type = $(this).data('function');//postthread||sendmodmessage||sendemail
+		send(type,{'to': to, 'title': title, 'body': body, 'id':id ,'type':msg_type},function(e){
+			console.log(e);
+			div.append('Sent!');
+		},function(){div.append('Error!')});
 	});
 });

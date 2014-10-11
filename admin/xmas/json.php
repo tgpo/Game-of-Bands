@@ -66,9 +66,8 @@ if (isset ( $_GET ['type'] )) {
 				break;
 			}
 		case 'sendmodmessage':		// Grab a previously created modmessage and actually send it.
-			{
-				$mid = filter_input(INPUT_POST,'message_id',FILTER_VALIDATE_INT);
-				send_mod_message($mid);
+			{				
+				send_mod_message();
 				break;
 			}
 		case 'createthread' : // Build a reddit post from the specified template.
@@ -79,7 +78,9 @@ if (isset ( $_GET ['type'] )) {
 		case 'postthread':	// Actually post the thread to reddit
 			{
 				$pid = filter_input(INPUT_POST,'message_id',FILTER_VALIDATE_INT);
-				post_thread($pid);
+				$title = filter_input(INPUT_POST,'title',FILTER_SANITIZE_STRING);
+				$body = filter_input(INPUT_POST,'body',FILTER_SANITIZE_STRING);
+				post_thread($pid,$title,$body);
 				break;
 			}
 		case 'fragment': // Update the text of a fragment. OVERWRITES IT COMPLETELY.. so. yeah.
@@ -166,14 +167,7 @@ function build_thread(){
 	// Run the macro parser over the templates text.
 	$text = process_macros($template['text']);
 	
-	// Save the message text (now macro free!) into the database.
-	$message_id = insert_query("INSERT INTO sent_messages SET recipient=:recipient, subject=:subject, text=:text, type='city_post' recipient_id=:city_id, mod_id=:mod_id",
-			array(	'recipient'=> $to,
-					'subject' => $template['title'],
-					'text' => $text,
-					'recipient_id' => $city['id'],
-					'mod_id' => bandit_id()
-			))	;
+
 	if(is_int($message_id)){
 		//Success!
 		ok('Thread templates parsed and ready to post.',array('title'=>$template['title'],'text'=>$text, 'message_id' => $message_id));
@@ -181,26 +175,35 @@ function build_thread(){
 		fail();
 	}	
 }
-function post_thread($id){
+function post_thread($id,$title,$body){
 	global $reddit_user,$reddit_password;
 	if(!$id)
 		fail('How?');
 	// Fetch message we've previously created.
 	$msg = get_one('SELECT recipient,subject,text FROM sent_messages WHERE id=' . $id);
-	if(!is_array($msg) || strlen($msg['text'])==0){
+	if(!strlen($title) || !strlen($body)){
 		fail('Invalid message');
 	}
 	require_once ('../../lib/reddit.php');
 	$reddit = new reddit ( $reddit_user, $reddit_password );
+	$to = (DEBUG) ? 'waitingforgobot' : $msg['recipient'];
 	// Recipient should be a reddit, send NULL to avoid the link restrictions, we want a self-post to include our text.
-	$r = $reddit->createStory($msg['subject'], null, $msg['recipient'], $msg['text']); 
+	$r = $reddit->createStory($title, null, $to, $body); 
 	error_log("< < < < < < < < < < ------------ > > > > > > >  REDDIT RESPONSE TO POST CREATION"); // Make it hideously obvious in the log.
 	error_log(print_r($r,true));
 	//TODO: Figure out how to tell if this has failed
 	// Get the id of the message from the response
 	$mid = $r[0]->data->name; // ASSUMPTION.. untested.. https://github.com/reddit/reddit/wiki/JSON
 	// save it
-	insert_query('INSERT INTO sent_messages, set ref=:ref WHERE id=:id',array('id'=> $message_id, 'ref'=>$mid));
+	// Save the message text (now macro free!) into the database.
+	$message_id = insert_query("INSERT INTO sent_messages SET recipient=:recipient, subject=:subject, text=:text, type='city_post' recipient_id=:city_id, mod_id=:mod_id, ref=:ref ",
+			array(	'recipient'=> $to,
+					'subject' => $template['title'],
+					'text' => $text,
+					'recipient_id' => $city['id'],
+					'mod_id' => bandit_id(),
+					'ref'=>$mid
+			))	;
 	// send it back so we can update the table live
 	ok('Post created on: ' . $recipient, $mid);// I think.. Will need to test.
 }
@@ -213,6 +216,8 @@ function post_thread($id){
  * @param reddit $reddit        	
  */
 function message_mods() {
+	fail("CHANGED");
+	/*
 	$id = filter_input ( INPUT_POST, 'id', FILTER_SANITIZE_INT );
 	
 	$city = sql_to_array( 'SELECT id,name,reddit,template_id FROM cities WHERE id=' . $id);
@@ -234,43 +239,50 @@ function message_mods() {
 	// Run the macro parser over the text.
 	$text = process_macros($template['text']);
 	
-	// Save the message text (now macro free!) into the database.
-	$message_id = insert_query("INSERT INTO sent_messages SET recipient=:recipient, subject=:subject, text=:text, type='city_message' recipient_id=:city_id, mod_id=:mod_id",
-			array(	'recipient'=> $to,
-				  	'subject' => $template['title'],
-					'text' => $text,
-					'recipient_id' => $city['id'],
-					'mod_id' => bandit_id() 
+' => bandit_id() 
 			))	;
 	if(is_int($message_id)){
 		//Success!
 		ok('Message parsed and ready to send.',array('title'=>$template['title'],'text'=>$text, 'message_id' => $message_id));
 	}else{
 		fail();
-	}
+	}*/
 }
 /**
  * Actually send the message identified by
  * @param int $message_id
  */
-function send_mod_message($message_id){
+function send_mod_message(){
 	global $reddit_user,$reddit_password;
-	if(!$message_id)
-		fail('How?');
-	// Fetch message we've previously created.
-	$msg = get_one('SELECT recipient,subject,text FROM sent_messages WHERE id=' . $message_id);
-	if(!is_array($msg) || strlen($msg['text'])==0){
-		fail('Invalid message');
-	}
+	$to = filter_input(INPUT_POST,'to',FILTER_SANITIZE_STRING);
+	$title = filter_input(INPUT_POST,'title',FILTER_SANITIZE_STRING);
+	$text = filter_input(INPUT_POST,'body',FILTER_SANITIZE_STRING);
+	$id = filter_input(INPUT_POST,'id',FILTER_VALIDATE_INT);
+	$type = filter_input(INPUT_POST,'type',FILTER_SANITIZE_STRING);
+	
+	if(!$id || !strlen($to) || !strlen($title) || !strlen($text) || !strlen($type))
+		fail('Invalid input.');
+	
 	require_once ('../../lib/reddit.php');
 	$reddit = new reddit ( $reddit_user, $reddit_password );
-	$r = $reddit->sendMessage ( $msg['recipient'], $msg['subject'], $msg['text'] )  ;
+	
+	$to = (DEBUG) ? '#waitingforgobot' : '#' . $to; // ensure debugging messages only go to our special subreddit.
+	
+	$r = $reddit->sendMessage ( $to,$title,$text )  ;
 	error_log("-----------------------------------------------------------------> > > > > > > > > > > > REDDIT RESPONSE TO MOD_MESSAGE"); // Make it hideously obvious in the log.
 	error_log(print_r($r,true));
 	// Get the id of the message from the response
 	$mid = $r[0]->data->name; // ASSUMPTION.. untested.. https://github.com/reddit/reddit/wiki/JSON
 	// save it
-	insert_query('INSERT INTO sent_messages, set ref=:ref WHERE id=:id',array('id'=> $message_id, 'ref'=>$mid));
+	insert_query("INSERT INTO sent_messages SET type=:type, ref=:ref, recipient=:recipient, subject=:subject, text=:text, mod_id=:mod_id, recipient_id=:id",
+			array(	'recipient'=> $to,
+					'subject' => $title,
+					'text' => $text,
+					'mod_id' => bandit_id(),
+					'id' => $id,
+					'type' => $type,
+					'ref'=>$mid
+			));
 	// send it back so we can update the table live
 	ok('Message sent to mods: ' . $recipient, $mid);// I think.. Will need to test.
 }
