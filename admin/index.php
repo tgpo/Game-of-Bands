@@ -87,14 +87,16 @@ function writeNewMessageCount(){ //why isn't this in query?
           <li>
             <ul>
                 <li><a href="/admin/postmessage">Make New Post</a></li>
-                <li><a href="/admin/inbox">/u/GameofBands Inbox</a></li>
+                <li><a href="/admin/inbox">Inbox</a></li>
             </ul>
           </li>
           <li><h3>X-Mas</h3></li>
           <ul>
-           	<li><a href="/admin/cities" title="Modify cities, post messages to mods etc">Xmas Cities</a></li>
-           	<li><a href="/admin/teams" title="">Xmas Teams</a></li>
-           	<li><a href="/admin/charities" title="">Xmas Charities</a></li>
+          	<li><a href="/xmas/" title="X-mas Homepage">Home</a></li>
+           	<li><a href="/admin/cities" title="Modify cities, post messages to mods etc">Cities</a></li>
+           	<li><a href="/admin/teams" title="">Teams</a></li>
+           	<li><a href="/admin/charities" title="">Charities</a></li>
+           	<li><a href="/admin/templates">Templates</a></li>
           </ul>
           <li><h3>Tools</h3></li>
           <ul>
@@ -127,33 +129,6 @@ function writeNewMessageCount(){ //why isn't this in query?
           		include_once ('src/dashboard.php');
           	}
           }
-          /* With htaccess and the above, we don't need the below
-            switch (isset($_GET['view'])?$_GET['view']:'') {
-              case 'addsong'          : include_once 'src/addsong.php';             break;
-              case 'editsong'         : include_once 'src/editsong.php';            break;
-              case 'editround'        : include_once 'src/editround.php';           break;
-              case 'roundlist'        : include_once 'src/roundlist.php';           break;
-              case 'songlist'         : include_once 'src/songlist.php';            break;
-              case 'postmessage'      : include_once 'src/postmessage.php';         break;
-              case 'teamlist'         : include_once 'src/teamlist.php';            break;
-              case 'addteam'          : include_once 'src/addteam.php';             break;
-              case 'editteam'         : include_once 'src/editteam.php';            break;
-              case 'inbox'            : include_once 'src/inbox.php';               break;
-              case 'editflair'        : include_once 'src/editflair.php';           break;
-              case 'resetflair'       : include_once 'src/resetflair.php';          break;
-              case 'bestof2013'       : include_once 'src/bestOf2013.php';          break;
-              case 'adminSettings'    : include_once 'src/view_AdminSettings.php';  break;
-              case 'editcities'		  : include_once 'xmas/cities.php';				break;
-              case 'editxmasteams'	  : include_once 'xmas/teams.php';				break;
-              case 'clearcache'		  : {
-				  $files = glob(dirname(__FILE__).'/../src/cache/*.html');
-				  $num_files = count($files);
-              	array_map("unlink",$files); echo '<h3>Static page-cache cleared of ' . $num_files .' cached files.</h3>';
-              	// No break, show dashboard 
-              }	
-              default                 : include_once 'src/dashboard.php';           break;
-
-            }*/
           ?>
         </div>
       </div>

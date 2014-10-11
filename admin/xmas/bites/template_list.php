@@ -1,3 +1,13 @@
+<h3>Available macro List</h3><ul>
+<?php
+// $macros is a global, prefilled
+$macros = get_macros();
+foreach ( $macros as $f => $r ) {
+	$f = str_replace ( '/', '', str_replace ( '\\', '', $f ) );
+	echo '<li style="font-size:1.5em;">{'.$f.'} => '.$r.'</li>';
+}
+?>
+</ul>
 <h2>Template definitions</h2>
 <table id="templates">
 <thead>

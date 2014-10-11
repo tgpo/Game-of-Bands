@@ -5,8 +5,11 @@ require_once (dirname(__FILE__).'/../../src/functions.php');
 ?>
 <div id="citiespage">
 <h1>Manage X-Mas Cities</h1>
-<div style="float:right;">
-<h2><a href="/xmas/find_team">Add new team</a></h2></div>
+<div>
+&nbsp;<a href="/xmas/find_team">Add new team</a>
+&nbsp;&nbsp;<a href="/admin/fragments#xmas_concept.inc">Edit Concept definition</a>
+&nbsp;&nbsp;<a href="/xmas">View Xmas Homepage</a>
+</div>
 	<table id="cities">
 	<thead>
 	<tr>
@@ -14,10 +17,11 @@ require_once (dirname(__FILE__).'/../../src/functions.php');
 		<th title="Post Template ID (See below)">P_T</th>
 		<th title="Message Template ID">M_T</th>
 		<th>Reddit</th>
-		<th>Messaged</th>
 		<th>Posted</th>
+		<th>Messaged</th>
 		<th>&nbsp;</th>
 		<th title="Number of teams competing in this City">#</th>
+		<th>&nbsp;</th>
 		</tr>
 	</thead>
 	</table>
@@ -26,13 +30,6 @@ require_once (dirname(__FILE__).'/../../src/functions.php');
 	<hr width="100%" />
 	<br />
 <?php include_once('bites/template_list.php');?>
-	<br />
-	<hr width="100%" />
-	<br />
-	<h2><a href="/xmas/">xmas homepage</a> text</h2>
-	<textarea id="concept" style="width:100%;height:100px;"><?php echo get_template('xmas_concept',true);?>
-	</textarea>
-	<input id="save_concept" type="button" value="Save Concept" /><span>Note: HTML</span>
 </div>
 
 	

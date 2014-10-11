@@ -40,7 +40,7 @@ $(document).ready(function(){
 		});
 	}
 	// Create action for save buttons.
-	$('table').on('click','save_row',function(){
+	$('table').on('click','.save_row',function(){
 		var r = $(this).closest('tr');
 		var row = {};
 		row.id = r.data('id');
@@ -98,8 +98,8 @@ $(document).ready(function(){
 				make_template_data_row($('#templates tr:last'),info);
 			}
 			break;
-		case 'team':
-		case 'charity':
+		case 'team': //TODO:
+		case 'charity': //TODO:
 		default:
 		} 
 		send(type,info,onSuccess);
@@ -142,13 +142,13 @@ $(document).ready(function(){
 	
 		var make_city_data_row = function(obj,data){
 			var post = (data.post.length > 1) 
-			? '<a href="' + data.post + '">[-View Post-]</a>'
-			: '<input type="button" class="post" data-id="' + data.id + '" value="Create"/>';
+			? '<a href="/admin/xmessages?type=city_post&id=' + data.id +'">[-View Posts-]</a>'
+			: '<input type="button" class="post" data-id="' + data.id + '" value="New Post"/>';
 			var message = (data.messaged_mods.length > 1) 
-					? '<a href="' + data.post + ' title="View this post">Read</a>' 
-					: '<input type="button" class="messaged" data-template="' + data.template_id + '" value="Post">';
+					? '<a href="/admin/xmessages?type=city_message&id=' + data.id + ' title="View messages">[-Read Msg-]</a>' 
+					: '<input type="button" class="messaged" data-template="' + data.template_id + '" value="New Msg">';
 			var reddit = (data.subreddit.length > 1)
-					? '<a href="http://reddit.com/r/' + data.subreddit + '" title="Visit subreddit" class="subreddit">' + data.subreddit +'</a>'
+					? '<a href="http://reddit.com/r/' + data.subreddit +'" class="subreddit">' + data.subreddit + '</a>'
 					: '<input type="text" style="width:60px;" class="subreddit">' + data.subreddit + '</input>';
 			obj.append('<tr data-id="' 
 				+ data.id + '" class="name" data-type="city"><td><a href="/xmas/city/' 
@@ -157,9 +157,11 @@ $(document).ready(function(){
 				+ data.post_template_id + '"></input></td><td><input type="text" class="mtid" style="width:30px;" value="'
 				+ data.message_template_id + '"></input></td><td>'
 				+ reddit + '</td><td>'
+				+ post + '</td><td>'
 				+ message + '</td><td>'
-				+ post + '</td><td><input type="button" class="save_row" value="Save" />&nbsp;<input type="button" class="delete_row" value="X" /></td><td>'
-				+ data.team_count +'</td></tr>');
+				+ data.team_count 
+				+ '<td><input type="button" class="delete_row" value="X" />&nbsp;<input type="button" class="save_row" value="Save" />&nbsp;</td>'
+				+ '</tr>');
 		}
 	
 		console.log("Found " + cities_data.length + " cities");
@@ -188,7 +190,7 @@ $(document).ready(function(){
 			var city = get_city(id);
 			$.extend(city,obj); //TODO: test.. this seems too easy.
 		}
-		
+	    
 	//Autocomplete for the city creation 
 	    $(".new_city_name").geocomplete()
 	      .bind("geocode:result", function(event, result){
@@ -202,6 +204,29 @@ $(document).ready(function(){
 	      .bind("geocode:error", function(event, status){
 	    	  console.log("ERROR: " + status);
 	      });
+	    
+	    // Create send message/post button functions
+	    // modmessage/sendmodmessage
+	    $('table').on('click','input.messaged',function(){
+	    	var id = $(this).closest('tr').data('id'); 
+	    	var message_id = $(this).closest('tr').find('.mtid').val();
+	    	if(message_id == 0){
+	    		alert("Please specify a template first.");
+	    		return false;
+	    	}
+	    	location.href='/admin/xmessages?type=city_message&id=' + id + '&template=' + message_id; 
+	    });
+	    
+	    // createpost/postthread
+	    $('table').on('click','input.post',function(){
+	    	var id = $(this).closest('tr').data('id'); 
+	    	var message_id = $(this).closest('tr').find('.ptid').val();
+	    	if(message_id == 0){
+	    		alert("Please specify a template first.");
+	    		return false;
+	    	}
+	    	location.href='/admin/xmessages?type=city_message&id=' + id + '&template=' + message_id;
+	    })
 	}
 	
 	/************************************************ TEMPLATES *************/
@@ -209,14 +234,14 @@ $(document).ready(function(){
 		var make_template_edit_row = function(obj){
 			obj.append('<tr class="new_template"><td>&nbsp;</td>'
 					+'<td><input type="text" class="new_title"></input></td>'
-					+'<td><textarea class="new_text"></textarea></td><td>&nbsp;</td></tr>');
+					+'<td><textarea class="new_text" style="width:600px;height:200px;"></textarea></td><td>&nbsp;</td></tr>');
 		}
 		var make_template_data_row = function(obj,data){
 			obj.append('<tr data-id="'
 					+ data.id +'" data-type="template"><td>'
 					+ data.id +'</td><td><input type="text" class="title" value="'
-					+ data.title +'"></input></td><td><input type="text" class="text" value="'
-					+ data.text + '"></input></td><td><input type="button" class="save_row" value="Save" />&nbsp;<input type="button" class="delete_row" value="X" /></td></tr>'
+					+ data.title +'"></input></td><td><textarea class="text" style="width:600px;height:200px;">'
+					+ data.text + '</textarea></td><td><input type="button" class="save_row" value="Save" />&nbsp;<input type="button" class="delete_row" value="X" /></td></tr>'
 				);		
 		}
 		console.log("Found " + templates_data.length + " templates");
@@ -229,23 +254,10 @@ $(document).ready(function(){
 		$('#templates').append(templates_table);
 	}
 	/************************************************ CHARITIES **************/
-	// Delete function
-	$('#charity_list').on('click','a.delete',function(){
-		var name = $(this).nearest('li').data('name');
-		var id = $(this).nearest('li').data('id');
-		confirm("You sure you want to delete team: " + name + " ?");
-	
-		console.log('Deleting ' + name);
-		$.ajax({
-			type: "POST",
-			url: "xmas/json.php?type=delete",
-			data: {type: 'charity',id: id},
-			success: function(r){
-				console.log("Removed.");
-			},
-			error: function(xhr){
-				console.log(xhr); //TODO: Notify mod
-			},
-		});
+
+	/************************************************ Messages ***************/
+	$('input#send_message').click(function(){
+		// Send message to parser, display parsed output with actual send button.
+		alert("TODO: Send message button pushed.");
 	});
 });

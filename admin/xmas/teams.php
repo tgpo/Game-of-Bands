@@ -37,10 +37,11 @@ foreach($teams as $t){
 		.'<td><a href="/xmas/team/'.$id.'" title="View Team">'.$name.'</a></td>'
 		.'<td><a href="/xmas/city/'.$t['city_id'].'">' . $city .'</a></td>'
 		.'<td><a href="/bandit/'.$t['creator'].'">'.$bandit.'</a></td>'
-		.'<td><a href="/admin/xmessages?type=bandit_pm&id=' . $id .'">Creator MSGs</a></td>'
-		.'<td><a href="#" title="'
+		.'<td><a href="/admin/xmessages?type=bandit_pm&id=' . $id .'">Msg Creator</a></td>'
+
 		.'<td>[<a class="delete_row" href="#" title="Remove this team">X</a>]</td>'
 		.'</tr>';
 		
 }
 ?></ul>
+<script type="text/javascript" src="/admin/xmas/xmas.js"></script>
