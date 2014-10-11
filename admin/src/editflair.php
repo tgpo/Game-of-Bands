@@ -14,6 +14,9 @@ $db = database_connect();
 
   $strStylesheet = $reddit->getStylesheet('gameofbands');
   $newFlairCSS = $db->query("SELECT css FROM flair");
+  
+  // Save backup of flair CSS
+  file_put_contents(dirname(__FILE__). '/../css/gob_flair.css',$strStylesheet);
 
   foreach ($newFlairCSS as $oldflair) {
     $strStylesheet = str_replace($oldflair['css'],"",$strStylesheet);

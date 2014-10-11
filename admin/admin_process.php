@@ -19,7 +19,7 @@ mysql_connect("localhost", $mysql_user, $mysql_password) or die(mysql_error());
 mysql_select_db($mysql_db) or die(mysql_error());
 
 function redirect($pagename){
-    header('Location: index.php?view=' . $pagename);
+    header('Location: /admin/' . $pagename);
 }
 
 // Post the Signup Threads

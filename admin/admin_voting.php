@@ -37,5 +37,5 @@ function say($text){
 }
 
 function redirect($pagename){
-	header('Location: index.php?view=' . $pagename);
+	header('Location: /admin/' . $pagename);
 }

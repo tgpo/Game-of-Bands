@@ -1,5 +1,6 @@
 <?php
-require_once( '../src/query.php' );
+$dir = dirname(__FILE__);
+require_once( $dir . '/../src/query.php' );
 mod_check();
 
 define( 'INDEX', true );
@@ -73,10 +74,10 @@ function writeNewMessageCount(){ //why isn't this in query?
           </li>
           <li>
             <ul>
-                <li><a href="index.php?view=songlist">Songs</a></li>
-                <li><a href="index.php?view=roundlist">Rounds</a></li>
-                <li><a href="index.php?view=teamlist">Teams</a></li>
-                <li><a class="confirm" href="index.php?view=resetflair">Reset Flair Counts</a></li>
+                <li><a href="/admin/songlist">Songs</a></li>
+                <li><a href="/admin/roundlist">Rounds</a></li>
+                <li><a href="/admin/teamlist">Teams</a></li>
+                <li><a class="confirm" href="/admin/resetflair">Reset Flair Counts</a></li>
             </ul>
           </li>
           <li>
@@ -84,7 +85,7 @@ function writeNewMessageCount(){ //why isn't this in query?
           </li>
           <li>
             <ul>
-                <li><a href="index.php?view=postmessage">Make New Post</a></li>
+                <li><a href="/admin/postmessage">Make New Post</a></li>
             </ul>
           </li>
           <li>
@@ -92,16 +93,16 @@ function writeNewMessageCount(){ //why isn't this in query?
           </li>
           <li>
             <ul>
-                <li><a href="index.php?view=inbox">/u/GameofBands Inbox</a></li>
+                <li><a href="/admin/inbox">/u/GameofBands Inbox</a></li>
                 
-                <li><a href="index.php?view=editflair">edit Flair</a></li>
-                <li><a href="index.php?view=editcities" title="Modify cities, post messages to mods etc">Xmas Cities</a></li>
+                <li><a href="/admin/editflair">Show Flair</a></li>
+                <li><a href="/admin/cities" title="Modify cities, post messages to mods etc">Xmas Cities</a></li>
                 
             </ul>
           </li>
           <li><h3>Tools</h3></li>
           <ul>
-          <li><a href="index.php?view=clearcache" title="Empty the static page cache for bandits, makes your changes visible">Clear Cache</a></li>
+          <li><a href="/admin/clearcache" title="Empty the static page cache for bandits, makes your changes visible">Clear Cache</a></li>
           </ul>
         </ul>
         <div class="clearfix"></div>
@@ -110,7 +111,26 @@ function writeNewMessageCount(){ //why isn't this in query?
       <div id="content">
         <div id="page-content">
           <?php
-            // Decide which data to display
+          // Decide which data to display
+          $view = isset($_GET['view']) ? $_GET['view'] : false;
+          
+          if(!$view){
+          	include_once 'src/dashboard.php';
+          }else{
+          	// Simply add a file in /src/ where /ViewName is the url and ViewName.php is the file.
+          	if (is_readable ( 'src/view_' . $view . '.php' )) {
+          		include_once 'src/view_' . $view . '.php';
+          	} elseif (is_readable ( 'src/' . $view . '.php' )) {
+          		include_once 'src/' . $view . '.php';
+          	} elseif (is_readable ('xmas/' . $view . '.php')){ //grr
+          		include_once( 'xmas/' . $view . '.php');
+          	} else {
+          		// Something made it here? What?
+          		error_log ( "Something strange: " . $view );
+          		include_once ('src/dashboard.php');
+          	}
+          }
+          /*
             switch (isset($_GET['view'])?$_GET['view']:'') {
               case 'addsong'          : include_once 'src/addsong.php';             break;
               case 'editsong'         : include_once 'src/editsong.php';            break;
@@ -132,11 +152,11 @@ function writeNewMessageCount(){ //why isn't this in query?
 				  $files = glob(dirname(__FILE__).'/../src/cache/*.html');
 				  $num_files = count($files);
               	array_map("unlink",$files); echo '<h3>Static page-cache cleared of ' . $num_files .' cached files.</h3>';
-              	/* No break, show dashboard */
+              	// No break, show dashboard 
               }	
               default                 : include_once 'src/dashboard.php';           break;
 
-            }
+            }*/
           ?>
         </div>
       </div>

@@ -28,7 +28,7 @@ $rounds = $db->query('SELECT * FROM rounds ORDER BY number DESC');
 			$start = (has_round_started($round)) ? format_date( $round['start'] ) : '&nbsp;';
 			$end =  (has_round_ended($round)) ? format_date($round['end']) : '&nbsp;';
             echo "<tr>";
-                echo '<td class="fat"><a href="index.php?view=editround&id='.$round['number'].'">#' . $round['number'] . "</a></td>";
+                echo '<td class="fat"><a href="/admin/editround&id='.$round['number'].'">#' . $round['number'] . "</a></td>";
                 echo "<td>" . $round['theme'] . "</td>";
                 echo "<td>" . $start . '</td><td>' . $end . '</td>';
             echo "</tr>";

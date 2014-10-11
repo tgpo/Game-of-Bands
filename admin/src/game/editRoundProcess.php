@@ -12,7 +12,7 @@ if( isset($_POST['editRound']) ){
 }
 
 function redirect($pagename){
-    header('Location: ../../index.php?view=' . $pagename);
+    header('Location: /admin/' . $pagename);
 }
 
 function editRound(){

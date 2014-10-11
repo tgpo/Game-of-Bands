@@ -15,7 +15,7 @@ $teams = $db->query('SELECT * FROM teams ORDER BY round DESC');
 ?>
 
 <h2>Team List</h2>
-<a href="index.php?view=addteam">Add New Team</a>
+<a href="/admin/addteam">Add New Team</a>
 <table>
     <thead>
         <tr>
@@ -31,7 +31,7 @@ $teams = $db->query('SELECT * FROM teams ORDER BY round DESC');
         foreach ($teams as $team) {
             echo "<tr>";
                 echo "<td>" . $team['round'] . "</td>";
-                echo "<td class=\"fat\">" .'<a href="index.php?view=editteam&id='.$team['id'].'">#'. $team['teamnumber'] . "</a></td>";
+                echo "<td class=\"fat\">" .'<a href="/admin/editteam&id='.$team['id'].'">#'. $team['teamnumber'] . "</a></td>";
                 echo "<td>" . $team['musician'] . "</td>";
                 echo "<td>" . $team['lyricist'] . "</td>";
                 echo "<td>" . $team['vocalist'] . "</td>";

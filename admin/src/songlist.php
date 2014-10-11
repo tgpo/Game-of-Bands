@@ -13,7 +13,7 @@ $songs = $db->query('SELECT * FROM songs ORDER BY round DESC');
 ?>
 
 <h2>Song List</h2>
-<strong><a href="index.php?view=addsong">Add Song</a></strong>
+<strong><a href="/admin/addsong">Add Song</a></strong>
 
 <table>
     <thead>
@@ -40,7 +40,7 @@ $songs = $db->query('SELECT * FROM songs ORDER BY round DESC');
             
         	echo '<tr' . (($classes) ? " class=\"$classes\"" :'') . '>';
                 echo "<td>" . $song['round'] . "</td>";
-                echo '<td><a title="Edit Song" href="index.php?view=editsong&id='.$song['id'].'">' . $song['name'] . '</td></a>';
+                echo '<td><a title="Edit Song" href="/admin/editsong&id='.$song['id'].'">' . $song['name'] . '</td></a>';
                 echo '<td><a href="' . $song['url'] . '" target="_blank">Listen</a></td>';
                 echo "<td>" . p($song['lyrics']) . "</td>";
                 echo "<td>" . p($song['music']) . "</td>";
