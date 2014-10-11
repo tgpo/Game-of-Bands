@@ -102,6 +102,8 @@ class phppdo_mysql_statement extends phppdo_base_statement
         $query = $this->_build_query();
         if(!$query) return false;
         
+        if(defined('DEBUG_SQL') && DEBUG_SQL) error_log('PDO_SQL: ' . $query);
+        
         if($this->getAttribute(phppdo_base::MYSQL_ATTR_USE_BUFFERED_QUERY))
         {
             $this->_result = mysql_query($query, $this->_link);

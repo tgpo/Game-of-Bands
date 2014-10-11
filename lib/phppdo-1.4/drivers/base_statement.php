@@ -791,6 +791,8 @@ abstract class phppdo_base_statement extends PDOStatement implements IteratorAgg
         $params_cnt         = count($params);
         $params_info_cnt    = count($this->_params_info);
         
+        if(defined('DEBUG_SQL') && DEBUG_SQL) error_log('PDO_PARAMS' . print_r($params,true));
+        
         if($params_info_cnt && !$params_cnt)
         {
             $this->_set_error(0, 'Invalid parameter number: no parameters were bound', 'HY093', PDO::ERRMODE_WARNING, 'execute');
