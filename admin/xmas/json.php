@@ -52,11 +52,12 @@ if (isset ( $_GET ['type'] )) {
 			}
 		case 'delete' : // delete something.. be careful!
 			{
-				$table = filter_input ( INPUT_POST, 'type', FILTER_SANITIZE_STRING );
-				switch($table){
+				$type = filter_input ( INPUT_POST, 'type', FILTER_SANITIZE_STRING );
+				switch($type){
 					case 'city'		: $table = 'cities'; break;
 					case 'template'	: $table = 'templates'; break;
 					case 'charity'	: $table = 'charities'; break;
+					case 'team'		: $table = 'xmas_teams'; break;
 					default:	fail("Doh! can't delete that.");
 				}
 				$id = filter_input ( INPUT_POST, 'id', FILTER_VALIDATE_INT );
@@ -64,6 +65,7 @@ if (isset ( $_GET ['type'] )) {
 					fail("Invalid id.");
 				
 				pdo_query ( "DELETE FROM $table WHERE id=:id LIMIT 1", array ('id' => $id ), false );
+				ok($type . ' deleted.');
 				break;
 			}
 		case 'modmessage' :// Build a reddit private mod message from the template specified, convert macros into text and save
