@@ -26,6 +26,8 @@
 		return false;
 	});
 	
+	var GOB = {};
+	
 	/* setup voting system */
 	GOB.voting_template = $('<span class="upvotebutton">&nbsp;</span>');//&#8683; // ugly arrow
 	GOB.vote_types = {
@@ -50,16 +52,17 @@
 		// Build SoundCloud HTML5 iframe
 		$('#soundcloudBlock').empty();
 		$('<iframe>', {
-			   src: 'https://w.soundcloud.com/player/?url=', // It doesn't like the url, it doesn't like a blank url, frankly its fuckin annoying!
+			   src: 'https://w.soundcloud.com/player/?url=https://w.soundcloud.com/player/YOURAPIISANNOYING', // It doesn't like the url, it doesn't like a blank url, frankly its fuckin annoying!
 			   id:  'sc-widget',
 			   frameborder: 0,
 			   scrolling: 'no',
 			   height: '166',
 			   width: "100%",
-		}).appendTo(document.getElementById("soundcloudBlock")); // When called again, will destroy existing player and rebuild.
+		}).appendTo($("#soundcloudBlock")); // When called again, will destroy existing player and rebuild.
 		
 		// Make a new widget.. ffs
-		widget = SC.Widget(document.getElementById('sc-widget'));
+		if($('#sc-widget').length)
+			widget = SC.Widget(document.getElementById('sc-widget'));
 	}
 	
 	
@@ -67,13 +70,15 @@
 	destroy_player(); // I know.. 
 
 	// The widget is listening for these events.. lets use em for something.
-	widget
-	.bind(SC.Widget.Events.READY, 	function() {console.log("Widget: Activate!");	widget.play(); })
-	.bind(SC.Widget.Events.PLAY, 	function() {console.log("Sound.. hope your speakers are on!.");})
-    .bind(SC.Widget.Events.FINISH,  function() {console.log("Song has finished, was that good?");})
-	.bind(SC.Widget.Events.PAUSE, 	function() {console.log("Toggling play state.");})
-	.bind(SC.Widget.Events.ERROR,	function() {console.log("Something b0rked..");})
-	.bind(SC.Widget.Events.DOWNLOAD,function() {console.log("Bandit downloading.. ");});
+	if(widget){
+		widget
+		.bind(SC.Widget.Events.READY, 	function() {console.log("Widget: Activate!");	widget.play(); })
+		.bind(SC.Widget.Events.PLAY, 	function() {console.log("Sound.. hope your speakers are on!.");})
+	    .bind(SC.Widget.Events.FINISH,  function() {console.log("Song has finished, was that good?");})
+		.bind(SC.Widget.Events.PAUSE, 	function() {console.log("Toggling play state.");})
+		.bind(SC.Widget.Events.ERROR,	function() {console.log("Something b0rked..");})
+		.bind(SC.Widget.Events.DOWNLOAD,function() {console.log("Bandit downloading.. ");});
+	}
 	
 	// Enable moving widget around page, actual widget, so contents may change, but widget position remains
 	//$('#votingWidget').drags(); // Hmm.. scroll is disabled when this is active, mousewheel works, but.. not elegant.
