@@ -1,7 +1,8 @@
 <?php
 
-define ( 'DEBUG', false); //IMPORTANT: SET TO FALSE ON SERVER
-define ( 'DEBUG_USER', 'RetroTheft' );
+define ( 'DEBUG', true); //IMPORTANT: SET TO FALSE ON SERVER
+define ( 'DEBUG_USER', 'RetroTheft' ); 
+define ( 'DEBUG_USER_ID', 3);
 define ( 'DEBUG_VOTING', false ); // set to true to always enable voting, and see all votes in error log.
 define ( 'DEBUG_SQL', true ); // Set to true to see all queries in the apache log.
 
@@ -176,10 +177,10 @@ function get_bandit_id($bandit_name = false) {
  * @param id $id
  * @param string $type defaults to 'bandits'
  */
-function convert_id_to_name($id,$type='bandits'){
+function convert_id_to_name($id,$table='bandits'){
 	if(!$id) return false;
-	$c = get_one('SELECT name FROM ' . $type .' WHERE id=:id',array('id'=>$id));
-	return (strlen($c['name'])) ? $c['name'] : false;	
+	$c = get_one('SELECT name FROM ' . $table .' WHERE id=:id',array('id'=>$id));
+	return (isset($c['name'])) ? $c['name'] : false;	
 }
 function bandit_made_song($bandit_name, $song_id) {
 	$team = get_one ( "SELECT music,lyrics,vocals FROM songs WHERE id=:song", array (

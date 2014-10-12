@@ -49,30 +49,33 @@ function fail_team(){ echo "Invalid team identifier. I don't know what to say ma
 function show_team($id) {
 	$id = filter_var($id,FILTER_VALIDATE_INT);
 	if(!$id) { 
-		fail_team(); return;
+		fail_team(); 
+		return;
 	}
 	$ida = array('id'=>$id);
 	$team_details = get_one('SELECT * FROM xmas_teams WHERE id=:id',$ida);
 	if(count($team_details) == 0){
-		fail_team(); return;
+		fail_team(); 
+		return;
 	}
-	$city_id = $team_details['city_id'];
-	$city = convert_id_to_name($city_id,'cities');
+	$city_id = $team_details['city_id']; 
+	$city_name = convert_id_to_name($city_id,'cities');
 	
 	$creator = convert_id_to_name($team_details['creator']);
-	
+	// Get list of team members.
+	$team_members = array();
+	foreach(sql_to_array('SELECT name FROM bandits WHERE xmas_team_id='.$id) as $t){
+		$team_members[] = $t['name'];
+	}
 	// Check if bandit is in team, if so, display control panel
 	if(is_loggedin()){
-		$team_members = get_one('SELECT name FROM bandits WHERE xmas_team_id=:id',$ida);
-
 		if(!$team_members){
 			// We don't have any members yet.. who created this team?
 			echo get_issue_link("XM:ST:Team members error.");
 			// Either way, we know this guy isn't in the team, as NOBODY IS.
-			
 		}
 		$bandit = get_bandit_name();
-		if(is_mod() || in_array($bandit,$team_members)){
+		if(in_array($bandit,$team_members)){
 			include_once('xmas_control_panel.php');
 		}
 	}
@@ -82,17 +85,19 @@ function show_team($id) {
 	$team_name = $team_details['name'];
 	$out = '<h2>Team: ' . $team_name . "</h2> 
 	<hr>
-	<h3>This team is based in <a href=\"/xmas/city/$city_id\">$city</a></h3>
+	<h3>This team is based in <a href=\"/xmas/city/$city_id\">$city_name</a></h3>
 	<p>Team Creator: " . a_bandit($creator). " </p>
 	<p>Current members are: </p>
 	<ul>";
 	foreach($team_members as $t){
-		$out .= '<li>' . a_bandit($t['name']) . '</li>';
+		$out .= '<li>' . a_bandit($t) . '</li>';
 	}
 	$out .= '</ul>' ;
-	if($team_details['nominated_charity']){
+	if(isset($team_details['nominated_charity'])){
 		$out .= '<h3>Partial proceeds of this teams share of album sales will be sent directly to ' . $team_details['nominated_charity'];
 	}
+	if(isset($team_details['song_url']))
+		$out .= '<p>Team song: <a href="#" title="Would be a listen link with the widget..">Listen</a></p>';
 	$out .= '<p>Team created: UTC(' . $team_details['created'] .')</p>'; 
 	if(is_loggedin()){
 		if(!has_xmas_team()){
@@ -273,6 +278,53 @@ function show_find_team(){
 	include('fragments/xmas_find_team.inc');
 	exit();//due to includes, we have to exit.
 }
+
+function show_charity($id){
+	$id = filter_var($id,FILTER_SANITIZE_INT);
+	if(!$id){
+		die('Unknown charity.');
+	}
+}
+
+function show_jsonsetcharity(){
+	$bandit_id = (DEBUG) ? DEBUG_USER_ID : bandit_id();
+	$team_id = (DEBUG) ? 2 : has_xmas_team();
+	if(!$team_id){
+		fail("How did you get here?");
+	}
+	$eid = filter_input(INPUT_GET,'existing_id',FILTER_VALIDATE_INT);
+	if($eid > 0){
+		//use id number of existing charity id on current team.
+		insert_query('UPDATE xmas_teams SET charity_id=:cid WHERE id=:id LIMIT 1',array('id'=>$team_id, 'cid'=>$eid));
+	}else{
+		$p = array();
+		$p['charity_id'] = filter_input(INPUT_GET,'id',FILTER_SANITIZE_STRING);
+		$p['name'] 	= filter_input(INPUT_GET,'name',FILTER_SANITIZE_STRING);
+		$p['loc'] 	= filter_input(INPUT_GET,'locality',FILTER_SANITIZE_STRING);
+		$p['email'] = filter_input(INPUT_GET,'email',FILTER_SANITIZE_STRING);
+		$p['mod_id'] = $bandit_id;
+		
+		foreach($p as $k => $v){
+			if(strlen($v)==0){
+				fail("Invalid paramenter: $k");
+			}
+		}
+		
+		// Check for existing charities? Existing nominations? //TODO:
+		
+		$iid = insert_query("INSERT INTO charities (name,locality,email,charity_id,status,mod_id) 
+				VALUES (:name, :loc, :email, :charity_id, 'nominated', :mod_id)", $p);
+		if($iid){
+			insert_query('UPDATE xmas_teams SET nominated_charity=:charity_id WHERE id=:id LIMIT 1',
+			 array('id'=> $team_id, 'charity_id'=>$iid));
+		}else{
+			fail("Failed to insert into charities.");
+		}
+		
+		ok();
+	}
+}
+
 /*********************************
  * Utilities
  *********************************

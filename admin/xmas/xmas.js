@@ -74,36 +74,38 @@ $(document).ready(function(){
 		// Find our new row, get the data, change inputs to text.
 		var type = $(this).data('type'); // template||city etc
 		var this_row = $('.new_' + type);
-		var new_row = this_row.clone(); //duplicate empty row
 		var info = {};
 		info.type = type;
 		switch(info.type){
-		case 'city':
-			info.name = this_row.find('.new_city_name').val();
-			info.post_template_id = this_row.find('.ptid').val();
-			info.message_template_id = this_row.find('.mtid').val();
-			info.subreddit = this_row.find('.new_subreddit').val();
-			info.lat = this_row.data('lat');
-			info.lng = this_row.data('lng');
-			var onSuccess = function(id){
-				info.id = id.element_id;
-				make_city_data_row($('#cities tr:last'),info);
-			}
-			break;
-		case 'template':
-			info.title = this_row.find('.new_title').val();
-			info.text = this_row.find('.new_text').val();
-			var onSuccess = function(id){
-				info.id=id.element_id;
-				make_template_data_row($('#templates tr:last'),info);
-			}
-			break;
-		case 'team': //TODO:
-		case 'charity': //TODO:
-		default:
+			case 'city':
+				info.name = this_row.find('.new_city_name').val();
+				info.post_template_id = this_row.find('.ptid').val();
+				info.message_template_id = this_row.find('.mtid').val();
+				info.subreddit = this_row.find('.new_subreddit').val();
+				info.lat = this_row.data('lat');
+				info.lng = this_row.data('lng');
+				var onSuccess = function(id){
+					info.id = id.element_id;
+					make_city_data_row($('#cities tr:last'),info);
+					make_city_edit_row(this_row.parent());
+				}
+				break;
+			case 'template':
+				info.title = this_row.find('.new_title').val();
+				info.text = this_row.find('.new_text').val();
+				var onSuccess = function(id){
+					info.id=id.element_id;
+					make_template_data_row($('#templates tr:last'),info);
+					make_template_edit_row(this_row.parent());
+				}
+				break;
+			case 'team': //TODO:
+			case 'charity': //TODO:
+			default:
 		} 
-		send(type,info,onSuccess);
-		make_edit_row(type,this_row.parent());
+		if(typeof onSuccess !== 'undefined')
+			send(type,info,onSuccess);
+		
 	});
 
 	// Create delete action

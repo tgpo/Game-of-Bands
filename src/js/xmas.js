@@ -28,7 +28,8 @@
 				$.each(r,function(key,value){
 					// create a row for it, with links to view
 					$('#current_teams tr:last').after('<tr><td><a href="/xmas/team/'
-					+ value.tid + '" title="View team">' + value.team + '</a></td><td><a href="/xmas/city/' 
+					+ value.tid + '" title="View team">' 
+					+ value.team + '</a></td><td><a href="/xmas/city/' 
 					+ value.cid + '">' + value.city +'</a></td><td>'
 					+ twoDP(value.distance) + ' kms</td></tr>');
 				});
@@ -95,6 +96,6 @@
      // See if we have a pre-filled value, initiate geocoding and therefore matching.
      if($('#city').val().length){
     	 $('#city').trigger('geocode');
-     }
+     }     
 	});
 })(jQuery);

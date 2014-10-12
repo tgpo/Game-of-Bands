@@ -44,10 +44,13 @@ function mod_check(){
 }
 /**
  * Retrieve the ID of the bandit.
- * @return boolean
+ * @return boolean|integer
  */
 function bandit_id(){
 	loggedin_check();
+	if(DEBUG)
+		return DEBUG_USER_ID;
+	
 	if(!isset($_SESSION['GOB']['id'])){ 
 		return false; 
 	}

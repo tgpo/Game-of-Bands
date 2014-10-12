@@ -11,31 +11,64 @@
  * 
  */
 if(!$city_id) die(get_issue_link('XM:FT:XCP:City_Id_Fail'));
-if(!$team_details) die(get_issue_link('XM:FT:XCP:Team_Details_Fail'));// Xmas:Function(show_team):XmasControlPanel:Msg, also, fairly unique, should show up pretty easily in a grep.
+if(!$team_details) die(get_issue_link('XM:FT:XCP:Team_Details_Fail'));
 ?>
-<h3>Control Panel</h3>
-<?php
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#charity_nomination').on('click','input.save_charity',function(){
+    	 var parent = $(this).parent();
+    	 if($('#existing_id').length){
+    		 data =  {
+    	    	  'existing_id': $('#existing_id:selected').val() 
+    	    };
+    	 }else{
+    		 data =  {
+				 'name': $('#nominate_name').val(), 
+				 'locality': $('#nominate_locality').val(), 
+				 'email': $('#nominate_email').val(), 
+				 'id': $('#nominate_id').val()
+    		};
+    	 }
+		 $.ajax({
+			type: "GET",
+			url: '/src/xmas.php?type=jsonsetcharity',
+			data: data,
+			success: function(r){
+				parent.append('<span>Saved.</span>.');
+			}
+ 		 });
+     });
+});
+</script>
+<h3>Control Panel</h3> 
+<?php 
 // Test for team creator
 if(bandit_id() == $team_details['creator']){
 	// Get location of team
 	$city = get_one('SELECT * FROM cities WHERE id = ' . $city_id);
 	// Get charity information, if set
 	$charity = $charities = false;
-	if(strlen($team_details['nominate_charity'])){
-		$charity = get_one('SELECT * FROM charities WHERE id=:id',array('id',$team_details['nominate_charity']));
+	if(isset($team_details['nominated_charity'])){
+		$charity = get_one('SELECT * FROM charities WHERE id=:id',array('id' => $team_details['nominated_charity']));
 	}else{
 		$charities = sql_to_array('SELECT id,name FROM charities');
 	}
 	?>
 	<div id="teamacp">
-	{{ TEAM CREATOR FUNCTIONS }}
-	</div>
-	<?php 
-	// TODO: disable team-submission until all team-members have agreed & nominated & song submitted to SC
-	// TODO: show list of pending bandits, with checkbox approval and button to submit to server
-	// TODO: royalty split interface, table of approved bandits with input fields indicating current royalty split, allowing change (postback/json)
-	// TODO: rename team input box
-	?>
+<pre>// TODO: disable team-submission until all team-members have agreed & nominated & song submitted to SC
+// TODO: show list of pending bandits, with checkbox approval and button to submit to server</pre>
+	<?php
+	foreach($team_members as $t){
+		$td = get_one('SELECT * FROM bandits WHERE name=:name',array('name' => $t));
+		if($td['xmas_team_status'] == 'pending'){
+			echo a_bandit($t) . ' is still pending. <input type="button" value="Approve" class="approve_member"/> <br />';
+		}
+	}
+?>
+<pre>
+//TODO: royalty split interface, table of approved bandits with input fields indicating current royalty split, allowing change (postback/json)
+</pre>	
+<s>// TODO: rename team input box</s> backend
 	<div>
 		<label for="team_name">Team Name:</label><input type="text" value="<?php echo $team_details['name'];?>" id="team_name" />
 	</div>
@@ -51,31 +84,28 @@ if(bandit_id() == $team_details['creator']){
 				echo '<option value="' . $c['id'].'">' . $c['name'] . '</option>';
 			}
 			echo '</select>';
+		}
+		if(!isset($charity['name'])){
+			?>
+			<label for="nominate_name">Charity Name:</label><br />
+			<input type="text" id="nominate_name" title="The name of the registered charity you wish to nominate"/><br />
+			<label for="nominate_locality">Charity Location (Ideally should operate in the same City as the team itself):</label><br />
+			<input type="text" id="nominate_locality" title="Charities are not all global"/><br />
+			<label for="nominate_email">Charity email/web address (We will need to contact them to arrange payment):</label><br />
+			<input type="text" id="nominate_email" title="We will need to contact this charity, please use the best address for that."/><br />
+			<label for="nominate_id">Charity Identifier (Registered charities have specific identifiers):</label><br />
+			<input type="text" id="nominate_id" title="Charities are only 'legal' if registered in the government of their area of operation, governments typically issue a unique identifier indicating their status as a registered charity, and allowing donators to look up the status."/> <br />
+			
+			<?php 
+			echo "<span id=\"status\">Charity status is: {$charity['status']}</span><br />";
+			?>
+			<input type="button" value="Save Charity" class="save_charity"  />
+			<?php 
+		}else{
+			echo 'Selected charity: <a href="/xmas/charity/' . $charity['id'] . '">' . $charity['name'] . '</a>';
 		}?>
-		<label for="nominate_name">Charity Name:</label>
-		<input type="text" id="nominate_name" title="The name of the registered charity you wish to nominate" <?php 
-			if(strlen($charity['name'])){
-				// We've got one! -- Disable it so it can't be modified, we'd ignore any change anyway.
-				echo 'disabled="disabled" val="' . $charity['name'] . '" ';	
-			}
-		?>/>
-		<label for="nominate_locality">Charity Location (Ideally should operate in the same City as the team itself):</label>
-		<input type="text" id="nominate_locality" title="Charities are not all global" <?php 
-			if(strlen($charity['locality'])){echo 'disabled="disabled" val="' . $charity['locality'] . '" ';}
-		?>/>
-		<label for="nominate_email">Charity email/web address (We will need to contact them to arrange payment):</label>
-		<input type="text" id="nominate_email" title="We will need to contact this charity, please use the best address for that." <?php 
-			if(strlen($charity['email'])){echo 'disabled="disabled" val="' . $charity['email'] . '" ';}
-		?>/>
-		<label for="nominate_id">Charity Identifier (Registered charities have specific identifiers):</label>
-		<input type="text" id="nominate_id" title="Charities are only 'legal' if registered in the government of their area of operation, governments typically issue a unique identifier indicating their status as a registered charity, and allowing donators to look up the status." <?php 
-			if(strlen($charity['charity_id'])){echo 'disabled="disabled" val="' . $charity['charity_id'] . '" ';}
-		?>/> 
-		
-		<?php 
-		echo "<span id=\"status\">Charity status is: {$charity['status']}</span>";
-		?>
 	</div>
+	
 <?php 
 }
 ?>

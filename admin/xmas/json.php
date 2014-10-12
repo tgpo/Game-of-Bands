@@ -39,7 +39,7 @@ if (isset ( $_GET ['type'] )) {
 						'title' => filter_input ( INPUT_POST, 'title', FILTER_SANITIZE_STRING ),
 						'text' => filter_input ( INPUT_POST, 'text', FILTER_SANITIZE_STRING ) 
 				);
-				$id = insert_query ( "INSERT INTO templates (id, title,text) VALUES(NULL,:title,:text)", $params );
+				$id = insert_query ( "INSERT INTO templates (id, title,text) VALUES (NULL,:title,:text)", $params );
 				break;
 			}
 		case 'delete' : // delete something.. be careful!
