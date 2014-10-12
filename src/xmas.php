@@ -51,7 +51,8 @@ function show_team($id) {
 	if(!$id) { 
 		fail_team(); return;
 	}
-	$team_details = sql_to_array('SELECT * FROM xmas_teams WHERE id=' . $id . ' LIMIT 1');
+	$ida = array('id'=>$id);
+	$team_details = get_one('SELECT * FROM xmas_teams WHERE id=:id',$ida);
 	if(count($team_details) == 0){
 		fail_team(); return;
 	}
@@ -59,7 +60,7 @@ function show_team($id) {
 	
 	// Check if bandit is in team, if so, display control panel
 	if(is_loggedin()){
-		$team_members = sql_to_array('SELECT name FROM bandits WHERE xmas_team_id=' . $id);
+		$team_members = get_one('SELECT name FROM bandits WHERE xmas_team_id=:id',$id);
 		if(!$team_members){
 			// We don't have any members yet.. who created this team?
 			echo get_issue_link("XM:ST:Team members error.");

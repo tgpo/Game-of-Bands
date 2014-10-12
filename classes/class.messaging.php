@@ -50,7 +50,13 @@ class GOB_Email extends GOB_Message{
 	
 	function send(){
 		//TODO: Implement email sending.. for sending messages to charities etc.
-		fail('Not currently implemented.');
+		// TODO: Test, need to determine the From: header, probably need to override it.
+		if(mail($this->recipient,$this->title,$this->body)){
+			// we sent it.
+			ok();
+		}else{
+			fail("Message not sent.");
+		}
 	}
 }
 class GOB_Reddit extends GOB_Message {

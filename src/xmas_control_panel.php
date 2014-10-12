@@ -76,6 +76,7 @@ if(bandit_id() == $team_details['creator']){
 		echo "<span id=\"status\">Charity status is: {$charity['status']}</span>";
 		?>
 	</div>
+<?php 
 }
 ?>
 <div id="teamcp">
