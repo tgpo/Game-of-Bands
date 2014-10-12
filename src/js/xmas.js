@@ -91,5 +91,10 @@
 		+ '&team_name=' + $('#new_team_name').val() 
 		+ '&city_name=' + $('#new_team_city').val();
 	 });
+     
+     // See if we have a pre-filled value, initiate geocoding and therefore matching.
+     if($('#city').val().length){
+    	 $('#city').trigger('geocode');
+     }
 	});
 })(jQuery);

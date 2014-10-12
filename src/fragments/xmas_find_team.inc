@@ -4,7 +4,7 @@
 	<h3 id="location_note">Ensure you accept the location permision or type
 		your city below</h3>
 	<label for="city">Find your city: </label> <input id="city"
-		class="input-large" type="text" />
+		class="input-large" type="text" value="<?php echo $prefilled_city_name;?>"/>
 </div>
 <div class="ui-widget" style="margin-top: 2em; font-family: Arial"></div>
 <div id="autodetected_note"></div>

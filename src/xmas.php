@@ -60,7 +60,7 @@ function show_team($id) {
 	
 	// Check if bandit is in team, if so, display control panel
 	if(is_loggedin()){
-		$team_members = get_one('SELECT name FROM bandits WHERE xmas_team_id=:id',$id);
+		$team_members = get_one('SELECT name FROM bandits WHERE xmas_team_id=:id',$ida);
 		if(!$team_members){
 			// We don't have any members yet.. who created this team?
 			echo get_issue_link("XM:ST:Team members error.");
@@ -93,11 +93,10 @@ function show_team($id) {
  *********************************
  */
 function show_join($id){
+	global $out;
 	set_xmas_team($id);
-	// Redirect user to their new team
-	header ( 'Location: /xmas/team/' . $id );
-	echo 'Redirecting... <a href="/xmas/team/' . $id . '" title="Your new team!">here</a>';
-	exit();
+	$out .= '<h1>You Joined!</h1>';
+	show_team($id);
 }
 /*********************************
  * /xmas/city/id
@@ -208,13 +207,22 @@ function show_create_team(){
 	$city_id = get_one('SELECT id FROM cities WHERE name=:name',array('name'=>$city_name));
 	$city_id = $city_id['id'];
 	if(!$city_id){
-		$city_id = insert_query('INSERT INTO cities SET name=:name,lat=:lat,lng=:lng',array('name'=>$city_name,'lat'=>$lat,'lng'=>$lng));
+		$city_id = insert_query('INSERT INTO cities SET name=:name,lat=:lat,lng=:lng',
+				array('name'=>$city_name,'lat'=>$lat,'lng'=>$lng));
 	}
 	// Create the team in db. (Ideally we would have a database abstraction to ensure success, but for now)
-	$team_id = insert_query('INSERT INTO xmas_teams SET name=:name, city_id=:city_id',array('name'=>$team_name, 'city_id' => $city_id));
+	$team_id = insert_query('INSERT INTO xmas_teams SET name=:name, city_id=:city_id, creator=:cid, created=NULL',
+				array(
+						'name'=>$team_name, 
+						'city_id' => $city_id,
+						'cid' => bandit_id()
+				));
 	
 	// Join user to team
-	show_join($team_id);
+	set_xmas_team($team_id);
+	global $out;
+	$out .= '<h1>Team Created</h1>';
+	show_team($id);
 }
 
 /**
@@ -224,8 +232,27 @@ function show_create_team(){
  * geocoding and browser-detection enabling 'closest teams'
  */
 function show_find_team(){
+	global $out;
 	include('fragments/google_geocomplete.php');
-	get_template('xmas_find_team');
+	$prefilled_city_name = '';
+	if(isset($_SERVER['HTTP_REFERER'])){ 
+		// Someone came to us from some other site, lets pull the subreddit from the url and attempt to match it.
+		$ref = parse_url($_SERVER['HTTP_REFERER']);
+		error_log("REFERRER ROUND: " . $ref['path']);
+		$ref = str_replace('/r/','',$ref['path']); 
+		$ref = preg_replace('#([a-zA-Z_]*)/.*#', '\1', $ref); // we should have just the subreddit id now.
+		error_log("Looking for reddit: " . $ref);
+		// See if we have a match
+		$city = get_one('SELECT * FROM cities WHERE subreddit=:subreddit',array('subreddit'=>$ref));
+		if($city['subreddit']){
+			// send the city name to the drop-down box and submit it.
+			$prefilled_city_name = $city['name'];
+		}
+	}
+	include('fragments/xmas_menu.inc');
+	echo $out;
+	include('fragments/xmas_find_team.inc');
+	exit();//due to includes, we have to exit.
 }
 /*********************************
  * Utilities
@@ -242,7 +269,7 @@ function set_xmas_team($id){
 	
 	if(!has_xmas_team()){
 		$_SESSION['GOB']['xmas_team_id'] = $id;
-		insert_query('UPDATE bandits SET xmas_team_id = ' . $id . ' WHERE name=:name LIMIT 1', array('name'=>get_username()));
+		insert_query("UPDATE bandits SET xmas_team_id=:id, xmas_team_status='pending' WHERE name=:name LIMIT 1", array('id'=>$id,'name'=>get_username()));
 	}
 }
 /**
