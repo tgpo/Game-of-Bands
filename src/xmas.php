@@ -57,14 +57,19 @@ function show_team($id) {
 		fail_team(); return;
 	}
 	$city_id = $team_details['city_id'];
+	$city = convert_id_to_name($city_id,'cities');
+	
+	$creator = convert_id_to_name($team_details['creator']);
 	
 	// Check if bandit is in team, if so, display control panel
 	if(is_loggedin()){
 		$team_members = get_one('SELECT name FROM bandits WHERE xmas_team_id=:id',$ida);
+
 		if(!$team_members){
 			// We don't have any members yet.. who created this team?
 			echo get_issue_link("XM:ST:Team members error.");
-			exit(); 
+			// Either way, we know this guy isn't in the team, as NOBODY IS.
+			
 		}
 		$bandit = get_bandit_name();
 		if(is_mod() || in_array($bandit,$team_members)){
@@ -74,11 +79,21 @@ function show_team($id) {
 	
 	// get song url, team info, city link, reddit link to city subreddit, etc..
 	global $out;
-	$team_name = get_one('SELECT name from xmas_teams WHERE id=:id',array('id'=>$id));
-	$team_name = $team_name['name'];
-	$out = '<h2>Team id: ' . $team_name . '</h2><ul class="team-list">'; 
-	$out .= array_to_table($team_details); //TODO:!!!
-	$out .='</ul>';
+	$team_name = $team_details['name'];
+	$out = '<h2>Team: ' . $team_name . "</h2> 
+	<hr>
+	<h3>This team is based in <a href=\"/xmas/city/$city_id\">$city</a></h3>
+	<p>Team Creator: " . a_bandit($creator). " </p>
+	<p>Current members are: </p>
+	<ul>";
+	foreach($team_members as $t){
+		$out .= '<li>' . a_bandit($t['name']) . '</li>';
+	}
+	$out .= '</ul>' ;
+	if($team_details['nominated_charity']){
+		$out .= '<h3>Partial proceeds of this teams share of album sales will be sent directly to ' . $team_details['nominated_charity'];
+	}
+	$out .= '<p>Team created: UTC(' . $team_details['created'] .')</p>'; 
 	if(is_loggedin()){
 		if(!has_xmas_team()){
 			// only show this to Bandits who are not in a team.
@@ -113,18 +128,22 @@ function show_city($id) {
 		fail_city(); return; 
 	}else{
 		$a = array('id' => $id);
-		$name = get_one('SELECT name FROM cities WHERE id=:id',$a);
-		$name = $name['name'];
-		if(!$name){ 
+		$city = get_one('SELECT name,lat,lng FROM cities WHERE id=:id',$a);
+		$city_name = $city['name'];
+		if(!$city_name){ 
 			fail_city(); return; 
 		}
 		$teams = sql_to_array("SELECT id,name FROM xmas_teams WHERE city_id=$id ORDER BY name ASC");
-		$out = '<h2>Teams in ' . $name . '</h2>
+		$out = '<h2>Teams in ' . $city_name . '</h2>
 				<ul class="team-list">'; 
 		foreach ($teams as $t){
 			$out.= '<li class="team"><a href="/xmas/team/' . $t['id'] . '" title="View team info">' . $t ['name'] . '</a></li>';
 		}
 		$out .='</ul>';
+		// Output a tiny script containing the coordinates.
+		echo '<script type="text/javascript">var coordinates = {lat:' . $city['lat'] . ',lng:' . $city['lng'].'};</script>';
+		get_template('google_maps_template');
+		
 	}
 }
 /*********************************

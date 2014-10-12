@@ -1,6 +1,6 @@
 <?php
 
-define ( 'DEBUG', true); //IMPORTANT: SET TO FALSE ON SERVER
+define ( 'DEBUG', false); //IMPORTANT: SET TO FALSE ON SERVER
 define ( 'DEBUG_USER', 'RetroTheft' );
 define ( 'DEBUG_VOTING', false ); // set to true to always enable voting, and see all votes in error log.
 define ( 'DEBUG_SQL', true ); // Set to true to see all queries in the apache log.
