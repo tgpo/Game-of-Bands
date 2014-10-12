@@ -31,9 +31,8 @@ function writeNewMessageCount(){
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/validator/3.12.0/validator.min.js"></script>
 <script src="/lib/js/jquery-tablesorter/jquery.tablesorter.min.js"></script>
-<script>var GOB = GOB || {};</script>
 <script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
-<script src="/src/js/site.js?cf"></script>
+<script src="/src/js/site.js"></script>
 <?php
 //if(isset($previous_session)){
 //TODO: Post session details here, so javascript can reinstate them.

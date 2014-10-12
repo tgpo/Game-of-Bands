@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 08, 2014 at 11:11 PM
+-- Generation Time: Oct 12, 2014 at 01:37 PM
 -- Server version: 5.5.38-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.4
 
@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `bandits` (
   `VocalsWins` int(11) DEFAULT NULL,
   `LyricsWins` int(11) DEFAULT NULL,
   `xmas_team_id` int(11) NOT NULL,
+  `xmas_team_status` enum('pending','approved','banned') COLLATE latin1_general_ci NOT NULL COMMENT '''Bandits must be approved by the team creator before they are "Officially" in the team.''',
   `real_name` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `email` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `xmas_tc` timestamp NULL DEFAULT NULL COMMENT 'NULL if they haven''t agreed, the timestamp of WHEN they agreed if they have.',
@@ -278,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `templates` (
   `title` varchar(255) NOT NULL,
   `text` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 

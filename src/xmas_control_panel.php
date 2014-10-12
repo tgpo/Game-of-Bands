@@ -20,7 +20,7 @@ if(bandit_id() == $team_details['creator']){
 	// Get location of team
 	$city = get_one('SELECT * FROM cities WHERE id = ' . $city_id);
 	// Get charity information, if set
-	$charity = false;
+	$charity = $charities = false;
 	if(strlen($team_details['nominate_charity'])){
 		$charity = get_one('SELECT * FROM charities WHERE id=:id',array('id',$team_details['nominate_charity']));
 	}else{
@@ -44,7 +44,7 @@ if(bandit_id() == $team_details['creator']){
 		// If we haven't specified a charity, we should have an array built from all previous charities, allowing the team
 		// creator to simply select one.. simpler far than digging through the details to nominate a new one.
 		// Thus making it more likely that they will actually do it.
-		if(isset($charities)){
+		if($charities){
 			echo '<label for="existing_charity">Select existing charity:</label>
  				<select id="existing_charity">';
 			foreach($charities as $c){
