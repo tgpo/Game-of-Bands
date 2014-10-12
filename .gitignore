@@ -20,6 +20,7 @@ local.properties
 error_log
 .ftpquota
 .svn
+src/cache/*
 
 # External tool builders
 .externalToolBuilders/
