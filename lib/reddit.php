@@ -171,6 +171,7 @@ class reddit{
 	* Function: Send Message To User
 	* Description: Send a message to a user.
 	* API: https://github.com/reddit/reddit/wiki/API%3A-compose
+	* Actual API: http://www.reddit.com/dev/api#POST_api_compose
 	* Params: to (string): The username to send the message to.
 	*         subject (string): The subject of the message.
 	*         body (string): The message contents.
