@@ -59,12 +59,7 @@ if(bandit_id() == $team->getCreator()){
 <pre>// TODO: disable team-submission until all team-members have agreed & nominated & song submitted to SC
 // TODO: show list of pending bandits, with checkbox approval and button to submit to server</pre>
 	<?php
-	foreach($team_members as $t){
-		$td = get_one('SELECT * FROM bandits WHERE name=:name',array('name' => $t));
-		if($td['xmas_team_status'] == 'pending'){
-			echo a_bandit($t) . ' is still pending. <input type="button" value="Approve" class="approve_member"/> <br />';
-		}
-	}
+	echo $team->getTeamApprovalButtons();
 ?>
 <pre>
 //TODO: royalty split interface, table of approved bandits with input fields indicating current royalty split, allowing change (postback/json)

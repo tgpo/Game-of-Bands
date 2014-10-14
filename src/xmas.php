@@ -163,7 +163,7 @@ function show_city($id) {
 function show_list() {
 	global $out;
 	// get all cities in database
-	$cities = sql_to_array ( "SELECT id,name, (SELECT COUNT(id) FROM xmas_teams WHERE city_id = cities.id) as teams FROM cities HAVING teams > 0 ORDER BY name ASC" ); //add team count?
+	$cities = City::getList();
 	get_template('xmas_list_heading');
 	foreach ( $cities as $c ) {
 		$out .= '<li class="city"><a href="/xmas/city/' . $c ['id'] . '" title="View city info">' . $c ['name'] . '</a> (' . $c['teams']. ')</li>';
@@ -176,30 +176,10 @@ function show_list() {
  *********************************
  */
 function show_jsonteams(){
-	$teams = false;
 	$lat = filter_input(INPUT_GET,'lat',FILTER_VALIDATE_FLOAT);
 	$lng = filter_input(INPUT_GET,'lng',FILTER_VALIDATE_FLOAT);
 	
-	if(!$lat || !$lng)
-		fail('No coordinates received, unable to process.');
-	
-	// Attempt to match via latitude/longitude : http://stackoverflow.com/a/574762
-	// Modified to join on teams table compared to the city it's linked with.
-	$teams = sql_to_array('
-	SELECT x.id as tid,x.name as team,c.id as cid,c.name as city,
-	( 6371 * 
-		acos( 
-			cos( radians(' . $lat .') ) 
-		  * cos( radians(c.lat) ) 
-		  * cos( radians(' . $lng .') - radians(c.lng) ) 
-		  + sin( radians(' . $lat .') ) 
-		  * sin( radians(c.lat)) ) 
-	 )   AS distance 
-	FROM cities c JOIN xmas_teams x ON x.city_id = c.id
-	HAVING distance < 500 
-	ORDER BY distance ASC
-	LIMIT 0 , 20' // Find first 20 teams within 500 kms, ordered by closest
-		); 
+	$teams = XmasTeam::find_teams($lat,$lng);
 	
 	if(!$teams){
 		fail('No teams within range.',false,404);//not an error, a perfectly normal program state, just using fail to transmit the lack of team data
@@ -221,35 +201,15 @@ function show_jsonteams(){
 function fail_create_team(){ echo "Invalid inputs, please <a href=\"/xmas/find_team\">go back & try again</a> or "  . get_issue_link("XM:FT:Create_Team_Error"); }
 function show_create_team(){
 	loggedin_check();
-	$team_name = filter_input(INPUT_GET,'team_name',FILTER_SANITIZE_STRING);
-	$city_name = filter_input(INPUT_GET,'city_name',FILTER_SANITIZE_STRING);
-	$lat = filter_input(INPUT_GET,'lat',FILTER_VALIDATE_FLOAT);
-	$lng = filter_input(INPUT_GET,'lng',FILTER_VALIDATE_FLOAT);
 	
-	if(!$lat || !$lng || !$team_name || !$city_name){
-		fail_create_team(); return;
-	}
-	
-	// If the city isn't in the system yet, we should create it.
-	$city_id = get_one('SELECT id FROM cities WHERE name=:name',array('name'=>$city_name));
-	$city_id = $city_id['id'];
-	if(!$city_id){
-		$city_id = insert_query('INSERT INTO cities SET name=:name,lat=:lat,lng=:lng',
-				array('name'=>$city_name,'lat'=>$lat,'lng'=>$lng));
-	}
-	// Create the team in db. (Ideally we would have a database abstraction to ensure success, but for now)
-	$team_id = insert_query('INSERT INTO xmas_teams SET name=:name, city_id=:city_id, creator=:cid, created=NULL',
-				array(
-						'name'=>$team_name, 
-						'city_id' => $city_id,
-						'cid' => bandit_id()
-				));
+	$team = XmasTeam::create_team();
 	
 	// Join user to team
-	set_xmas_team($team_id);
-	global $out;
-	$out .= '<h1>Team Created</h1>';
-	show_team($id);
+	set_xmas_team($team->getId());
+	
+	echo '<h1>Team ' . $team->getName() . ' Created!</h1>';
+	
+	show_team($team->getId);
 }
 
 /**

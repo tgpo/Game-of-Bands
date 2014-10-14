@@ -9,7 +9,7 @@ require_once ('query.php');
 abstract class GOB_Abstract {
 	protected $id;
 	protected $data;
-	protected $table_name;
+	protected static $table;
 	
 	public function __construct($id) {
 		if (! is_numeric ( $id )) {
@@ -18,7 +18,7 @@ abstract class GOB_Abstract {
 		$this->id = $id;
 	}
 	protected function load() {
-		$this->data = pdo_query ( "SELECT * FROM {$this->table_name} WHERE id=:id", array (
+		$this->data = pdo_query ( "SELECT * FROM " . static::$table. " WHERE id=:id", array (
 				'id' => $this->id 
 		) );
 	}
@@ -39,7 +39,7 @@ abstract class GOB_Abstract {
 		$this->data [$field] = $value;
 	}
 	protected function save() {		
-		$resultInsert = pdo_query ( "SHOW COLUMNS FROM " . $this->table_name . " WHERE Field NOT IN ('id')" );
+		$resultInsert = pdo_query ( "SHOW COLUMNS FROM ". static::$table . " WHERE Field NOT IN ('id')" );
 		print_r ( $resultInsert );
 		$field_names = array ();
 		foreach ( $resultInsert as $row ) {
@@ -53,7 +53,7 @@ abstract class GOB_Abstract {
 			$updates [] = "$key = $value";
 		}
 		$implodeArray = implode ( ', ', $updates );
-		$sql = sprintf ( "UPDATE %s SET %s WHERE id='%s'", $table, $implodeArray, $this->id );
+		$sql = sprintf ( "UPDATE %s SET %s WHERE id='%s'", static::$table, $implodeArray, $this->id );
 		return insert_query ( $sql );
 	}
 	
@@ -63,16 +63,16 @@ abstract class GOB_Abstract {
 	 * ******************** Static functions
 	 */
 	public static function id($name) {
-		$a = pdo_query ( "SELECT id FROM {$this->table_name} WHERE name=:name LIMIT 1", array (
+		$a = pdo_query ( "SELECT id FROM ". static::$table . " WHERE name=:name LIMIT 1", array (
 				'name' => $name 
 		) );
 		return $a ['id'];
 	}
 	public static function name($id) {
-		return self::dbget ( 'name', $id );
+		return static::dbget ( 'name', $id );
 	}
 	public static function dbget($field, $id) {
-		$a = pdo_query ( "SELECT {$field} FROM {$this->table_name} WHERE id=:id LIMIT 1", array (
+		$a = pdo_query ( "SELECT {$field} FROM ". static::$table . " WHERE id=:id LIMIT 1", array (
 				'id' => $id 
 		) );
 		return $a [$field];

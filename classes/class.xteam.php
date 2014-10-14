@@ -1,18 +1,58 @@
 <?php
 require_once('class.abstract.php');
+require_once('class.bandit.php');
 
 class XmasTeam extends GOB_Abstract{
 	
 	private $team;
+	private $team_data;
+	public static $table = 'xmas_teams';
 	
 	public function XmasTeam($id){
-		$this->table_name = 'xmas_teams';
 		parent::__construct($id);
 		$this->team = array();
-		foreach(sql_to_array('SELECT name FROM bandits WHERE xmas_team_id='.$this->id) as $t){
+		foreach(sql_to_array('SELECT * FROM ' . Bandit::$table . ' WHERE xmas_team_id='.$this->id) as $t){
 			$this->team [] = $t['name'];
+			$this->team_data[] = $t;
 		}
 	}
+	
+	public function hasTeamAgreedToTermsAndCondtions(){
+		foreach($this->team_data as $t){
+			if($t['xmas_tc'] == ''){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public function hasTeamAgreedToShareChanges(){
+		foreach($this->team_data as $t){
+			if($td['xmas_share_change'] == 0){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public function getTeamApprovalButtons(){
+		foreach($this->team_data as $t){
+			if($td['xmas_team_status'] == 'pending'){
+				echo a_bandit($t['name']) . ' is still pending. <input type="button" value="Approve" class="approve_member"/> <br />';
+			}
+		}
+	}
+	
+	public function getShare($name){
+		foreach($this->team_data as $t){
+			if($t['name'] == $name){
+				return $t['xmas_share'];
+			}
+		}
+		return false;
+	}
+	
+	
 	
 	public function inTeam($bandit){
 		return in_array($bandit,$this->team);
@@ -29,13 +69,16 @@ class XmasTeam extends GOB_Abstract{
 		$this->set('city_id',$i);
 	}
 	public function getCityName(){
-		return convert_id_to_name($this->getCityId(),'cities');
+		return City::name($this->getCityId());
 	}
 	
 	public function getStatus(){
 		return $this->get('status');
 	}
 	public function setStatus($s){
+		if(!$s == 'pending'){
+			mod_check();
+		}
 		$this->set('status',$s);
 	}
 	
@@ -47,7 +90,7 @@ class XmasTeam extends GOB_Abstract{
 	}
 	
 	public function getCreatorName(){
-		return convert_id_to_name($this->getCreator());
+		return Bandit::name($this->getCreator());
 	}
 	/**
 	 * Set the teams creator by bandit name.
@@ -63,6 +106,9 @@ class XmasTeam extends GOB_Abstract{
 	
 	public function getCharity(){
 		return $this->get('nominated_charity');
+	}
+	public function setCharity($s){
+		$this->set('nominated_charity',$s);
 	}
 	public function hasCharity(){
 		return ($this->getCharity());
@@ -99,4 +145,50 @@ class XmasTeam extends GOB_Abstract{
 		$this->set('filename',$f);
 	}
 	
+	public static function create_team(){
+		$city = City::getCity();
+		
+		$team_name = filter_input(INPUT_GET,'team_name',FILTER_SANITIZE_STRING);
+		// Create the team in db. (Ideally we would have a database abstraction to ensure success, but for now)
+		$team_id = insert_query('INSERT INTO '. static::$table .' SET name=:name, city_id=:city_id, creator=:cid, created=NULL',
+				array(
+						'name'=>$team_name,
+						'city_id' => $city->getId(),
+						'cid' => bandit_id()
+				));
+		return new XmasTeam($team_id);
+	}
+
+	/**
+	 * Find teams within a certain distance from latitude and longitude coordinates
+	 * Contains an array of team ids, names, city ids and city names
+	 * @param double $lat
+	 * @param double $lng
+	 * @param int $distance in KM's, defaults to 500
+	 * @param int $count defaults to 20
+	 * @return boolean|Ambigous <boolean, multitype:>
+	 */
+	public static function find_teams($lat,$lng,$distance=500,$count=20){
+		
+		if(!$lat || !$lng)
+			return false;
+		
+		// Attempt to match via latitude/longitude : http://stackoverflow.com/a/574762
+		// Modified to join on teams table compared to the city it's linked with.
+		return sql_to_array('
+	SELECT x.id as tid,x.name as team,c.id as cid,c.name as city,
+	( 6371 *
+		acos(
+			cos( radians(' . $lat .') )
+		  * cos( radians(c.lat) )
+		  * cos( radians(' . $lng .') - radians(c.lng) )
+		  + sin( radians(' . $lat .') )
+				  * sin( radians(c.lat)) )
+	 )   AS distance
+	FROM ' . City::$table . ' c JOIN ' . static::$table . ' x ON x.city_id = c.id
+	HAVING distance < ' . $distance .'
+	ORDER BY distance ASC
+	LIMIT 0 , '. $count // Find first 20 teams within 500 kms, ordered by closest
+		);
+	}
 }

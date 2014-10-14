@@ -3,8 +3,9 @@ require_once('class.abstract.php');
 
 class Song extends GOB_Abstract {
 	
+	public static $table = 'songs';
+	
 	public function Song($id){
-		$this->table_name = 'songs';
 		parent::__construct($id);
 	}
 	
@@ -35,13 +36,13 @@ class Song extends GOB_Abstract {
 	/* Voting functions */
 	public function add_votes($type, $count) {
 		insert_query ( 
-				"UPDATE songs SET {$type}vote = {$type}vote + $count WHERE id=:id", 
+				"UPDATE " . static::$table ." SET {$type}vote = {$type}vote + $count WHERE id=:id", 
 				array (
 						'id' => $this->id 
 				) );
 	}
 	public function add_song_votes($count) {
-		insert_query ( "UPDATE songs SET votes = votes + $count WHERE id=:id", 
+		insert_query ( "UPDATE " . static::$table ." SET votes = votes + $count WHERE id=:id", 
 				array (
 						'id' => $this->id 
 				) );
@@ -57,7 +58,7 @@ class Song extends GOB_Abstract {
 	 * @return string The name of the bandit.
 	 */
 	public static function bandit($songID, $type = 'music') {
-		$a = get_one ( "SELECT $type FROM songs WHERE id=$songID" );
+		$a = get_one ( "SELECT $type FROM ". static::$table . " WHERE id=$songID" );
 		return $a[$type];
 	}
 }

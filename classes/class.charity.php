@@ -3,8 +3,9 @@ require_once('class.abstract.php');
 
 class Charity extends GOB_Abstract{
 	
+	public static $table =  'charities';
+	
 	public function Charity($id){
-		$this->table_name = 'charities';
 		parent::__construct($id);
 	}
 	
@@ -44,6 +45,6 @@ class Charity extends GOB_Abstract{
 	}
 	
 	public static function getList(){
-		return sql_to_array('SELECT id,name FROM charities');
+		return sql_to_array('SELECT id,name FROM ' . static::$table);
 	}
 }

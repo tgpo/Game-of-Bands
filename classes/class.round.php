@@ -6,8 +6,9 @@ require_once('../src/query.php');
  * 
  */
 class Round extends GOB_Abstract{	
+	protected static $table = 'rounds';
+	
 	public function __construct($id) {
-		$this->table_name = 'rounds';
 		$this->id = $id;
 	}
 	
