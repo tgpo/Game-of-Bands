@@ -1,27 +1,15 @@
 <?php 
-require_once('../src/query.php');
+require_once('class.abstract.php');
 
-class Song {
-	private $id;
-	private $data;
+class Song extends GOB_Abstract {
 	
-	public function __construct($id) {
-		if(!is_numeric($id)){
-			$id = Song::id($id);
-		}
-		$this->id = $id;
-	}
-	private function load() {
-		$this->data = pdo_query ( "SELECT * FROM songs WHERE id=:id", 
-				array (
-						'id' => $this->id 
-				) );
+	public function Song($id){
+		$this->table_name = 'songs';
+		parent::__construct($id);
 	}
 	
 	public function get_round(){
-		if(!is_array($this->data))
-			$this->load();
-		return $this->data['round'];
+		$this->get('round');
 	}
 	
 	/**
@@ -57,32 +45,6 @@ class Song {
 				array (
 						'id' => $this->id 
 				) );
-	}
-	
-	/********** Static functions */
-	
-	/**
-	 * We don't save the name of the song in the votes table..
-	 * so we need to get it now.
-	 * 
-	 * @param
-	 *        	int ID number of the song.
-	 * @return String
-	 */
-	public static function name($id) {
-		$a = get_one ( "SELECT name FROM songs WHERE id=$id" );
-		return $a['name'];
-	}
-	
-	/**
-	 * Get the ID number of the Song from its Name.
-	 * 
-	 * @param string $name        	
-	 * @return int
-	 */
-	public static function id($name) {
-		$a = get_one ( "SELECT id FROM songs WHERE name=$name" );
-		return $a['id'];
 	}
 	
 	/**

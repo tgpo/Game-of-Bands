@@ -1,4 +1,5 @@
 <?php
+require_once ($here . '/../classes/class.xteam.php');
 /**
  * Functions for team-members and team-owners to manipulate their team.
  * 
@@ -11,7 +12,7 @@
  * 
  */
 if(!$city_id) die(get_issue_link('XM:FT:XCP:City_Id_Fail'));
-if(!$team_details) die(get_issue_link('XM:FT:XCP:Team_Details_Fail'));
+if(!$team) die(get_issue_link('XM:FT:XCP:Team_Details_Fail'));
 ?>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -43,15 +44,15 @@ $(document).ready(function(){
 <h3>Control Panel</h3> 
 <?php 
 // Test for team creator
-if(bandit_id() == $team_details['creator']){
+if(bandit_id() == $team->getCreator()){
 	// Get location of team
 	$city = get_one('SELECT * FROM cities WHERE id = ' . $city_id);
 	// Get charity information, if set
 	$charity = $charities = false;
-	if(isset($team_details['nominated_charity'])){
-		$charity = get_one('SELECT * FROM charities WHERE id=:id',array('id' => $team_details['nominated_charity']));
+	if($team->hasCharity()){
+		$charity = new Charity($team->getCharity());
 	}else{
-		$charities = sql_to_array('SELECT id,name FROM charities');
+		$charities = Charity::getList();
 	}
 	?>
 	<div id="teamacp">

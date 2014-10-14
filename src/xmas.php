@@ -3,9 +3,14 @@
  * Process GoB Xmas things.
  */
 $type = $string = $out = '';
+$here = dirname(dirname(__FILE__));
+set_include_path( get_include_path(). ':' . $here   . ':' . $here .'/src/' . ':' . $here . '/classes/');
+
 require_once('query.php');
 require_once('gob_user.php');
 require_once('functions.php');
+require_once('class.xteam.php');
+require_once('class.city.php');
 
 if (isset ( $_GET ['type'] ) && strlen($_GET['type'])) {
 	$params = explode ( '/', $_GET ['type'] ); // should convert something like: /xmas/team/name into this script $type = 'team' and $name = 'name';
@@ -51,22 +56,21 @@ function show_team($id) {
 	if(!$id) { 
 		fail_team(); 
 		return;
-	}
-	$ida = array('id'=>$id);
-	$team_details = get_one('SELECT * FROM xmas_teams WHERE id=:id',$ida);
-	if(count($team_details) == 0){
+	}	
+	$team = new XmasTeam($id);
+	
+	if(!is_object($team)){
 		fail_team(); 
 		return;
 	}
-	$city_id = $team_details['city_id']; 
-	$city_name = convert_id_to_name($city_id,'cities');
+	$city_id = $team->getCityId();
+	$city_name = $team->getCityName(); 
 	
-	$creator = convert_id_to_name($team_details['creator']);
+	$creator = $team->getCreatorName();
+
 	// Get list of team members.
-	$team_members = array();
-	foreach(sql_to_array('SELECT name FROM bandits WHERE xmas_team_id='.$id) as $t){
-		$team_members[] = $t['name'];
-	}
+	$team_members = $team->getTeam();
+	
 	// Check if bandit is in team, if so, display control panel
 	if(is_loggedin()){
 		if(!$team_members){
@@ -74,8 +78,7 @@ function show_team($id) {
 			echo get_issue_link("XM:ST:Team members error.");
 			// Either way, we know this guy isn't in the team, as NOBODY IS.
 		}
-		$bandit = get_bandit_name();
-		if(in_array($bandit,$team_members)){
+		if($team->inTeam(get_bandit_name())){
 			include_once('xmas_control_panel.php');
 		}
 	}
@@ -86,21 +89,21 @@ function show_team($id) {
 	$out = '<h2>Team: ' . $team_name . "</h2> 
 	<hr>
 	<h3>This team is based in <a href=\"/xmas/city/$city_id\">$city_name</a></h3>
-	<p>Team Creator: " . a_bandit($creator). " </p>
+	<p>Team Creator: " . a_bandit($team->getCreatorName()). " </p>
 	<p>Current members are: </p>
 	<ul>";
 	foreach($team_members as $t){
 		$out .= '<li>' . a_bandit($t) . '</li>';
 	}
 	$out .= '</ul>' ;
-	if(isset($team_details['nominated_charity'])){
-		$out .= '<h3>Partial proceeds of this teams share of album sales will be sent directly to ' . $team_details['nominated_charity'];
+	if($team->hasCharity()){
+		$out .= '<h3>Partial proceeds of this teams share of album sales will be sent directly to ' . $team->getCharity();
 	}
-	if(isset($team_details['song_url']))
+	if($team->hasUrl())
 		$out .= '<p>Team song: <a href="#" title="Would be a listen link with the widget..">Listen</a></p>';
-	$out .= '<p>Team created: UTC(' . $team_details['created'] .')</p>'; 
+	$out .= '<p>Team created: UTC(' . $team->created .')</p>'; 
 	if(is_loggedin()){
-		if(!has_xmas_team()){
+		if(!get_xmas_team()){
 			// only show this to Bandits who are not in a team.
 			$out .= '<a href="/xmas/join/' . $id . '" title="Want to join this team?">Join this team</a>';
 		}
@@ -280,15 +283,18 @@ function show_find_team(){
 }
 
 function show_charity($id){
-	$id = filter_var($id,FILTER_SANITIZE_INT);
+	die('Incomplete.');
+	$id = filter_var($id,FILTER_VALIDATE_INT);
 	if(!$id){
 		die('Unknown charity.');
 	}
+	$charity = pdo_query('SELECT * FROM charities WHERE id=:id LIMIT 1',array('id'=>$id));
+	print_r($charity);//TODO: Not sure if we even need to display this stuff at all.. 
 }
 
 function show_jsonsetcharity(){
 	$bandit_id = (DEBUG) ? DEBUG_USER_ID : bandit_id();
-	$team_id = (DEBUG) ? 2 : has_xmas_team();
+	$team_id = (DEBUG) ? 2 : get_xmas_team();
 	if(!$team_id){
 		fail("How did you get here?");
 	}
@@ -338,7 +344,7 @@ function set_xmas_team($id){
 	if(!$id)
 		return false;
 	
-	if(!has_xmas_team()){
+	if(!get_xmas_team()){
 		$_SESSION['GOB']['xmas_team_id'] = $id;
 		insert_query("UPDATE bandits SET xmas_team_id=:id, xmas_team_status='pending' WHERE name=:name LIMIT 1", array('id'=>$id,'name'=>get_username()));
 	}
@@ -347,7 +353,7 @@ function set_xmas_team($id){
  * Test if the current bandit has a team already
  * @return boolean
  */
-function has_xmas_team(){
+function get_xmas_team(){
 	// we know bandit has logged in at this point (well, we should always check before running this, but loggedin_check will force that.
 	loggedin_check();
 	if(isset($_SESSION['GOB']['xmas_team_id'])){
@@ -355,7 +361,6 @@ function has_xmas_team(){
 	}
 	return false;
 }
-
 
 /********************************* 
  * Script output wrapper

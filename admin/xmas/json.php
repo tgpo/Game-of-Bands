@@ -6,9 +6,11 @@ define ( 'SUBREDDIT', 'waitingforgobot' );
 
 // note: set DEBUG mode in query.php in order to test sending functions, all reddit messages/threads are redirected to SUBREDDIT.
 
-require_once ('../includes/gob_admin.php');
-require_once ('../../src/query.php');
-require_once ('../../classes/class.messaging.php');
+$here = dirname(__FILE__);
+set_include_path( get_include_path(). ':' . $here   . ':' . $here .'/src/' . ':' . $here . '/classes/'. ':' . $here . '/includes/');
+require_once ('gob_admin.php');
+require_once ('query.php');
+require_once ('class.messaging.php');
 
 mod_check (); // important, some of this is pretty powerful/flexible.. in other words dangerous.
               

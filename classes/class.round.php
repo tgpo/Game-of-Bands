@@ -5,18 +5,10 @@ require_once('../src/query.php');
  * Utility functions that are unique to a Round.
  * 
  */
-class Round {
-	private $id;
-	private $data;
-	
+class Round extends GOB_Abstract{	
 	public function __construct($id) {
+		$this->table_name = 'rounds';
 		$this->id = $id;
-	}
-	private function load() {
-		$this->data = pdo_query ( "SELECT * FROM rounds WHERE number=:id", 
-				array (
-						'id' => $this->id 
-				) );
 	}
 	
 	public function getData(){
@@ -39,7 +31,6 @@ class Round {
 	 * @return String
 	 */
 	public static function get_theme($id){
-		$t = pdo_query( "SELECT theme FROM rounds WHERE number=:id", array('id'=>$id));
-		return $t['theme'];
+		return $this->get('theme',$id);
 	}
 }

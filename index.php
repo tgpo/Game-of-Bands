@@ -1,9 +1,10 @@
 <?php
 define('INDEX', true);
 $here = dirname(__FILE__);
-require_once( $here . '/src/query.php' );
-require_once( $here . '/src/gob_user.php' );
-include_once( $here . '/src/cacheme.php');
+set_include_path( get_include_path(). ':' . $here   . ':' . $here .'/src/' . ':' . $here . '/classes/');
+require_once( 'query.php' );
+require_once( 'gob_user.php' );
+include_once( 'cacheme.php');
 
 // We should probably get a "favicon.ico".. currently the request will be "handled" erroneously and incorrectly by the index.
 // TODO: Come up with a GOB icon.
