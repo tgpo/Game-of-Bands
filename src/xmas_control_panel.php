@@ -46,7 +46,7 @@ $(document).ready(function(){
 // Test for team creator
 if(bandit_id() == $team->getCreator()){
 	// Get location of team
-	$city = get_one('SELECT * FROM cities WHERE id = ' . $city_id);
+	$city = new City($team->getCityId());
 	// Get charity information, if set
 	$charity = $charities = false;
 	if($team->hasCharity()){
@@ -71,7 +71,7 @@ if(bandit_id() == $team->getCreator()){
 </pre>	
 <s>// TODO: rename team input box</s> backend
 	<div>
-		<label for="team_name">Team Name:</label><input type="text" value="<?php echo $team_details['name'];?>" id="team_name" />
+		<label for="team_name">Team Name:</label><input type="text" value="<?php echo $team->getName();?>" id="team_name" />
 	</div>
 	<div id="charity_nomination">
 		<?php 
@@ -98,12 +98,12 @@ if(bandit_id() == $team->getCreator()){
 			<input type="text" id="nominate_id" title="Charities are only 'legal' if registered in the government of their area of operation, governments typically issue a unique identifier indicating their status as a registered charity, and allowing donators to look up the status."/> <br />
 			
 			<?php 
-			echo "<span id=\"status\">Charity status is: {$charity['status']}</span><br />";
+			echo "<span id=\"status\">Charity status is: {$charity->getStatus()}</span><br />";
 			?>
 			<input type="button" value="Save Charity" class="save_charity"  />
 			<?php 
 		}else{
-			echo 'Selected charity: <a href="/xmas/charity/' . $charity['id'] . '">' . $charity['name'] . '</a>';
+			echo 'Selected charity: <a href="/xmas/charity/' . $charity->getId() . '">' . $charity->getName() . '</a>';
 		}?>
 	</div>
 	

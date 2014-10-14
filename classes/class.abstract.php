@@ -22,8 +22,11 @@ abstract class GOB_Abstract {
 				'id' => $this->id 
 		) );
 	}
-	protected function getId(){
+	public function getId(){
 		return $this->get('id');
+	}
+	public function getName(){
+		return $this->get('name');
 	}
 	protected function get($field) {
 		if (! is_array ( $this->data ))

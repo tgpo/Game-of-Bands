@@ -2,7 +2,7 @@
 
 require_once('class.abstract.php');
 
-class City extends GOB_Abstract{
+class City extends GOB_Abstract {
 	
 	public function City($id){
 		$this->table_name = 'cities';

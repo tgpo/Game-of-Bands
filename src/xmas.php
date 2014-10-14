@@ -64,7 +64,8 @@ function show_team($id) {
 		return;
 	}
 	$city_id = $team->getCityId();
-	$city_name = $team->getCityName(); 
+	$city = new City($city_id);
+	$city_name = $city->getName(); 
 	
 	$creator = $team->getCreatorName();
 
@@ -85,10 +86,9 @@ function show_team($id) {
 	
 	// get song url, team info, city link, reddit link to city subreddit, etc..
 	global $out;
-	$team_name = $team_details['name'];
-	$out = '<h2>Team: ' . $team_name . "</h2> 
+	$out = '<h2>Team: ' . $team->getName() . "</h2> 
 	<hr>
-	<h3>This team is based in <a href=\"/xmas/city/$city_id\">$city_name</a></h3>
+	<h3>This team is based in <a href=\"/xmas/city/{$city->getId()}\">{$city->getName()}</a></h3>
 	<p>Team Creator: " . a_bandit($team->getCreatorName()). " </p>
 	<p>Current members are: </p>
 	<ul>";
@@ -101,7 +101,7 @@ function show_team($id) {
 	}
 	if($team->hasUrl())
 		$out .= '<p>Team song: <a href="#" title="Would be a listen link with the widget..">Listen</a></p>';
-	$out .= '<p>Team created: UTC(' . $team->created .')</p>'; 
+	$out .= '<p>Team created: UTC(' . $team->created() .')</p>'; 
 	if(is_loggedin()){
 		if(!get_xmas_team()){
 			// only show this to Bandits who are not in a team.
