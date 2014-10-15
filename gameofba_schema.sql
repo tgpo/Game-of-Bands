@@ -172,6 +172,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
 
 CREATE TABLE IF NOT EXISTS `nominations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
   `bandit_id` int(11) NOT NULL COMMENT 'FK bandits.id',
   `charity_id` int(11) NOT NULL COMMENT 'FK charities.id',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

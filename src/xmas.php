@@ -19,11 +19,11 @@ if (isset ( $_GET ['type'] ) && strlen($_GET['type'])) {
 	$string = array_shift($params);
 	if(!strlen($string)){
 		$string = false;
-	}	
+	}
 } else {
 	$type = 'list';
 }
-// X-Mas Router, we can process many things from this. 
+// X-Mas Router, we can process many things from this.
 $func = 'show_' . $type;
 if(function_exists($func)){
 	call_user_func($func,$string);
@@ -43,9 +43,9 @@ if(function_exists($func)){
 
 /*********************************
  * /xmas/team/id
- * 
+ *
  * Displays details & controls for team
- * 
+ *
  * If a bandit is in the team, should show controls, otherwise, just details,
  * eventually, should show song player.
 * *********************************
@@ -53,25 +53,25 @@ if(function_exists($func)){
 function fail_team(){ echo "Invalid team identifier. I don't know what to say mate. " . get_issue_link("XM:FT:Invalid_Team"); }
 function show_team($id) {
 	$id = filter_var($id,FILTER_VALIDATE_INT);
-	if(!$id) { 
-		fail_team(); 
+	if(!$id) {
+		fail_team();
 		return;
-	}	
+	}
 	$team = new XmasTeam($id);
-	
+
 	if(!is_object($team)){
-		fail_team(); 
+		fail_team();
 		return;
 	}
 	$city_id = $team->getCityId();
 	$city = new City($city_id);
-	$city_name = $city->getName(); 
-	
+	$city_name = $city->getName();
+
 	$creator = $team->getCreatorName();
 
 	// Get list of team members.
 	$team_members = $team->getTeam();
-	
+
 	// Check if bandit is in team, if so, display control panel
 	if(is_loggedin()){
 		if(!$team_members){
@@ -83,10 +83,10 @@ function show_team($id) {
 			include_once('xmas_control_panel.php');
 		}
 	}
-	
+
 	// get song url, team info, city link, reddit link to city subreddit, etc..
 	global $out;
-	$out = '<h2>Team: ' . $team->getName() . "</h2> 
+	$out = '<h2>Team: ' . $team->getName() . "</h2>
 	<hr>
 	<h3>This team is based in <a href=\"/xmas/city/{$city->getId()}\">{$city->getName()}</a></h3>
 	<p>Team Creator: " . a_bandit($team->getCreatorName()). " </p>
@@ -101,7 +101,7 @@ function show_team($id) {
 	}
 	if($team->hasUrl())
 		$out .= '<p>Team song: <a href="#" title="Would be a listen link with the widget..">Listen</a></p>';
-	$out .= '<p>Team created: UTC(' . $team->created() .')</p>'; 
+	$out .= '<p>Team created: UTC(' . $team->created() .')</p>';
 	if(is_loggedin()){
 		if(!get_xmas_team()){
 			// only show this to Bandits who are not in a team.
@@ -111,7 +111,7 @@ function show_team($id) {
 }
 /*********************************
  * /xmas/join/id
- * 
+ *
  * Allows bandit to join the team
  *********************************
  */
@@ -123,7 +123,7 @@ function show_join($id){
 }
 /*********************************
  * /xmas/city/id
- * 
+ *
  * Creates list of all teams associated with this city.
  *********************************
  */
@@ -131,32 +131,32 @@ function fail_city(){ echo "Invalid city identifier. " .  get_issue_link("XM:FC:
 function show_city($id) {
 	global $out;
 	$id = filter_var($id,FILTER_VALIDATE_INT);
-	
-	if(!$id) { 
-		fail_city(); return; 
+
+	if(!$id) {
+		fail_city(); return;
 	}else{
-		$a = array('id' => $id);
-		$city = get_one('SELECT name,lat,lng FROM cities WHERE id=:id',$a);
-		$city_name = $city['name'];
-		if(!$city_name){ 
-			fail_city(); return; 
+
+		$city = new City($id);
+
+		if(!$city->getName()){
+			fail_city(); return;
 		}
-		$teams = sql_to_array("SELECT id,name FROM xmas_teams WHERE city_id=$id ORDER BY name ASC");
-		$out = '<h2>Teams in ' . $city_name . '</h2>
-				<ul class="team-list">'; 
+		$teams = XmasTeam::getList();
+		$out = '<h2>Teams in ' . $city->getName() . '</h2>
+				<ul class="team-list">';
 		foreach ($teams as $t){
 			$out.= '<li class="team"><a href="/xmas/team/' . $t['id'] . '" title="View team info">' . $t ['name'] . '</a></li>';
 		}
 		$out .='</ul>';
 		// Output a tiny script containing the coordinates.
-		echo '<script type="text/javascript">var coordinates = {lat:' . $city['lat'] . ',lng:' . $city['lng'].'};</script>';
+		echo '<script type="text/javascript">var coordinates = {lat:' . $city->lat() . ',lng:' . $city->lng() .'};</script>';
 		get_template('google_maps_template');
-		
+
 	}
 }
 /*********************************
  * The default output, a list of participating cities.
- * 
+ *
  * TODO: Find list of submitted songs and allow voting.. like normal homepage..
  *********************************
  */
@@ -172,15 +172,15 @@ function show_list() {
 }
 
 /*********************************
- * JSON Wrapper; uses latitude & longitude and returns the 20 nearest teams 
+ * JSON Wrapper; uses latitude & longitude and returns the 20 nearest teams
  *********************************
  */
 function show_jsonteams(){
 	$lat = filter_input(INPUT_GET,'lat',FILTER_VALIDATE_FLOAT);
 	$lng = filter_input(INPUT_GET,'lng',FILTER_VALIDATE_FLOAT);
-	
+
 	$teams = XmasTeam::find_teams($lat,$lng);
-	
+
 	if(!$teams){
 		fail('No teams within range.',false,404);//not an error, a perfectly normal program state, just using fail to transmit the lack of team data
 	}else{
@@ -190,10 +190,10 @@ function show_jsonteams(){
 	}
 }
 /*********************************
- * /xmas/create_team 
- * 
+ * /xmas/create_team
+ *
  * NEEDS WORK!
- * 
+ *
  * Should only be invoked via /find_team, as we need certain things before we can create it, and that script
  * is in charge of generating them.
  *********************************
@@ -201,32 +201,32 @@ function show_jsonteams(){
 function fail_create_team(){ echo "Invalid inputs, please <a href=\"/xmas/find_team\">go back & try again</a> or "  . get_issue_link("XM:FT:Create_Team_Error"); }
 function show_create_team(){
 	loggedin_check();
-	
+
 	$team = XmasTeam::create_team();
-	
+
 	// Join user to team
 	set_xmas_team($team->getId());
-	
+
 	echo '<h1>Team ' . $team->getName() . ' Created!</h1>';
-	
+
 	show_team($team->getId);
 }
 
 /**
- * /xmas/find_team 
- * 
- * with Google backed location Autocomplete, 
+ * /xmas/find_team
+ *
+ * with Google backed location Autocomplete,
  * geocoding and browser-detection enabling 'closest teams'
  */
 function show_find_team(){
 	global $out;
 	include('fragments/google_geocomplete.php');
 	$prefilled_city_name = '';
-	if(isset($_SERVER['HTTP_REFERER'])){ 
+	if(isset($_SERVER['HTTP_REFERER'])){
 		// Someone came to us from some other site, lets pull the subreddit from the url and attempt to match it.
 		$ref = parse_url($_SERVER['HTTP_REFERER']);
 		error_log("REFERRER ROUND: " . $ref['path']);
-		$ref = str_replace('/r/','',$ref['path']); 
+		$ref = str_replace('/r/','',$ref['path']);
 		$ref = preg_replace('#([a-zA-Z_]*)/.*#', '\1', $ref); // we should have just the subreddit id now.
 		error_log("Looking for reddit: " . $ref);
 		// See if we have a match
@@ -249,7 +249,7 @@ function show_charity($id){
 		die('Unknown charity.');
 	}
 	$charity = pdo_query('SELECT * FROM charities WHERE id=:id LIMIT 1',array('id'=>$id));
-	print_r($charity);//TODO: Not sure if we even need to display this stuff at all.. 
+	print_r($charity);//TODO: Not sure if we even need to display this stuff at all..
 }
 
 function show_jsonsetcharity(){
@@ -269,16 +269,16 @@ function show_jsonsetcharity(){
 		$p['loc'] 	= filter_input(INPUT_GET,'locality',FILTER_SANITIZE_STRING);
 		$p['email'] = filter_input(INPUT_GET,'email',FILTER_SANITIZE_STRING);
 		$p['mod_id'] = $bandit_id;
-		
+
 		foreach($p as $k => $v){
 			if(strlen($v)==0){
 				fail("Invalid paramenter: $k");
 			}
 		}
-		
+
 		// Check for existing charities? Existing nominations? //TODO:
-		
-		$iid = insert_query("INSERT INTO charities (name,locality,email,charity_id,status,mod_id) 
+
+		$iid = insert_query("INSERT INTO charities (name,locality,email,charity_id,status,mod_id)
 				VALUES (:name, :loc, :email, :charity_id, 'nominated', :mod_id)", $p);
 		if($iid){
 			insert_query('UPDATE xmas_teams SET nominated_charity=:charity_id WHERE id=:id LIMIT 1',
@@ -286,7 +286,7 @@ function show_jsonsetcharity(){
 		}else{
 			fail("Failed to insert into charities.");
 		}
-		
+
 		ok();
 	}
 }
@@ -303,7 +303,7 @@ function show_jsonsetcharity(){
 function set_xmas_team($id){
 	if(!$id)
 		return false;
-	
+
 	if(!get_xmas_team()){
 		$_SESSION['GOB']['xmas_team_id'] = $id;
 		insert_query("UPDATE bandits SET xmas_team_id=:id, xmas_team_status='pending' WHERE name=:name LIMIT 1", array('id'=>$id,'name'=>get_username()));
@@ -322,10 +322,10 @@ function get_xmas_team(){
 	return false;
 }
 
-/********************************* 
+/*********************************
  * Script output wrapper
  *********************************
  */
 echo get_template('xmas_menu',true); //i.e: before the rest.
-echo $out;	
+echo $out;
 
