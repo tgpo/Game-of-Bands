@@ -9,115 +9,88 @@ require_once( 'includes/gob_admin.php' );
 require_once( '../src/secrets.php' );
 require_once( '../src/query.php' );
 require_once('../lib/reddit.php');
+$reddit = new reddit($reddit_user, $reddit_password);
 $db = database_connect();
 
-$reddit = new reddit($reddit_user, $reddit_password);
-
-$query = $db->query('SELECT * FROM rounds WHERE theme IS NOT NULL AND theme <> "NULL" order by number desc limit 1');
-$round = $query->fetch();
-$currentround = $round['number'];
-
-//Dev Overide
-$currentround = $currentround-1;
-
-for ($i = 1; $i <= $currentround; $i++) {
-
-  echo "<h2>Round " . $i . "</h2>";
+  $strStylesheet = $reddit->getStylesheet('gameofbands');
+  $newFlairCSS = $db->query("SELECT css FROM flair");
   
-  $winningSongs = query_songs($i, $db);
-  foreach ($winningSongs as $song) {
-    if (!empty($song['votes'])) {
-      echo "Winning Song: " . $song['name'] . "<br>";
-      echo "Team Winners: " . $song['music'] . ', ' . $song['lyrics'] . ', ' . $song['vocals'] . "<br>";
-      $banditTypes = array('music','lyrics','vocals');
-      foreach ($banditTypes as $type) {
-        $query = $db->prepare('SELECT TeamWins FROM bandits WHERE name=:bandit');
-        $query->execute(array('bandit' => $song[$type]));
-        $bandit  = $query->fetch();
-        
-        $TeamWins = $bandit['TeamWins']+1;
-        
-        //$query = $db->prepare('UPDATE bandits SET TeamWins = :TeamWins WHERE name=:bandit');
-        //$query->execute(array('TeamWins' => $TeamWins, 'bandit' => $song[$type]));
+  // Save backup of flair CSS
+  file_put_contents(dirname(__FILE__). '/../css/gob_flair.css',$strStylesheet);
 
+  foreach ($newFlairCSS as $oldflair) {
+    $strStylesheet = str_replace($oldflair['css'],"",$strStylesheet);
+  }
+
+echo "<pre>";
+  $bandits = $db->query('SELECT TeamWins, MusicWins, VocalsWins, LyricsWins, name FROM bandits ORDER BY name ASC');
+  foreach ($bandits as $bandit) {
+    if($bandit['TeamWins'] + $bandit['MusicWins'] + $bandit['VocalsWins'] + $bandit['LyricsWins']){
+      $css = 'a[href*="/' . $bandit['name'] . '"]:after {position: relative; left: 3px; top: 4px; content:' 
+      		. admin_get_flair_image('Team', $bandit['TeamWins']) 
+      		. admin_get_flair_image('Music', $bandit['MusicWins'])  
+      		. admin_get_flair_image('Vocals', $bandit['VocalsWins'])  
+      		. admin_get_flair_image('Lyrics', $bandit['LyricsWins']) . ';}
+      ';
+      $name = $bandit['name'];
+      $query = $db->query("SELECT id,name FROM flair WHERE name = '$name' LIMIT 1");
+      $flairLookup = $query->fetch();
+
+      if(!$flairLookup['name']){
+        $flairQuery = $db->prepare('INSERT INTO flair (name, css) VALUES (:name, :css)');
+        $flairQuery->execute(array('name' => $name, 'css' => $css));
+      } else {
+        $flairQuery = $db->prepare('UPDATE flair SET css = :css WHERE id = :id LIMIT 1');
+        $flairQuery->execute(array('css' => $css, 'id' => $flairLookup['id']));
       }
+      
+      
+      echo $css;
     }
   }
 
-  $banditTypes = array('music','lyrics','vocals');
-  foreach ($banditTypes as $type) {
-      $winners = query_winners($type, $i, $db);
-      foreach ($winners as $winner) {
-        if (!empty($winner['votes'])) {
-          echo $type . " Winner: " . $winner[$type] . "<br />";
-          $currentfield = ucfirst($type) . 'Wins';
-          
-          $query = $db->prepare('SELECT ' . $currentfield . ' FROM bandits WHERE name=:bandit');
-          $query->execute(array('bandit' => $winner[$type]));
-          $bandit  = $query->fetch();
+echo "</pre>";
 
-          $wins = $bandit[$currentfield]+1;
-
-          //$query = $db->prepare('UPDATE bandits SET ' . $currentfield . ' = :Wins WHERE name=:bandit');
-          //$query->execute(array('Wins' => $wins, 'bandit' => $winner[$type]));
-        }
-      }
+function admin_get_flair_image($type,$count){ //cannot redeclare this function.
+  $thisFlair = '';
+  
+  if(!is_null($count)){
+    switch($count){
+      case $count >= 5:
+        $thisFlair =  ' url(%%' . $type . 'Silver%%)';
+        break;
+      case $count < 5:
+        $thisFlair =  ' url(%%' . $type . 'Bronze%%)';
+        break;
+    }
+    
+    if($count >1 && $count < 5){
+      $thisFlair .= ' url(%%x' . $count . '%%)';
+    }
   }
-  
-  echo "<br /><br />";
-  
+
+  return $thisFlair;
 }
 
-// Query winning songs
-function query_songs($round, $db) {
-    // Calculate table with maximum votes from each round.
-    // Join with bandits that have the same number of votes.
-    $votetype  = 'votes';
-    $query = "SELECT  *
-    FROM    songs 
-    WHERE   round = '$round' 
-    HAVING  $votetype =
-    (
-        SELECT  $votetype
-        FROM    songs 
-        WHERE   round = '$round'
-        ORDER BY $votetype DESC
-        LIMIT 1  
-    )";
 
-    $result = $db->query($query);
-
-    return $result;
-}
-
-// Query individual winners
-function query_winners($type, $round, $db) {
-    // Calculate table with maximum votes from each round.
-    // Join with bandits that have the same number of votes.
-    $votetype  = $type.'vote';
-    $query = "SELECT  *
-    FROM    songs 
-    WHERE   round = '$round' 
-    HAVING  $votetype =
-    (
-        SELECT  $votetype
-        FROM    songs 
-        WHERE   round = '$round'
-        ORDER BY $votetype DESC
-        LIMIT 1  
-    )";
-
-    $result = $db->query($query);
-
-    return $result;
-}
 ?>
 <?php
 
-$strStylesheet = $reddit->getStylesheet('gameofbands');
+
+
 ?>
 
 <h2>Edit CSS</h2>
 <pre>
-<?php echo $strStylesheet; ?>
+<?php
+  $newFlair ="";
+  $newFlairCSS = $db->query("SELECT css FROM flair");
+
+  foreach ($newFlairCSS as $oldflair) {
+    $newFlair .= ' ' . $oldflair['css'];
+  }
+
+  $strStylesheet .= $newFlair;
+
+echo $strStylesheet; ?>
 </pre>

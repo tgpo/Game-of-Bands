@@ -1,3 +1,4 @@
+/db-backup-1413182349-d9b744166b4ed9f246dddc0412be00ee.sql
 #################
 ## Eclipse
 #################
@@ -15,6 +16,12 @@ local.properties
 .classpath
 .settings/
 .loadpath
+.buildpath
+.project
+error_log
+.ftpquota
+.svn
+src/cache/*
 
 # External tool builders
 .externalToolBuilders/

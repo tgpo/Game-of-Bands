@@ -22,7 +22,7 @@ h3 { font-size: 14px; }
 #container { margin: 10px auto; text-align: left; width: 99%; }
 #container #page { clear: both; margin-left: 200px; }
 #leftnav { clear: left; float: left; margin: 0 5px 0 -200px; width:  195px; }
-#content { float: left; overflow: hidden; width:  100%; }
+#content { float: left;  width:  100%; }
 #page-content { background: #fff; border: 1px solid #e3e3e3; color: #505050; padding: 10px; }
 
 /* Page Header */
@@ -31,15 +31,15 @@ header h1 { font-size: 15px; margin: 0; padding: 0; }
 header #menu { display: none; }
 header #menu img { width: 33px; position: relative; float: left; left: -8px; top: -8px; }
     
-    /* Message Styles */
-    #showMessages { float:  right; }
-    #messages { color: #505050; }
-    #messagesContainer { display:none; background: #fff; border: 1px solid #eee; padding: 7px; position: absolute; right: 7px; top: 33px; }
-    #messagelist { border: 1px solid #777; list-style: none; padding: 0; }
-    #messagelist li { border-top: 1px solid #777; font-size: 13px; padding: 4px; }
-    #messagelist li:first-child { border-top: none; }
-    #messagelist small { font-weight: bold; }
-    #messages .new { background: #CDFFFF; }
+/* Message Styles */
+#showMessages { float:  right; }
+#messages { color: #505050; }
+#messagesContainer { display:none; background: #fff; border: 1px solid #eee; padding: 7px; position: absolute; right: 7px; top: 33px; }
+#messagelist { border: 1px solid #777; list-style: none; padding: 0; }
+#messagelist li { border-top: 1px solid #777; font-size: 13px; padding: 4px; }
+#messagelist li:first-child { border-top: none; }
+#messagelist small { font-weight: bold; }
+#messages .new { background: #CDFFFF; }
 
 /* Left Navigation */
 #leftnav h3 { background: #d7d7d7; border-top: 1px solid #eee; color: #404040; font-family: Georgia, "Times New Roman", Times, serif; font-size: 14px; margin: 0; padding: 4px; }
@@ -50,10 +50,22 @@ header #menu img { width: 33px; position: relative; float: left; left: -8px; top
 /* Table Styles */
 table.stacktable { display: none; }
 table { border: 1px solid #ccc; border-collapse: collapse; font-size: 12px; }
-table thead th { background: #404040; border: 1px solid #777; border-bottom: 2px solid #222; color: #fff; font-size: 14px;  padding: 2px 5px;}
-table tbody td { border: 1px solid #eee; padding: 2px 5px; }
-table tbody tr:hover { background: #f7f7f7; }
-table tbody tr.newround { border-top: 2px solid #222; }
+th { background: #404040; border: 1px solid #777; border-bottom: 2px solid #222; color: #fff; font-size: 14px;  padding: 2px 5px;}
+/* Setup odd little table headers from the data */
+th:before { content: attr(data-small) " ";}
+@media screen and (min-width: 1235px) {th:before {content: attr(data-medium) " ";}}
+td { border: 1px solid #eee; padding: 2px 5px; }
+td.fat { font-size: 1.2em;}
+td span.bad { color: red;}
+
+/* Alternating row colors */
+tr { background: white; }
+tr.odd { background: #f7f7f7;}
+/* New Round color */
+tr.newround { border-top: 2px solid #222; } /* This has no effect..  */
+/* Hovering mouse color */
+tr:hover { background: #07f7fF; }
+
 
 /* Link Styles */
 a { color: #21759B; text-decoration: none; }

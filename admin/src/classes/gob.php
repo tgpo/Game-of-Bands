@@ -28,9 +28,9 @@ class gob{
 
         $postTemplate = "Reply to the appropriate comment to sign up for this round of Game of Bands.
     
-You may sign up for multiple roles, but you will only be selected for one. Only direct replies to the 'sign up comments' will be considered as signing up. Any direct reply to the 'sign up comments' will be considered a sign up, no matter what the comment says. If you change your mind about a sign up please delete your comment.
+        You may sign up for multiple roles, but you will only be selected for one. Only direct replies to the 'sign up comments' will be considered as signing up. Any direct reply to the 'sign up comments' will be considered a sign up, no matter what the comment says. If you change your mind about a sign up please delete your comment.
 
-Press 1 to be returned to the main menu.";
+        Press 1 to be returned to the main menu.";
 
         $response = $this->_reddit->createStory('Signups for Round ' . $round . '; all roles.', '', $this->mainsubreddit, $postTemplate);
         
@@ -66,71 +66,10 @@ Press 1 to be returned to the main menu.";
     }
 
     /**
-    * Post Song Voting Threas
+    * Post Song Voting Thread
     *
     * Collect the submitted songs and post the voting thread.
-    */
-    public function postLateSongsToVoteThread(){
-        $query = $this->_db->query(" SELECT number
-                                     FROM rounds
-                                     WHERE songvotingthreadID != ''
-                                     order by number desc
-                                     limit 1");
-        $currentround = $query->fetch();
-
-        $query = $this->_db->prepare("SELECT  *
-                                    FROM    songs 
-                                    WHERE   round = :currentround
-                                    and approved = 1
-                                    and posted = 0");
-        $songsNotPosted->execute(array('currentround' => $currentround));
-
-        $songvotingthread = $this->_db->prepare("SELECT songvotingthreadID FROM rounds WHERE number = :currentround");
-        $songvotingthread->execute(array('currentround' => $currentround));
-
-        /* Run through all non-posted songs and post comment to voting thread */
-        foreach ($songsNotPosted as $row) {
-
-            /* Post our song Comments */
-            $postTemplate = "**Team " . $row['teamnumber'] . "** Vote\n
-* **Music:** " . $row['music'] . "\n
-* **Lyrics:** " . $row['lyrics'] . "\n
-* **Vocals:** " . $row['vocals'] . "\n
-* **Track:** [" . $row['name'] . "](http://gameofbands.co/song/".$row['id'].")";
-
-            $response = $this->_reddit->addComment($songvotingthread, $postTemplate);
-        }
-        
-        sleep(3);
-        $commentpool = $this->_reddit->getcomments($this->mainsubreddit,$songvotingthread,999);
-        $commentpool = $commentpool->data->children;
-        
-        $songs = $this->_db->prepare('SELECT * FROM songs WHERE round=:currentround and approved=1');
-        $songs->execute(array('currentround' => $currentround));
-
-        foreach ($songs as $row) {
-
-            $song = $this->_db->prepare('UPDATE songs SET posted = true WHERE round=:currentround and teamnumber=:teamnumber');
-            $song->execute(array('currentround' => $currentround, 'teamnumber' => $row['teamnumber']));
-        
-            $postTemplate = "**Team " . $row['teamnumber'] . "** Vote";
-            $postTemplate = trim(json_encode($postTemplate), '"');
-        
-            $teamvotecomment = commentContainsSearch($commentpool,$postTemplate);
-        
-            /* Post our vote Comments */
-            $response = $this->_reddit->addComment($teamvotecomment, 'Music Vote');
-            $response = $this->_reddit->addComment($teamvotecomment, 'Lyrics Vote');
-            $response = $this->_reddit->addComment($teamvotecomment, 'Vocals Vote');
-        }
-
-
-    }
-
-    /**
-    * Post Song Voting Threas
-    *
-    * Collect the submitted songs and post the voting thread.
+    * @param int $round Round number to post about
     */
     public function postSongVotingThread(){
         
@@ -143,6 +82,7 @@ Press 1 to be returned to the main menu.";
 [Game of Bands Song Depository, Round " . $currentround . ": " . $round['theme'] . "](http://gameofbands.co/round/" . $currentround . ")
 
 Listen * Vote * Comment";
+        //TODO: Change all this to link to the Round page.
         $response = $this->_reddit->createStory('Official voting post for Round ' . $currentround, '', $this->mainsubreddit, $postTemplate);
         
         /* Find our new post and save their IDs for future use */
@@ -175,9 +115,6 @@ Listen * Vote * Comment";
         $songs->execute(array('currentround' => $currentround));
 
         foreach ($songs as $row) {
-
-            $song = $this->_db->prepare('UPDATE songs SET posted = true WHERE round=:currentround and teamnumber=:teamnumber');
-            $song->execute(array('currentround' => $currentround, 'teamnumber' => $row['teamnumber']));
         
             $postTemplate = "**Team " . $row['teamnumber'] . "** Vote";
             $postTemplate = trim(json_encode($postTemplate), '"');

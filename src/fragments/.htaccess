@@ -1,0 +1,3 @@
+# Prevent people from accessing this stuff directly.
+# There isn't any real reason for this.. but it makes sense if we decide to put admin stuff in here.
+deny from all

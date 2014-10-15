@@ -1,0 +1,1 @@
+Eleven days to take a song from conception to completion to competition!

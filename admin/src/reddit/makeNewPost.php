@@ -15,7 +15,7 @@ if( isset($_POST['postmessage']) ){
 }
 
 function redirect($pagename){
-    header('Location: ../../index.php?view=' . $pagename);
+    header('Location: /admin/' . $pagename);
 
 }
 

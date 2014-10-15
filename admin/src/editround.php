@@ -10,7 +10,7 @@ require_once( '../src/secrets.php' );
 require_once( '../src/query.php' );
 $db = database_connect();
 
-$id=$_GET['id'];
+$id=$_GET['id']; //TODO: Sanitize
 
 $query = $db->prepare('SELECT * FROM rounds WHERE number=:id');
 $query->execute(array('id' => $id));
@@ -63,6 +63,22 @@ $round = $query->fetch();
     
     <label>Delete Round</label>
     <input type="checkbox" name="delete_round" value="Yes" />
+    <br />
+    <label>Start Round<?php 
+    $started='';
+    if(has_round_started($round)){
+    	$started='1'; 
+    	echo ' Was started on: ' . format_date($round['start']);
+    }?></label>
+    <input type="checkbox" name="start_round" value="<?php echo $started;?>"/>
+    <br />
+    <label>End Round<?php 
+    $ended='';$checked='';
+    if(has_round_ended($round)){
+		$ended='1'; 
+		echo ' Was ended on: ' . format_date($round['end']);
+	}?></label>
+    <input type="checkbox" name="end_round" value="<?php echo $ended;?>" />
     <br /><br />
     
     <input type="submit" value="Edit Round" name="editRound">

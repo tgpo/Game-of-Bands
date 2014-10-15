@@ -20,14 +20,8 @@ if(!defined('INDEX')) {
   // BEST SONGS
   // Calculate table with maximum votes from each round.
   // Join with songs that have the same number of votes.
-  $query = 'SELECT * FROM songs
-    JOIN
-      (SELECT round, MAX(votes) AS vote FROM songs
-       WHERE votes > 0
-       GROUP BY round
-      ) AS themax
-    ON songs.round = themax.round AND songs.votes = themax.vote
-    ORDER BY songs.round DESC';  
+  $query = 'select * from songs b where b.votes = (select max(b2.votes) from songs b2 where b2.round = b.round) AND b.votes > 0';
+
   $songs = $db->query($query);
   display_songs($songs);
 

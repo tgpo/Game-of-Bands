@@ -1,0 +1,1 @@
+//TODO: T&C text for popup. Simplified version, assuming user doesn't want to read full T&C's

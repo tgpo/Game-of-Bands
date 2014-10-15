@@ -4,8 +4,6 @@ if( !defined('INDEX') ) {
     die;
 
 }
-
-require_once( 'includes/gob_admin.php' );
 require_once( '../src/secrets.php' );
 require_once( '../src/query.php' );
 $db = database_connect();
@@ -20,16 +18,19 @@ $rounds = $db->query('SELECT * FROM rounds ORDER BY number DESC');
         <tr>
             <th>Round</th>
             <th>Theme</th>
-            <th>Edit</th>
+            <th>Round Started</th>
+            <th>Round Ended</th>
         </tr>
     </thead>
     <tbody>
         <?php
         foreach ($rounds as $round) {
+			$start = (has_round_started($round)) ? format_date( $round['start'] ) : '&nbsp;';
+			$end =  (has_round_ended($round)) ? format_date($round['end']) : '&nbsp;';
             echo "<tr>";
-                echo "<td>" . $round['number'] . "</td>";
+                echo '<td class="fat"><a href="/admin/editround&id='.$round['number'].'">#' . $round['number'] . "</a></td>";
                 echo "<td>" . $round['theme'] . "</td>";
-                echo '<td><a href="index.php?view=editround&id='.$round['number'].'">Edit</a></td>';
+                echo "<td>" . $start . '</td><td>' . $end . '</td>';
             echo "</tr>";
         }
         ?>

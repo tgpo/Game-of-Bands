@@ -15,7 +15,8 @@ $round = $query->fetch();
 $currentround = $round['number'];
 
 ?>
-
+ <script src="/lib/jquery.datetimepicker.js?cf"></script>
+<link rel="stylesheet" href="/lib/jquery.datetimepicker.css?cf">
 <script>
 $(document).ready(function(){
   $('#adminform').submit(function() {
@@ -32,7 +33,6 @@ $(document).ready(function(){
       <p>Posts the voting thread for all submitted songs.</p>
       <br />
       <button type="submit" value="Post Song Voting Thread" name="postvote">Post Voting Thread</button>
-      <button type="submit" value="Post Late Comers" name="postlate">Post Late Comers</button>
     </div>
     <div class="box left">
       <h2>2. Post Signups for Round <?php echo ($currentround + 1); ?></h2>
@@ -50,6 +50,7 @@ $(document).ready(function(){
       <input type="hidden" name="Round2" value="<?php echo ($currentround); ?>" />
       <br />
       <button type="submit" value="Post Start Threads" name="getsignups">Start Round!</button>
+      
     </div>
     <div class="box left">
       <h2>2. Post Winner Round <?php echo ($currentround - 1); ?></h2>
@@ -58,7 +59,23 @@ $(document).ready(function(){
       <br />
       <button type="submit" value="Post Winners" name="postwinners">Post Winners</button>
     </div>
+</form>
   </div>
+  
+  <form class="box left" id="adminform2" method="POST" action="admin_voting.php" >
+      
+    <h2>Voting Enablement / Disablement</h2>
+    <div class="box" >
+    <?php if(isset($_SESSION['admin_voting_msg'])){
+    	print "<span>{$_SESSION['admin_voting_msg']}</span><br />";
+    }?>
+    <label>Round #:</label>
+    <input type="text" name="inputround" style="width:40px;" value=""></input>
+	<input id="datetimepicker" name="datetime" type="text" value=""></input>
+	<script>$('#datetimepicker').datetimepicker();</script>
+    <button type="submit" value="Initiate Voting" name="startvoting">Start voting</button>
+    <button type="submit" value="Close Voting" name="closevoting">Close voting</button>
+    </div>
 </form>
 
 <div class="clear"></div>

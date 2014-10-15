@@ -1,0 +1,705 @@
+/*hide the downvote arrow for a single post*/  
+
+.sitetable[id$="1k5su3"] .down { display: none; }
+
+/*--------------------------*/
+
+div.titlebox span.word {  
+display: none  
+}  
+
+div.titlebox span.number:after {  
+content: " bandits have signed up "  
+}  
+
+.side .titlebox .users-online .number:after {
+    content: " bandits here now" !important;
+}
+
+#header-bottom-left{
+height: 160px;
+}
+
+.redditname a{
+text-indent:-9001px;
+}
+
+#header-img-a,
+.redditname a,
+.tabmenu {
+    display: inline;
+    float: left;
+}
+
+#header {
+    background: url(%%head-png%%) no-repeat #000;
+    border-bottom: 3px solid #f3e5d0;
+    background-position: 0px 10px;
+    }
+
+/* .res #header {} */
+
+#header-img {
+    position:absolute;
+    left: 26px;
+}
+
+.pagename a {
+    text-indent: -9000px;
+    position: absolute;
+    left: 0px;
+    top: 60px;
+    display: block;
+    z-index: 5;
+    width: 300px;
+    height:80px;
+    }
+
+/* Account Bar */
+#header-bottom-right {
+    background-color: black;
+    position: absolute;
+    top:138px;
+    right: 0px;
+    z-index: 10;
+    }
+.userkarma{
+  color:orange;
+    }
+#header-bottom-right a, #header-bottom-right a:visited {
+    color: white;
+    }
+#userbarToggle {
+    color: white !important;
+    background-color: #444 !important;
+    border-right-color: #333 !important
+    }
+
+
+
+/* Tab Navigation */
+.tabmenu {
+    position:relative;
+    z-index: 10;
+    top:122px;
+    left: 30px;
+font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+text-transform: uppercase;
+font-size: 10px;
+
+    }
+/* old .tabmenu {position:relative;z-index:10;margin-left:0px;} */
+ul.tabmenu.formtab {
+    position: relative;
+    z-index: 10;
+    top: auto;
+    left: auto;
+    margin-left: 10px
+    }
+.tabmenu li a {
+    color: orange;
+    background-color: black;
+    border-radius: 3px;
+    box-shadow: 0px 0px 10px #000;
+    padding: 3px 6px !important;
+    }
+.tabmenu li.selected a,
+.tabmenu li.selected a:hover {
+    color: #FFF !important;
+    background-color: orange !important;
+    border-color: #000000;
+    }
+.formtabs-content {
+    border-color: #800
+    }
+
+/* Announcements! */
+
+.side h3,
+.side h6 {
+    font-family: helvetica, verdana, sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    color: white;
+    padding: 2px 5px 2px 5px;
+    margin: 0px;
+    display: block;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px
+}
+
+.side .usertext h3 {
+  font-size: 11px;
+  height: 18px;
+  width:100%;
+  text-align: center;
+  Position: absolute;
+  Top: 160px;
+  Left: 0px;
+  background: #222;
+  margin:0px ;
+  padding: 5px 0px 0px 0px;
+  z-index: 101;
+  border-radius: 0px;
+}
+
+
+.side .usertext h6 a {
+  font-weight: bold;
+  color: yellow;
+}
+
+.side .usertext a[title='green'] {
+  color: lightgreen;
+}
+
+.side .usertext a[title='Bandits unite!'] {
+  color: lightblue;
+}
+
+.side .usertext a[title='Sign up for the next round of Game of Bands!'] {
+  color: lightblue;
+}
+
+.side .usertext a[title='Hear some new music! Vote without an SMS fee'] {
+  color: orange;
+}
+
+.side .usertext a[title='Best Prizes Ever!'] {
+  color: lightblue;
+}
+
+.side .usertext a[title='This link is pretty old actually.'] {
+  color: lightblue;
+}
+
+.side .usertext a[title='So are we, hence IRC. Join us.'] {
+  color: orange;
+}
+
+.side .usertext a[title='Apparently there are only 14 of these.'] {
+  color: lightblue;
+}
+
+.side .usertext a[title="iCaln't believe it's not butler."] {
+  color: orange;
+}
+
+.side .usertext a[title="Because we are your friends!"] {
+  color: orange;
+}
+
+
+
+.side .usertext h5 a {
+  font-family: Helvetica, Arial, Sans-Serif;
+  color: white;
+}
+
+/* r/gameofbands logo (h5) and helpful links (h6) */
+
+.side .usertext-body h6 {
+  width:300px;
+  text-align: center;
+  color: white;
+  Position: absolute;
+  Left: 21px;
+  font-weight: bold;
+  Top: 35px;  
+  z-index: 100;
+}
+
+/*===== SIDEBAR =====*/
+
+.side {
+    background-color: white;
+    width: 310px;
+    padding-top: 5px;
+    padding-left: 10px;
+    margin: 0;/*
+    -webkit-border-bottom-left-radius: 12px;
+    -moz-border-radius-bottomleft: 12px*/
+    }
+.side blockquote {
+    margin: 5px 10px 5px 0;
+    padding: 5px;
+    color: white;
+    background-color: #800;
+    border: 0;
+    }
+.side blockquote a, .side blockquote a:visited {
+    color: red;
+    }
+
+div.content {
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+
+
+/* NEW FLAIR SYSTEM -- ALPHABETICAL ORDER AND CAPITALIZATION MATTERS
+   IN order to add flair: "url(%%image-name%%)" should be added at the appropriate spot, after "content:" (and after existing flair), and before the ";}"
+   To add a new user, just copy paste another user (not MagikBot, he's special) and change the username and flair. Please keep it in alphabetical order! */
+
+
+/*===== FLAIR LEGEND AND WINNERS ====*/
+
+.side .usertext ol a {
+    color: #58B;
+    font-weight: normal;
+}
+.side .usertext ol li:nth-child(1) {
+    list-style-image: url(%%TeamBronze%%);
+    font-size: 8pt;
+}
+.side .usertext ol li:nth-child(2) {
+    list-style-image: url(%%MusicBronze%%);
+    font-size: 8pt;
+}
+.side .usertext ol li:nth-child(3) {
+    list-style-image: url(%%LyricsBronze%%);
+    font-size: 8pt;
+}
+.side .usertext ol li:nth-child(4) {
+    list-style-image: url(%%VocalsBronze%%);
+    font-size: 8pt;
+}
+
+
+/*===== EPOCH FLAIR =====*/
+/* Start Flair */
+
+    .author[href$="/all_aflunters"]:before {position: relative; right: 2px; top: 4px; content: url(%%epoch-vocals%%);}
+
+    .author[href$="/azurekevin"]:before {position: relative; right: 2px; top: 4px; content:  url(%%epoch-vocals%%);}
+
+    .author[href$="/cee-kay"]:before {position: relative; right: 2px; top: 4px; content:  url(%%epoch-music%%);}
+
+    .author[href$="/gb2ktn"]:before {position: relative; right: 2px; top: 4px; content:  url(%%epoch-vocals%%);}
+
+    .author[href$="/kingpumpkin"]:before {position: relative; right: 2px; top: 4px; content: url(%%epoch-lyrics2%%);}
+
+    .author[href$="/MagikBot"]:before {position: relative; right: 2px; top: 4px; content: url(%%Whatislove%%);}
+
+    .author[href$="/magikker"]:before {position: relative; right: 2px; top: 4px; content: url(%%epoch-lyrics2%%);}
+
+    .author[href$="/memefilter"]:before {position: relative; right: 2px; top: 4px; content: url(%%epoch-music%%);}
+
+    .author[href$="/radiofreebc"]:before {position: relative; right: 2px; top: 4px; content: url(%%epoch-lyrics2%%);}
+
+    .author[href$="/RetroTheft"]:before {position: relative; right: 2px; top: 4px; content: url(%%epoch-lyrics2%%);}
+
+    .author[href$="/Sindas"]:before {position: relative; right: 2px; top: 4px; content: url(%%epoch-vocals%%);}
+
+    .author[href$="/welcometooceania"]:before {position: relative; right: 2px; top: 4px; content: url(%%epoch-music%%);}
+    
+    .author[href$="/Zuthulu"]:before {position: relative; right: 2px; top: 4px; content: url(%%epoch-music%%);}
+
+
+/*===== ROUND FLAIR =====*/
+
+              
+/* End Flair */
+/* == FLAIR GENERATION 2 LEGACY SECTION ==
+    .author[href$="/all_aflunters"]:after {position: relative; left: 2px; top: 4px; content: url(%%epoch-vocals%%) url(%%lyrics-trophy%%) url(%%team-trophy%%) url(%%vocals-trophy%%) url(%%vocals-trophy%%);}
+
+    .author[href$="/aplen22"]:after {position: relative; left: 2px; top: 4px; content: url(%%team-trophy%%) url(%%vocals-trophy%%);}
+
+    .author[href$="/Archaeoptero"]:after {position: relative; left: 2px; top: 4px; content: url(%%music-trophy%%);}
+
+    .author[href$="/Ayavaron"]:after {position: relative; left: 2px; top: 4px; content: url(%%team-trophy%%);}
+
+    .author[href$="/azurekevin"]:after {position: relative; left: 2px; top: 4px; content: url(%%epoch-music%%);}
+
+    .author[href$="/Bluesleeve"]:after {position: relative; left: 2px; top: 4px;}
+
+    .author[href$="/Brewbird"]:after {position: relative; left: 2px; top: 4px; content: url(%%team-trophy%%);}
+
+    .author[href$="/brokenbirthday"]:after {position: relative; left: 2px; top: 4px; content: url(%%team-trophy%%) url(%%vocals-trophy%%) url(%%team-trophy%%) url(%%music-trophy%%) url(%%team-trophy%%) url(%%music-trophy%%);}
+
+    .author[href$="/cee-kay"]:after {position: relative; left: 2px; top: 4px; content: url(%%epoch-music%%) url(%%team-trophy%%) url(%%music-trophy%%) url(%%lyrics-trophy%%);}
+
+    .author[href$="/DanComp"]:after {position: relative; left: 2px; top: 4px;}
+
+    .author[href$="/digitalskyfire"]:after {position: relative; left: 2px; top: 4px; content: url(%%epoch-rounded%%);}
+
+    .author[href$="/gb2ktn"]:after {position: relative; left: 2px; top: 4px; content: url(%%epoch-vocals%%) url(%%epoch-vocals%%);}
+
+    .author[href$="/GIRLSwithDEPRESSION"]:after {position: relative; left: 2px; top: 4px; content: url(%%lyrics-trophy%%);}
+
+    .author[href$="/Gwilkers"]:after {position: relative; left: 2px; top: 4px; content: url(%%vocals-trophy%%);}
+
+    .author[href$="/hcml11"]:after {position: relative; left: 2px; top: 4px; content: url(%%team-trophy%%);}
+
+    .author[href$="/himit"]:after {position: relative; left: 2px; top: 4px;}
+
+    .author[href$="/JackCevalo"]:after {position: relative; left: 2px; top: 4px; content: url(%%lyrics-trophy%%);}
+
+    .author[href$="/kevinerror"]:after {position: relative; left: 2px; top: 4px;}
+
+    .author[href$="/kingpumpkin"]:after {position: relative; left: 2px; top: 4px; content: url(%%epoch-lyrics2%%);}
+
+
+    .author[href$="/Mad_Cowboy"]:after {position: relative; left: 2px; top: 4px; content: url(%%team-trophy%%);}
+
+    .author[href$="/MagikBot"]:before {position: relative; right: 2px; top: 4px; content: url(%%Whatislove%%);}
+
+    .author[href$="/magikker"]:after {position: relative; left: 2px; top: 4px; content: url(%%epoch-lyrics2%%) url(%%epoch-lyrics2%%) url(%%epoch-lyrics2%%) url(%%team-trophy%%) url(%%lyrics-trophy%%) url(%%team-trophy%%) url(%%lyrics-trophy%%) url(%%lyrics-trophy%%);}
+
+    .author[href$="/memefilter"]:after {position: relative; left: 2px; top: 4px; content: url(%%epoch-music%%);}
+
+    .author[href$="/morphtec"]:after {position: relative; left: 2px; top: 4px; content: url(%%team-trophy%%);}
+
+    .author[href$="/mrguitar"]:after {position: relative; left: 2px; top: 4px; content: url(%%team-trophy%%);}
+
+    .author[href$="/NickLalo"]:after {position: relative; left: 2px; top: 4px;}
+
+    .author[href$="/radiofreebc"]:after {position: relative; left: 2px; top: 4px; content: url(%%epoch-lyrics2%%);}
+
+    .author[href$="/RetroTheft"]:after {position: relative; left: 2px; top: 4px; content: url(%%epoch-lyrics2%%) url(%%lyrics-trophy%%);}
+    
+    .author[href$="/shotgun_1P"]:after {position: relative; left: 2px; top: 4px; content: url(%%banana%%);}
+
+    .author[href$="/Sindas"]:after {position: relative; left: 2px; top: 4px; content: url(%%epoch-vocals%%);}
+
+    .author[href$="/VideoTape_"]:after {position: relative; left: 2px; top: 4px; content: url(%%team-trophy%%);}
+    
+    .author[href$="/welcometooceania"]:after {position: relative; left: 2px; top: 4px; content: url(%%epoch-music%%);}
+
+    .author[href$="/zeronine"]:after {position: relative; left: 2px; top: 4px; content: url(%%lyrics-trophy%%);}
+
+    .author[href$="/Zuthulu"]:after {position: relative; left: 2px; top: 4px; content: url(%%team-trophy%%) url(%%epoch-music%%) url(%%epoch-music%%) url(%%music-trophy%%);}
+
+*/
+
+/*
+
+.flair {
+   padding:0;
+   background:transparent;
+   border:0;
+   border-radius:0;
+   position:relative;
+   top:0px;
+   left:0px
+}
+
+.linkflairlabel {
+    display: none;
+    color: black;
+    background-color: transparent;
+    font-size: inherit;
+    border: 0;
+    margin-right: 0
+    }
+
+.flair-team{
+    background:url(%%team-trophy%%) no-repeat 0 0;
+    width:16px;
+    height:17px;
+    display:inline-block;
+    content:' ';
+}
+.flair-teamvocals{
+    background:url(%%team-and-vocals%%) no-repeat 0 0;
+    width:32px;
+    height:17px;
+    display:inline-block;
+    content:' ';
+}
+
+.flair-teamlyrics{
+    background:url(%%team-and-lyrics%%) no-repeat 0 0;
+    width:32px;
+    height:17px;
+    display:inline-block;
+    content:' ';
+}
+
+.flair-teammusic{
+    background:url(%%team-and-music%%) no-repeat 0 0;
+    width:42px;
+    height:17px;
+    display:inline-block;
+    content:' ';
+}
+
+.flair-teammusicmusic{
+    background:url(%%team-and-music-music%%) no-repeat 0 0;
+    width:58px;
+    height:17px;
+    display:inline-block;
+    content:'';
+}
+
+.flair-teamteamvocals{
+    background:url(%%team-team-and-vocals%%) no-repeat 0 0;
+    width:54px;
+    height:17px;
+    display:inline-block;
+    content:'';
+}
+
+.flair-teamteammusic{
+    background:url(%%team-team-and-music%%) no-repeat 0 0;
+    width:57px;
+    height:17px;
+    display:inline-block;
+    content:'';
+}
+
+.flair-lyrics{
+    background:url(%%lyrics-trophy%%) no-repeat 0 0;
+    width:16px;
+    height:17px;
+    display:inline-block;
+    content:' ';
+}
+
+.flair-music{
+    background:url(%%music-trophy%%) no-repeat 0 0;
+    width:16px;
+    height:18px;
+    display:inline-block;
+    content:'';
+}
+
+.flair-vocals{
+    background:url(%%vocals-trophy%%) no-repeat 0 0;
+    width:16px;
+    height:17px;
+    display:inline-block;
+    content:'';
+}
+
+.flair-epochvocals{
+    background:url(%%epoch-vocals%%) no-repeat 0 0;
+    width:18px;
+    height:21px;
+    display:inline-block;
+    content:'';
+}
+
+.flair-epochmusic{
+    background:url(%%epoch-music%%) no-repeat 0 0;
+    width:16px;
+    height:17px;
+    display:inline-block;
+    content:'';
+}
+
+.flair-epochlyrics{
+    background:url(%%epoch-lyrics2%%) no-repeat 0 0;
+    width:21px;
+    height:19px;
+    display:inline-block;
+    content:'';
+}
+
+.flair-epochrounded{
+    background:url(%%epoch-rounded%%) no-repeat 0 0;
+    width:16px;
+    height:17px;
+    display:inline-block;
+    content:'';
+}
+
+.flair-banana{
+    background:url(%%banana%%) no-repeat 0 0;
+    width:16px;
+    height:25px;
+    display:inline-block;
+    content:'';
+}
+
+.flair-epochmusicteamlyrics{
+    background:url(%%epoch-music-team-lyrics%%) no-repeat 0 0;
+    width:30px;
+    height:25px;
+    display:inline-block;
+    content:'';
+}
+.flair-epochlyricsteamlyrics{
+    background:url(%%epoch-lyrics-team-lyrics%%) no-repeat 0 0;
+    width:55px;
+    height:25px;
+    display:inline-block;
+    content:'';
+}
+.flair-epochmusicteammusic{
+    background:url(%%epoch-trophy-music%%) no-repeat 0 0;
+    width:55px;
+    height:25px;
+    display:inline-block;
+    content:'';
+}
+.flair-teamteam{
+    background:url(%%teamteam%%) no-repeat 0 0;
+    width:55px;
+    height:25px;
+    display:inline-block;
+    content:'';
+}
+.flair-team3music2{
+    background:url(%%team3music2%%) no-repeat 0 0;
+    width:94px;
+    height:18px;
+    display:inline-block;
+    content:'';
+}
+.flair-epochroundedvox{
+    background:url(%%epochroundedvox%%) no-repeat 0 0;
+    width:94px;
+    height:18px;
+    display:inline-block;
+    content:'';
+}
+.flair-epochvoxteamvox{
+    background:url(%%epochvoxteamvox%%) no-repeat 0 0;
+    width:55px;
+    height:25px;
+    display:inline-block;
+    content:'';
+}
+.flair-epochvoxteamvoxvox{
+    background:url(%%epochvoxteamvoxvox%%) no-repeat 0 0;
+    width:73px;
+    height:18px;
+    display:inline-block;
+    content:'';
+}
+
+*/
+.side .titlebox .users-online .number:after {
+    content: " bandits here now" !important;
+    }
+
+/* ===== POST FILTER ===== */
+
+/* LINK FLAIR FORMATTING */
+/*
+.linkflair-winners .linkflairlabel {border-color: gold;}
+.linkflair-theme {border-color: brown;}
+.linkflair-consolidation {border-color: blue;}
+.linkflair-signups {border-color: yellow;}
+.linkflair-voting {border-color: green;}
+.linkflair-announcement {border-color: orange;}  
+*/
+
+/* Winners threads only */
+html[lang="wi"] .linkflair-theme a.title { display: none; }
+html[lang="wi"] .linkflair-theme { display: none; }
+html[lang="wi"] .linkflair-consolidation a.title { display: none; }
+html[lang="wi"] .linkflair-consolidation { display: none; }
+html[lang="wi"] .linkflair-signups a.title { display: none; }
+html[lang="wi"] .linkflair-signups { display: none; }
+html[lang="wi"] .linkflair-voting a.title { display: none; }
+html[lang="wi"] .linkflair-voting { display: none; }
+html[lang="wi"] .linkflair-announcement a.title { display: none; }
+html[lang="wi"] .linkflair-announcement { display: none; }
+html[lang="wi"] .linkflair-newround a.title { display: none; }
+html[lang="wi"] .linkflair-newround { display: none; }
+
+/* Announcements Only */
+html[lang="an"] .linkflair-theme a.title { display: none; }
+html[lang="an"] .linkflair-theme { display: none; }
+html[lang="an"] .linkflair-consolidation a.title { display: none; }
+html[lang="an"] .linkflair-consolidation { display: none; }
+html[lang="an"] .linkflair-signups a.title { display: none; }
+html[lang="an"] .linkflair-signups { display: none; }
+html[lang="an"] .linkflair-voting a.title { display: none; }
+html[lang="an"] .linkflair-voting { display: none; }
+html[lang="an"] .linkflair-winners a.title { display: none; }
+html[lang="an"] .linkflair-winners { display: none; }
+html[lang="an"] .linkflair-newround a.title { display: none; }
+html[lang="an"] .linkflair-newround { display: none; }   
+                                                                       
+a[href*="/1966ftw"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x2%%) url(%%MusicBronze%%) url(%%x4%%);}
+a[href*="/7dare"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%);}
+a[href*="/acb5649"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x2%%) url(%%LyricsBronze%%) url(%%x2%%);}
+a[href*="/AdventurerSeth"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x4%%) url(%%MusicBronze%%) url(%%VocalsBronze%%) url(%%x2%%);}
+a[href*="/allhellbreaksloops"]:after {position: relative; left: 3px; top: 4px; content: url(%%MusicBronze%%);}
+a[href*="/all_aflunters"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamSilver%%) url(%%VocalsBronze%%) url(%%x3%%) url(%%LyricsBronze%%) url(%%x4%%);}
+a[href*="/aneron"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%MusicBronze%%);}
+a[href*="/aplen22"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x3%%) url(%%VocalsSilver%%);}
+a[href*="/Archaeoptero"]:after {position: relative; left: 3px; top: 4px; content: url(%%MusicBronze%%);}
+a[href*="/axilious"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%);}
+a[href*="/Ayavaron "]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x2%%);}
+a[href*="/A_G1RL"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x2%%) url(%%VocalsBronze%%) url(%%x2%%);}
+a[href*="/B-Rumba"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%MusicBronze%%);}
+a[href*="/Bluesleeve"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%);}
+a[href*="/BoredMai"]:after {position: relative; left: 3px; top: 4px; content: url(%%VocalsBronze%%) url(%%x3%%);}
+a[href*="/Brewbird"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamSilver%%) url(%%MusicBronze%%) url(%%x3%%) url(%%LyricsBronze%%);}
+a[href*="/brokenbirthday"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamSilver%%) url(%%MusicBronze%%) url(%%x3%%) url(%%VocalsBronze%%) url(%%x2%%);}
+a[href*="/cee-kay"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x3%%) url(%%MusicBronze%%) url(%%x2%%) url(%%LyricsBronze%%);}
+a[href*="/cesarjulius"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x3%%) url(%%MusicBronze%%);}
+a[href*="/CONelson"]:after {position: relative; left: 3px; top: 4px; content: url(%%MusicBronze%%);}
+a[href*="/DanComp"]:after {position: relative; left: 3px; top: 4px; content: url(%%MusicBronze%%);}
+a[href*="/E-B-Gb-Ab-Bb"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamSilver%%) url(%%MusicBronze%%) url(%%x3%%) url(%%LyricsBronze%%);}
+a[href*="/EDR7"]:after {position: relative; left: 3px; top: 4px; content: url(%%LyricsBronze%%);}
+a[href*="/eog_prod"]:after {position: relative; left: 3px; top: 4px; content: url(%%LyricsBronze%%);}
+a[href*="/evil_weevil"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamSilver%%) url(%%MusicBronze%%) url(%%VocalsBronze%%) url(%%LyricsBronze%%);}
+a[href*="/freddy_schiller"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%MusicBronze%%);}
+a[href*="/fumabomb"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%MusicBronze%%);}
+a[href*="/gb2ktn"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x3%%) url(%%VocalsBronze%%) url(%%x4%%);}
+a[href*="/GIRLSwithDEPRESSION "]:after {position: relative; left: 3px; top: 4px; content: url(%%LyricsBronze%%);}
+a[href*="/Glory2Hypnotoad"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamSilver%%) url(%%LyricsSilver%%);}
+a[href*="/grahamlester"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamSilver%%) url(%%LyricsSilver%%);}
+a[href*="/Gwilkers"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%MusicBronze%%) url(%%VocalsBronze%%) url(%%x3%%);}
+a[href*="/HairyNakedMan"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%);}
+a[href*="/hcml11"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%);}
+a[href*="/himit"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%VocalsBronze%%);}
+a[href*="/HungryGhosty"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%MusicBronze%%);}
+a[href*="/IAmDanMarshall"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%VocalsBronze%%) url(%%LyricsBronze%%);}
+a[href*="/iamthetlc"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x2%%) url(%%VocalsBronze%%) url(%%LyricsBronze%%);}
+a[href*="/IAmTriumph"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x2%%) url(%%MusicBronze%%);}
+a[href*="/JackCevalo"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%LyricsBronze%%);}
+a[href*="/JackCevalo/zeronine"]:after {position: relative; left: 3px; top: 4px; content: url(%%LyricsBronze%%);}
+a[href*="/Jamthelows"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%MusicBronze%%) url(%%LyricsBronze%%);}
+a[href*="/Kasminova"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x2%%) url(%%LyricsBronze%%);}
+a[href*="/keithpetersen7"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%MusicBronze%%);}
+a[href*="/kevinerror "]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%MusicBronze%%);}
+a[href*="/kingpumpkin"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%LyricsBronze%%);}
+a[href*="/lolstebbo"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%);}
+a[href*="/Mad_Cowboy"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%);}
+a[href*="/magikker"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamSilver%%) url(%%MusicBronze%%) url(%%VocalsBronze%%) url(%%x2%%) url(%%LyricsSilver%%);}
+a[href*="/memefilter"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x3%%) url(%%MusicBronze%%) url(%%x2%%);}
+a[href*="/monnotorium"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x2%%);}
+a[href*="/Morbuzaan"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x2%%) url(%%LyricsBronze%%);}
+a[href*="/morphtec"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x2%%) url(%%MusicBronze%%);}
+a[href*="/mrguitar "]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%);}
+a[href*="/mskalandunas"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%MusicBronze%%);}
+a[href*="/Nahyr"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%);}
+a[href*="/NiandraLaDes13"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%LyricsBronze%%);}
+a[href*="/NickLalo"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%MusicBronze%%);}
+a[href*="/nickyeyez"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%VocalsSilver%%);}
+a[href*="/nowantOAG"]:after {position: relative; left: 3px; top: 4px; content: url(%%VocalsBronze%%) url(%%x2%%);}
+a[href*="/orphoneus"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%LyricsBronze%%);}
+a[href*="/PresidentRaggy"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%);}
+a[href*="/pzer0"]:after {position: relative; left: 3px; top: 4px; content: url(%%VocalsBronze%%);}
+a[href*="/radiofreebc "]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x4%%) url(%%VocalsBronze%%) url(%%LyricsBronze%%) url(%%x3%%);}
+a[href*="/RetroTheft"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x2%%) url(%%LyricsSilver%%);}
+a[href*="/rudreax"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%);}
+a[href*="/salohcin894"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%);}
+a[href*="/scottpontiac"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamSilver%%) url(%%VocalsSilver%%) url(%%LyricsSilver%%);}
+a[href*="/scramblor"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%LyricsBronze%%);}
+a[href*="/SeeScottRock"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%VocalsBronze%%) url(%%x3%%);}
+a[href*="/Sindas "]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x3%%) url(%%VocalsBronze%%) url(%%x2%%);}
+a[href*="/sinfinis"]:after {position: relative; left: 3px; top: 4px; content: url(%%LyricsBronze%%);}
+a[href*="/siriuslynotamuggle"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%VocalsBronze%%);}
+a[href*="/Sleeper256"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%MusicBronze%%) url(%%VocalsBronze%%) url(%%x2%%);}
+a[href*="/SoftLove"]:after {position: relative; left: 3px; top: 4px; content: url(%%MusicBronze%%);}
+a[href*="/spotlightboxer"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%);}
+a[href*="/te243"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%VocalsBronze%%);}
+a[href*="/tgpo"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x2%%) url(%%LyricsBronze%%) url(%%x4%%);}
+a[href*="/TheyCallMeSkog"]:after {position: relative; left: 3px; top: 4px; content: url(%%MusicBronze%%);}
+a[href*="/Thranos"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%VocalsBronze%%);}
+a[href*="/Tomble2000"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%);}
+a[href*="/VideoTape_"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%);}
+a[href*="/Vsx"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%MusicBronze%%) url(%%x2%%);}
+a[href*="/welcometooceania"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x3%%) url(%%MusicBronze%%) url(%%x2%%) url(%%VocalsBronze%%);}
+a[href*="/whitneylovesyou"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%VocalsBronze%%);}
+a[href*="/Whohash "]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%VocalsBronze%%);}
+a[href*="/zeronine"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamBronze%%) url(%%x3%%) url(%%MusicSilver%%) url(%%VocalsBronze%%) url(%%LyricsBronze%%);}
+a[href*="/Zuthulu"]:after {position: relative; left: 3px; top: 4px; content: url(%%TeamSilver%%) url(%%MusicSilver%%);}

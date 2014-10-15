@@ -1,0 +1,24 @@
+# Disallow directory Listing
+Options -Indexes
+
+#Disallow viewing .htaccess file
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>
+
+RewriteEngine on
+Options +FollowSymLinks
+
+#remove www from domain
+RewriteCond %{HTTP_HOST} !^gameofbands\.co
+RewriteCond %{HTTP_HOST} !^localhost
+RewriteRule (.*) http://gameofbands.co/$1 [R=301,L]
+
+
+# Default
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?view=$1 [L,QSA]
+
+

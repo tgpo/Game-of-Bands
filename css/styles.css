@@ -57,7 +57,7 @@ header {
 header h1 {
 	position: absolute;
 	right: 0;
-	text-indent: -99999px;
+	/*text-indent: -99999px;*/
 }
 header a#returnhome {
 	display: block;
@@ -82,8 +82,8 @@ nav#accountLinks {
 	font-size: 11px;
 	padding: 5px 7px;
 	position: absolute;
-	top: -1;
-	right: 20;
+	top: 0;
+	right: 0;
 	-webkit-border-bottom-right-radius: 3px;
 	-webkit-border-bottom-left-radius: 3px;
 	-moz-border-radius-bottomright: 3px;
@@ -98,7 +98,7 @@ nav#accountLinks .karma {
 
 
 section#content {
-	overflow:hidden;
+	/*overflow:hidden;*/
 	padding: 0 50px;
 }
 
@@ -219,6 +219,14 @@ footer {
     width:412px;
     
 }
+#votingWidget #close-sc  {
+	-webkit-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+	color: red;
+	padding: 5px;
+	text-decoration: none;
+	float: right;}
 #soundcloudBlock {
     height: 166px;
     padding: 10px 0;
@@ -232,7 +240,7 @@ footer {
     font-size: 12px;
 }
 #bandBlock {
-    background: #f7f7f7;
+  /*  background: #f7f7f7;*/
     border: 1px solid #444;
     color: #404040;
     font-size: 11px;
@@ -274,3 +282,31 @@ table.sortTable thead tr .headerSortDown {
     background-image: url(/images/desc.gif);
 }
 .clear {clear: both;}
+
+.vote-widget {
+	display: none;
+	background-image: url("/images/up.png");
+    background-repeat: no-repeat;
+    height: 40px;
+    position: relative;
+    width: 100%;
+}
+.active{
+	display:block;
+}
+span.upvotebutton { 
+	background: url("/images/sprites.png") no-repeat 0 0;
+	cursor: pointer; 
+	display: inline-block;
+    vertical-align: middle;
+    overflow: hidden; 
+    width: 25px;
+	height: 25px;
+  }
+
+/* Order is important, as we aren't removing other classes, error takes priority */
+span.upvotebutton.new-vote { background-position: -50px 0; }
+span.upvotebutton.voted { background-position:-25px 0;}
+span.upvotebutton.error { background-position: 0 0;}
+
+div#notification { display: inline-block; }
