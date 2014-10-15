@@ -26,7 +26,7 @@ class Charity extends GOB_Abstract {
     public function getStatus() {
         return $this->get ( 'status' );
     }
-    public function setStats($s) {
+    public function setStatus($s) {
         $this->set ( 'status', $s );
     }
     public function getModId() {

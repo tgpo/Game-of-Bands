@@ -32,7 +32,7 @@ class XmasTeam extends GOB_Abstract {
     public function getTeamApprovalButtons() {
         foreach ( $this->team_data as $t ) {
             if ($td ['xmas_team_status'] == 'pending') {
-                echo a_bandit ( $t ['name'] ) . ' is still pending. <input type="button" value="Approve" class="approve_member"/> <br />';
+                echo a_bandit ( $t ['name'] ) . ' is still pending. <input data-id="' . $t['id'] .'" type="button" value="Approve" class="approve_member"/> <br />';
             }
         }
     }
@@ -94,11 +94,11 @@ class XmasTeam extends GOB_Abstract {
     public function setCharity($s) {
         $this->set ( 'nominated_charity', $s );
         // Record each nomination, some charities might be nominated several times.
-        $n = new Nomination(false);
-        $n->setName($this->getName()); //name nomination after the team name, could be team_id..
-        $n->setBandit(get_bandit_id());
-        $n->setCharity($s);
-        $n->save();
+        $n = new Nomination ( false );
+        $n->setName ( $this->getName () ); // name nomination after the team name, could be team_id..
+        $n->setBandit ( get_bandit_id () );
+        $n->setCharity ( $s );
+        $n->save ();
     }
     public function hasCharity() {
         return ($this->getCharity ());
@@ -173,10 +173,20 @@ class XmasTeam extends GOB_Abstract {
 	FROM ' . City::$table . ' c JOIN ' . static::$table . ' x ON x.city_id = c.id
 	HAVING distance < ' . $distance . '
 	ORDER BY distance ASC
-	LIMIT 0 , ' . $count )        // Find first 20 teams within 500 kms, ordered by closest
-        ;
+	LIMIT 0 , ' . $count );        // Find first 20 teams within 500 kms, ordered by closest
+
     }
     public function getList($id) {
         return sql_to_array ( "SELECT id,name FROM " . static::$table . " WHERE city_id=$id ORDER BY name ASC" );
+    }
+    public function getListObjs() {
+        $a = array ();
+        foreach ( $this->team_data as $t ) {
+            $a [] = new Bandit ( $t ['id'] );
+        }
+        return $a;
+    }
+    public static function getBanditRoles() {
+        return array ('Musician' => 'music','Lyricist' => 'lyrics','Vocalist' => 'vocals', 'Producer' => 'producer' ); // TODO: Add more types?
     }
 }

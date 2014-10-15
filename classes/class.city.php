@@ -41,7 +41,7 @@ class City extends GOB_Abstract {
     public function setLng($l) {
         $this->set ( 'lng', $l );
     }
-
+    
     /**
      * ****************************************** Static functions
      */
@@ -52,13 +52,13 @@ class City extends GOB_Abstract {
         $city_name = filter_input ( INPUT_GET, 'city_name', FILTER_SANITIZE_STRING );
         $lat = filter_input ( INPUT_GET, 'lat', FILTER_VALIDATE_FLOAT );
         $lng = filter_input ( INPUT_GET, 'lng', FILTER_VALIDATE_FLOAT );
-
+        
         if (! $lat || ! $lng || ! $city_name) {
             return false;
         }
         // If the city isn't in the system yet, we should create it.
         $city_id = City::id ( $city_name ); // get_one('SELECT id FROM '. static::$table .' WHERE name=:name',array('name'=>$city_name));
-
+        
         if (! $city_id) {
             $city = City::create ( $city_name );
             $city->setLat ( $lat );

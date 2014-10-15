@@ -5,10 +5,10 @@ require_once ('query.php');
  * Ensure database abstraction for sub-classes
  *
  * @author grizly
- *
+ *        
  */
 abstract class GOB_Abstract {
-
+    
     /**
      * Each sub-class must override this method.
      */
@@ -19,7 +19,7 @@ abstract class GOB_Abstract {
      * @var int
      */
     protected $id;
-
+    
     /**
      * Each row has a bunch of fields..
      * this is that data! key = field_name, value = field_value
@@ -27,7 +27,7 @@ abstract class GOB_Abstract {
      * @var mixed
      */
     protected $data;
-
+    
     /**
      * Each Entity is stored in a unique table, this is that table name.
      * IMPORTANT!
@@ -35,18 +35,18 @@ abstract class GOB_Abstract {
      * @var string
      */
     protected static $table;
-
+    
     /**
      * If we change the entity, we should trigger a save before it is destroyed.
      *
      * @var bool
      */
     protected $changed;
-
+    
     /**
      * Begin!
      *
-     * @param unknown $id
+     * @param unknown $id            
      */
     public function __construct($id) {
         $this->changed = false;
@@ -58,7 +58,7 @@ abstract class GOB_Abstract {
             $id = self::id ( $id );
         }
         $this->id = $id;
-
+        
         if (DEBUG) {
             error_log ( "Instatiated " . __CLASS__ . " from id: " . $id );
         }
@@ -100,12 +100,12 @@ abstract class GOB_Abstract {
             $this->data ['id'] = $this->id;
         }
     }
-
+    
     /**
      * Create a new row, should only be called by $obj->save();
      *
-     * @param unknown $keys
-     * @param unknown $values
+     * @param unknown $keys            
+     * @param unknown $values            
      * @return number
      */
     private function insert($keys, $values) {
@@ -119,14 +119,14 @@ abstract class GOB_Abstract {
         $sql .= implode ( ",", $temp ) . ")";
         return insert_query ( $sql );
     }
-
+    
     /**
      * Save any changes, should only be called by $obj->save();
      */
     private function update() {
         $keys = array_keys ( $this->data );
         $values = array_values ( $this->data );
-
+        
         $sql = "UPDATE `" . static::$table . "` SET ";
         for($i = 0; $i < count ( $keys ); $i ++) {
             $k = $keys [$i];
@@ -143,14 +143,14 @@ abstract class GOB_Abstract {
         $sql .= " WHERE id=:id";
         return pdo_query ( $sql, array ('id' => $this->id ) );
     }
-
+    
     /**
      * Permanently remove the Entity.
      */
     public function delete() {
         pdo_query ( "DELETE FROM " . static::$table . " WHERE id=:id LIMIT 1", array ('id' => $this->id ), false );
     }
-
+    
     /**
      * ******************** Static functions
      */
@@ -161,7 +161,7 @@ abstract class GOB_Abstract {
     public static function name($id) {
         return static::dbget ( 'name', $id );
     }
-
+    
     /**
      * Convert's an ID number from the class database table into the specified field's value.
      *
@@ -169,7 +169,7 @@ abstract class GOB_Abstract {
      *
      * @param string $field
      *            the name of the field to retrieve
-     * @param int $id
+     * @param int $id            
      *
      * @throws InvalidArgumentException on non-int
      */
@@ -180,13 +180,13 @@ abstract class GOB_Abstract {
         $a = pdo_query ( "SELECT {$field} FROM " . static::$table . " WHERE id=:id LIMIT 1", array ('id' => $id ) );
         return $a [$field];
     }
-
+    
     /**
      * Object Factory method..
      * Creates an object from scratch, saves it instantly.
      * Called like: $charity = Charity::create('pigs in space');, or $team = XmasTeam::create('New Team on The Rock');
      *
-     * @param string $name
+     * @param string $name            
      * @return Object
      */
     public static function create($name) {
